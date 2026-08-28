@@ -12,36 +12,52 @@
 <!-- ============================================================= -->
 <!--  TAICHI VITAL · App (post-compra)                               -->
 <!--  Inspirada en la estructura real de soonbody.com/app, con       -->
-<!--  contenido y marca propios. Todo el registro (agua, calorías,   -->
-<!--  peso, ánimo, racha) vive en localStorage del dispositivo.      -->
-<!--  Sin backend / sin cuentas reales todavía — ver README.         -->
+<!--  contenido y marca propios.                                     -->
+<!--                                                                  -->
+<!--  IMPORTANTE: no hay backend todavia.                             -->
+<!--  - La "cuenta" (registro/login) vive SOLO en este dispositivo    -->
+<!--    (localStorage). No es una cuenta real sincronizada ni         -->
+<!--    protegida con seguridad de verdad — sirve para no pedir los   -->
+<!--    datos cada vez que se abre la app en el mismo celular.        -->
+<!--  - Todo el registro (agua, calorias, peso, animo, racha) vive    -->
+<!--    tambien en localStorage del dispositivo.                     -->
+<!--  Ver README para el detalle de que falta para produccion real.  -->
 <!-- ============================================================= -->
 
 <div id="tv">
   <main class="tv-stage" id="tvStage"></main>
   <nav class="tv-tabs" id="tvTabs">
-    <button data-r="home"><span class="ic">🏠</span><span>Mi Camino</span></button>
-    <button data-r="workouts"><span class="ic">🧘</span><span>Entrenam.</span></button>
-    <button data-r="meals"><span class="ic">🍽️</span><span>Comidas</span></button>
-    <button data-r="progress"><span class="ic">📈</span><span>Progreso</span></button>
-    <button data-r="printables"><span class="ic">📖</span><span>Imprimibles</span></button>
+    <button data-r="home"><span class="ic">🏠</span><span data-t="nav_home">Mi Camino</span></button>
+    <button data-r="workouts"><span class="ic">🧘</span><span data-t="nav_workouts">Entrenam.</span></button>
+    <button data-r="meals"><span class="ic">🍽️</span><span data-t="nav_meals">Comidas</span></button>
+    <button data-r="progress"><span class="ic">📈</span><span data-t="nav_progress">Progreso</span></button>
+    <button data-r="printables"><span class="ic">📖</span><span data-t="nav_printables">Guías</span></button>
   </nav>
 </div>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Red+Hat+Display:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#F6F8F5}
-#tv,#tv *{box-sizing:border-box;margin:0;padding:0}
-#tv{
+:root{
   --bg:#F6F8F5; --bg2:#FFFFFF; --card:#FFFFFF; --card2:#F0F3EE; --line:#DCE3D8;
   --ink:#1C2A24; --soft:#5E6F65;
   --bronze:#155450; --bronze2:#0F8A7B; --crimson:#C2410C; --crimson2:#D14A0A;
   --shadow:0 10px 28px rgba(21,84,80,.10);
+}
+html[data-theme="dark"]{
+  --bg:#101714; --bg2:#182420; --card:#182420; --card2:#1F2D27; --line:#2B3B34;
+  --ink:#EAF2EE; --soft:#8FA79C;
+  --bronze:#1F8A79; --bronze2:#2FBBA3; --crimson:#D14A0A; --crimson2:#E8611C;
+  --shadow:0 10px 28px rgba(0,0,0,.35);
+}
+html,body{margin:0;padding:0;background:var(--bg)}
+#tv,#tv *{box-sizing:border-box;margin:0;padding:0}
+#tv{
   font-family:'Red Hat Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   color:var(--ink); background:var(--bg);
   max-width:520px; margin:0 auto; min-height:100vh; position:relative;
   -webkit-font-smoothing:antialiased; padding-bottom:74px;
+  transition:background .2s,color .2s;
 }
 #tv h1,#tv h2,#tv h3{font-family:'Poppins',sans-serif;font-weight:700;line-height:1.2}
 #tv button{font-family:inherit;cursor:pointer}
@@ -50,9 +66,9 @@ html,body{margin:0;padding:0;background:#F6F8F5}
 /* ===== top bars ===== */
 #tv .tv-top{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 10px}
 #tv .tv-streak{display:flex;align-items:center;gap:6px;font-family:'Poppins';font-weight:700;font-size:14px}
-#tv .tv-gear{width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:17px}
+#tv .tv-gear{width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--ink)}
 #tv .tv-pagebar{display:flex;align-items:center;gap:10px;padding:16px 18px 6px}
-#tv .tv-back{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+#tv .tv-back{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;color:var(--ink)}
 #tv .tv-pagebar h1{font-size:19px}
 
 /* ===== stage ===== */
@@ -105,16 +121,16 @@ html,body{margin:0;padding:0;background:#F6F8F5}
 
 /* ===== weight ===== */
 #tv .tv-weight-row{display:flex;align-items:center;gap:10px;margin:10px 0 12px}
-#tv .tv-weight-row input{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit;color:var(--ink)}
+#tv .tv-weight-row input{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit;color:var(--ink);background:var(--bg2)}
 #tv .tv-btn{width:100%;background:var(--bronze);color:#fff;border:none;border-radius:11px;padding:13px;font-weight:700;font-size:14px}
 #tv .tv-btn.ghost{background:var(--card);color:var(--bronze);border:1.5px solid var(--bronze2)}
+#tv .tv-btn:disabled{opacity:.45}
 
 /* ===== printable cards ===== */
 #tv .tv-pdf{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px}
 #tv .tv-pdf::-webkit-scrollbar{display:none}
 #tv .tv-pdfcard{flex:none;width:108px}
-#tv .tv-pdfcard .cov{width:108px;height:140px;border-radius:10px;background:linear-gradient(150deg,var(--bronze),var(--bronze2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;position:relative;overflow:hidden}
-#tv .tv-pdfcard .cov .lock{position:absolute;inset:0;background:rgba(15,20,17,.45);display:flex;align-items:center;justify-content:center;font-size:20px}
+#tv .tv-pdfcard .cov{width:108px;height:140px;border-radius:10px;background:linear-gradient(150deg,var(--bronze),var(--bronze2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px}
 #tv .tv-pdfcard .t{font-size:11.5px;font-weight:700;margin-top:6px;line-height:1.3}
 #tv .tv-pdfcard .m{font-size:10.5px;color:var(--soft)}
 
@@ -150,7 +166,7 @@ html,body{margin:0;padding:0;background:#F6F8F5}
 /* ===== program detail ===== */
 #tv .tv-hero{width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;position:relative;margin-bottom:12px}
 #tv .tv-hero img{width:100%;height:100%;object-fit:cover}
-#tv .tv-hero .tag{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);color:var(--ink);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+#tv .tv-hero .tag{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);color:#1C2A24;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
 #tv .tv-days{display:flex;gap:8px;overflow-x:auto;padding:10px 0 14px}
 #tv .tv-days::-webkit-scrollbar{display:none}
 #tv .tv-day{flex:none;width:36px;height:36px;border-radius:50%;background:var(--card2);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--soft)}
@@ -176,14 +192,14 @@ html,body{margin:0;padding:0;background:#F6F8F5}
 #tv .tv-prof .av{width:64px;height:64px;border-radius:50%;background:linear-gradient(140deg,var(--bronze2),var(--bronze));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-weight:800;font-size:24px;margin-bottom:10px}
 #tv .tv-prof b{font-family:'Poppins';font-size:16px}
 #tv .tv-prof span{font-size:12.5px;color:var(--soft)}
-#tv .tv-setrow{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}
+#tv .tv-setrow{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);gap:10px}
 #tv .tv-setrow:last-child{border-bottom:none}
 #tv .tv-toggle{width:44px;height:25px;border-radius:20px;background:var(--line);position:relative;border:none;flex:none}
 #tv .tv-toggle.on{background:var(--bronze2)}
 #tv .tv-toggle::after{content:"";position:absolute;top:2.5px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}
 #tv .tv-toggle.on::after{left:21px}
-#tv .tv-seg{display:flex;background:var(--card2);border-radius:10px;padding:3px}
-#tv .tv-seg button{flex:1;background:none;border:none;padding:7px 12px;font-size:12.5px;font-weight:700;color:var(--soft);border-radius:8px}
+#tv .tv-seg{display:flex;background:var(--card2);border-radius:10px;padding:3px;flex:none}
+#tv .tv-seg button{background:none;border:none;padding:7px 12px;font-size:12.5px;font-weight:700;color:var(--soft);border-radius:8px;white-space:nowrap}
 #tv .tv-seg button.on{background:var(--bronze);color:#fff}
 #tv select{border:1.5px solid var(--line);border-radius:8px;padding:6px 9px;font-family:inherit;font-size:12.5px;color:var(--ink);background:var(--bg2)}
 #tv .tv-linklist a{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);font-size:13.5px;font-weight:600}
@@ -198,43 +214,131 @@ html,body{margin:0;padding:0;background:#F6F8F5}
 #tv .tv-avg{font-size:12px;color:var(--soft);margin-top:6px}
 #tv .tv-avg b{color:var(--ink)}
 
-/* ===== calendar ===== */
-#tv .tv-cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-#tv .tv-cal-h button{background:var(--card2);border:none;width:28px;height:28px;border-radius:50%;font-size:14px}
+/* ===== auth screen ===== */
+#tv .tv-auth{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:32px 24px}
+#tv .tv-auth .brand{text-align:center;margin-bottom:28px}
+#tv .tv-auth .brand .logo{font-family:'Poppins';font-weight:800;font-size:22px}
+#tv .tv-auth .brand .logo em{font-style:normal;color:var(--bronze2)}
+#tv .tv-auth .brand p{color:var(--soft);font-size:13px;margin-top:4px}
+#tv .tv-auth-tabs{display:flex;background:var(--card2);border-radius:12px;padding:4px;margin-bottom:20px}
+#tv .tv-auth-tabs button{flex:1;background:none;border:none;padding:11px;font-weight:700;font-size:13.5px;color:var(--soft);border-radius:9px}
+#tv .tv-auth-tabs button.on{background:var(--bronze);color:#fff}
+#tv .tv-field{margin-bottom:12px}
+#tv .tv-field label{display:block;font-size:12px;font-weight:700;color:var(--soft);margin-bottom:5px}
+#tv .tv-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:13px 14px;font-size:14.5px;font-family:inherit;color:var(--ink);background:var(--bg2)}
+#tv .tv-field input:focus{outline:none;border-color:var(--bronze2)}
+#tv .tv-err{color:var(--crimson2);font-size:12.5px;font-weight:600;margin:-4px 0 12px}
+#tv .tv-authnote{text-align:center;color:var(--soft);font-size:11.5px;margin-top:16px;line-height:1.5}
+
+/* ===== calendar (unused placeholder kept minimal) ===== */
 #tv .tv-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
-#tv .tv-cal .dh{font-size:10px;color:var(--soft);font-weight:700;padding-bottom:4px}
-#tv .tv-cal .d{aspect-ratio:1/1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11.5px;background:var(--card2);color:var(--soft)}
-#tv .tv-cal .d.has{background:var(--bronze2);color:#fff;font-weight:700}
-#tv .tv-cal .d.empty{background:none}
 </style>
 
 <script>
 (function(){
+/* ===================== i18n ===================== */
+var I18N = {
+  es: {
+    nav_home:'Mi Camino', nav_workouts:'Entrenam.', nav_meals:'Comidas', nav_progress:'Progreso', nav_printables:'Guías',
+    auth_welcome:'Bienvenido a TaiChi Vital', auth_sub:'Tu plan de Tai Chi y Yoga en Silla', auth_login:'Iniciar sesión', auth_register:'Registrarme',
+    auth_name:'Nombre', auth_email:'Correo electrónico', auth_password:'Contraseña', auth_no_account:'¿No tenés cuenta? ', auth_has_account:'¿Ya tenés cuenta? ',
+    auth_switch_register:'Registrate', auth_switch_login:'Iniciá sesión', auth_err_email:'Ingresá un email válido.', auth_err_pass:'La contraseña debe tener al menos 6 caracteres.',
+    auth_err_name:'Ingresá tu nombre.', auth_err_nomatch:'Email o contraseña incorrectos.', auth_err_exists:'Ya existe una cuenta local con ese email — iniciá sesión.',
+    auth_note:'Tu cuenta se guarda solo en este dispositivo (todavía no hay servidor).',
+    home_streak_day:'día', home_streak_days:'días', home_streak_suffix:'de racha',
+    home_current_program:'Tu programa de entrenamiento actual', home_no_program:'Sin programa activo', home_explore:'Explorá los programas para comenzar', home_explore_link:'Explorar programas ›',
+    home_explore_title:'Explorá programas de entrenamiento',
+    coach_eyebrow:'Entrenador IA', coach_title:'Entrenador de Tai Chi con IA', coach_body:'Preguntale lo que quieras sobre Tai Chi, tu plan y tu progreso.', coach_btn:'Muy pronto →',
+    checkin_title:'Check-in diario', checkin_q:'¿Cómo te sentís hoy?', mood_low:'BAJO', mood_steady:'ESTABLE', mood_great:'BIEN', mood_peak:'PICO',
+    perf_title:'Rendimiento de hoy', perf_hydration:'Hidratación', perf_cal:'Calorías', perf_register:'+ Registrar',
+    weight_title:'Registro de peso', weight_btn:'+ Registrar peso',
+    printables_title:'Guías para vos', printables_lib:'en la biblioteca',
+    day_prefix:'Día', min:'min', kcal:'kcal',
+    wk_title:'Entrenamientos', wk_areas:'Áreas objetivo', wk_level:'Nivel', wk_beginner:'Principiante', wk_intermediate:'Intermedio', wk_advanced:'Avanzado',
+    wk_categories:'Explorar categorías', wk_programs:'Programas de entrenamiento', wk_challenge:'Reto de', wk_days:'días', wk_min_day:'min/día',
+    wk_equip_none:'Sin equipamiento', wk_equip_chair:'Necesitás una silla',
+    prog_start:'Iniciar programa de entrenamiento', prog_today_btn:'Empezá el entrenamiento de hoy ▶', prog_done:'✓ Entrenamiento completado', prog_circuit:'Circuito de entrenamiento',
+    prog_exercises:'ejercicios',
+    meals_title:'Comidas', meals_diet:'Tu programa de dieta', meals_view_all:'Ver todo ›', meals_select:'Seleccioná un plan', meals_select_sub:'Elegí un programa de 14 o 30 días para seguir',
+    meals_nutrition:'Nutrición de hoy', meals_protein:'Proteína', meals_carbs:'Carbohidratos', meals_fat:'Grasa', meals_log:'+ Registrar alimento', meals_explore:'Explorar',
+    meals_today:'Comidas de hoy', meals_empty_title:'Todavía no registraste comidas hoy', meals_empty_body:'Tocá "Registrar alimento" para sumar tu primera comida', meals_logged:'kcal registradas hoy.',
+    diets_title:'Planes de comida', diets_cat:'Categoría', diets_programs:'Programas', diets_kcal_day:'kcal/día',
+    prog_title:'Tu progreso', prog_streak_title:'🔥 Empezá tu racha', prog_streak_body:'Completá un entrenamiento diario para construir un hábito duradero.',
+    prog_activity:'Actividad de hoy', prog_burned:'Calorías quemadas', prog_active:'Tiempo activo', prog_water:'Agua consumida', prog_consumed:'Calorías consumidas',
+    prog_weight_track:'Seguimiento de peso', prog_weight_update:'Actualizar peso', prog_general:'Progreso general', prog_total_days:'Días totales', prog_total_workouts:'Total de entrenamientos',
+    prog_avg_mood:'Estado de ánimo promedio', prog_avg:'Promedio:',
+    print_title:'Guías', print_sub:'Biblioteca de guías descargables', print_soon:'PDF descargable — próximamente',
+    set_title:'Ajustes', set_local_account:'Cuenta local · sin sincronizar', set_account_cfg:'Configuración de cuenta', set_units:'Unidades', set_metric:'Métrico', set_imperial:'Imperial',
+    set_reminders:'Recordatorios para entrenar', set_lang:'Idioma', set_theme:'Tema', set_theme_light:'Claro', set_theme_dark:'Oscuro',
+    set_contact:'Contactanos ›', set_privacy:'Política de privacidad ›', set_terms:'Términos de uso ›', set_logout:'Cerrar sesión', set_version:'Versión 1.0.0'
+  },
+  en: {
+    nav_home:'My Path', nav_workouts:'Workouts', nav_meals:'Meals', nav_progress:'Progress', nav_printables:'Guides',
+    auth_welcome:'Welcome to TaiChi Vital', auth_sub:'Your Tai Chi & Chair Yoga plan', auth_login:'Log in', auth_register:'Sign up',
+    auth_name:'Name', auth_email:'Email', auth_password:'Password', auth_no_account:"Don't have an account? ", auth_has_account:'Already have an account? ',
+    auth_switch_register:'Sign up', auth_switch_login:'Log in', auth_err_email:'Enter a valid email.', auth_err_pass:'Password must be at least 6 characters.',
+    auth_err_name:'Enter your name.', auth_err_nomatch:'Incorrect email or password.', auth_err_exists:'A local account with that email already exists — log in instead.',
+    auth_note:'Your account is stored only on this device (no server yet).',
+    home_streak_day:'day', home_streak_days:'days', home_streak_suffix:'streak',
+    home_current_program:'Your current training program', home_no_program:'No active program', home_explore:'Explore programs to get started', home_explore_link:'Explore programs ›',
+    home_explore_title:'Explore training programs',
+    coach_eyebrow:'AI Coach', coach_title:'AI Tai Chi Coach', coach_body:'Ask anything about Tai Chi, your plan, and your progress.', coach_btn:'Coming soon →',
+    checkin_title:'Daily check-in', checkin_q:'How are you feeling today?', mood_low:'LOW', mood_steady:'STEADY', mood_great:'GREAT', mood_peak:'PEAK',
+    perf_title:"Today's performance", perf_hydration:'Hydration', perf_cal:'Calories', perf_register:'+ Log',
+    weight_title:'Weight log', weight_btn:'+ Log weight',
+    printables_title:'Guides for you', printables_lib:'in the library',
+    day_prefix:'Day', min:'min', kcal:'kcal',
+    wk_title:'Workouts', wk_areas:'Target areas', wk_level:'Level', wk_beginner:'Beginner', wk_intermediate:'Intermediate', wk_advanced:'Advanced',
+    wk_categories:'Explore categories', wk_programs:'Training programs', wk_challenge:'', wk_days:'day challenge', wk_min_day:'min/day',
+    wk_equip_none:'No equipment', wk_equip_chair:'You need a chair',
+    prog_start:'Start training program', prog_today_btn:"Start today's workout ▶", prog_done:'✓ Workout completed', prog_circuit:'Training circuit',
+    prog_exercises:'exercises',
+    meals_title:'Meals', meals_diet:'Your diet plan', meals_view_all:'View all ›', meals_select:'Select a plan', meals_select_sub:'Choose a 14 or 30-day program to follow',
+    meals_nutrition:"Today's nutrition", meals_protein:'Protein', meals_carbs:'Carbs', meals_fat:'Fat', meals_log:'+ Log food', meals_explore:'Explore',
+    meals_today:"Today's meals", meals_empty_title:"You haven't logged any meals today", meals_empty_body:'Tap "Log food" to add your first meal', meals_logged:'kcal logged today.',
+    diets_title:'Meal plans', diets_cat:'Category', diets_programs:'Programs', diets_kcal_day:'kcal/day',
+    prog_title:'Your progress', prog_streak_title:'🔥 Start your streak', prog_streak_body:'Complete a daily workout to build a habit that sticks.',
+    prog_activity:"Today's activity", prog_burned:'Calories burned', prog_active:'Active time', prog_water:'Water consumed', prog_consumed:'Calories consumed',
+    prog_weight_track:'Weight tracking', prog_weight_update:'Update weight', prog_general:'Overall progress', prog_total_days:'Total days', prog_total_workouts:'Total workouts',
+    prog_avg_mood:'Average mood', prog_avg:'Average:',
+    print_title:'Guides', print_sub:'Downloadable guide library', print_soon:'Downloadable PDF — coming soon',
+    set_title:'Settings', set_local_account:'Local account · not synced', set_account_cfg:'Account settings', set_units:'Units', set_metric:'Metric', set_imperial:'Imperial',
+    set_reminders:'Workout reminders', set_lang:'Language', set_theme:'Theme', set_theme_light:'Light', set_theme_dark:'Dark',
+    set_contact:'Contact us ›', set_privacy:'Privacy policy ›', set_terms:'Terms of use ›', set_logout:'Log out', set_version:'Version 1.0.0'
+  }
+};
+function t(key){ var d=I18N[state.settings.lang]||I18N.es; return d[key]!==undefined ? d[key] : (I18N.es[key]||key); }
+
 /* ===================== helpers ===================== */
 function $(id){ return document.getElementById(id); }
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 function todayStr(){ return new Date().toISOString().slice(0,10); }
-function fmtDate(d){ return d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'short'}); }
+function fmtDate(d, lang){ return d.toLocaleDateString(lang==='en'?'en-US':'es-ES',{weekday:'long',day:'numeric',month:'short'}); }
+// Hash NO criptografico — solo para no guardar la contraseña en texto plano.
+// No es seguridad real: la "cuenta" vive entera en este dispositivo.
+function simpleHash(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.charCodeAt(i))|0; } return String(h); }
 
 /* ===================== state ===================== */
 var DEFAULT_STATE = {
+  account:null, // {name, email, passHash}
+  session:{loggedIn:false},
   streak:0, lastCheckinDate:null,
   weightUnit:'kg', weight:null, weightLog:[],
-  moodLog:[],
   activeProgram:null, programDay:{}, completedDays:{},
   dailyLog:{},
-  settings:{ units:'metric', reminders:false, lang:'Español', name:'Invitado' }
+  settings:{ units:'metric', reminders:false, lang:'es', theme:'light' }
 };
 var state = load();
 function load(){
-  try{ var s = JSON.parse(localStorage.getItem('tcv_state')); return s ? Object.assign({}, DEFAULT_STATE, s) : JSON.parse(JSON.stringify(DEFAULT_STATE)); }
+  try{ var s = JSON.parse(localStorage.getItem('tcv_state')); return s ? Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_STATE)), s, {settings:Object.assign({},DEFAULT_STATE.settings,s.settings||{})}) : JSON.parse(JSON.stringify(DEFAULT_STATE)); }
   catch(e){ return JSON.parse(JSON.stringify(DEFAULT_STATE)); }
 }
-function save(){ localStorage.setItem('tcv_state', JSON.stringify(state)); }
+function save(){ localStorage.setItem('tcv_state', JSON.stringify(state)); applyTheme(); }
+function applyTheme(){ document.documentElement.setAttribute('data-theme', state.settings.theme==='dark'?'dark':'light'); }
 function today(){
-  var t = todayStr();
-  if(!state.dailyLog[t]) state.dailyLog[t] = { water:0, cal:0, burned:0, active:0, mood:null };
-  return state.dailyLog[t];
+  var tk = todayStr();
+  if(!state.dailyLog[tk]) state.dailyLog[tk] = { water:0, cal:0, burned:0, active:0, mood:null };
+  return state.dailyLog[tk];
 }
 function last7(){
   var out=[];
@@ -242,11 +346,11 @@ function last7(){
   return out;
 }
 function markCheckin(){
-  var t = todayStr();
-  if(state.lastCheckinDate === t) return;
+  var tk = todayStr();
+  if(state.lastCheckinDate === tk) return;
   var y = new Date(); y.setDate(y.getDate()-1); var yStr=y.toISOString().slice(0,10);
   state.streak = (state.lastCheckinDate === yStr) ? state.streak+1 : 1;
-  state.lastCheckinDate = t;
+  state.lastCheckinDate = tk;
   save();
 }
 
@@ -257,12 +361,12 @@ var PILATES_MOVES = ["Activación del Core Sentado","Elevación de Talón","Puen
 var MICRO_MOVES = ["Sentadilla Asistida en Silla","Marcha en el Lugar","Elevación de Talones","Rotación de Muñecas","Estiramiento de Espalda Alta","Respiración Energizante","Balanceo de Brazos","Paso Lateral Suave"];
 
 var PROGRAMS = [
-  { id:'taichi-full-flow', name:'Tai Chi Full Flow', cat:'Tai Chi', level:'Beginner', days:60, min:30, badge:'TOP', equip:'Sin equipamiento', img:'images/prog-taichi-full.jpg', pool:TAICHI_MOVES },
-  { id:'taichi-light', name:'Tai Chi Light', cat:'Tai Chi', level:'Beginner', days:60, min:20, badge:'', equip:'Sin equipamiento', img:'images/prog-taichi-light.jpg', pool:TAICHI_MOVES },
-  { id:'yoga-silla-reinicio', name:'Yoga en Silla: Reinicio de 14 Días', cat:'Yoga en Silla', level:'Beginner', days:14, min:15, badge:'Nuevo', equip:'Necesitás una silla', img:'images/prog-yoga-silla.jpg', pool:CHAIR_MOVES },
-  { id:'suelo-pelvico', name:'Fortalecimiento del Suelo Pélvico', cat:'Pilates', level:'Beginner', days:14, min:10, badge:'Nuevo', equip:'Sin equipamiento', img:'images/prog-suelo-pelvico.webp', pool:PILATES_MOVES },
-  { id:'movilidad-diaria', name:'Movilidad Diaria', cat:'Micro Workouts', level:'Beginner', days:30, min:10, badge:'Nuevo', equip:'Sin equipamiento', img:'images/prog-movilidad.jpg', pool:MICRO_MOVES },
-  { id:'pilates-silla', name:'Pilates en Silla de 14 Días', cat:'Pilates', level:'Intermediate', days:14, min:15, badge:'Nuevo', equip:'Necesitás una silla', img:'images/prog-pilates.png', pool:PILATES_MOVES }
+  { id:'taichi-full-flow', name:'Tai Chi Full Flow', catKey:'Tai Chi', level:'Beginner', days:60, min:30, badge:'TOP', equipKey:'wk_equip_none', img:'images/prog-taichi-full.jpg', pool:TAICHI_MOVES },
+  { id:'taichi-light', name:'Tai Chi Light', catKey:'Tai Chi', level:'Beginner', days:60, min:20, badge:'', equipKey:'wk_equip_none', img:'images/prog-taichi-light.jpg', pool:TAICHI_MOVES },
+  { id:'yoga-silla-reinicio', name:'Yoga en Silla: Reinicio de 14 Días', catKey:'Yoga en Silla', level:'Beginner', days:14, min:15, badge:'Nuevo', equipKey:'wk_equip_chair', img:'images/prog-yoga-silla.jpg', pool:CHAIR_MOVES },
+  { id:'suelo-pelvico', name:'Fortalecimiento del Suelo Pélvico', catKey:'Pilates', level:'Beginner', days:14, min:10, badge:'Nuevo', equipKey:'wk_equip_none', img:'images/prog-suelo-pelvico.webp', pool:PILATES_MOVES },
+  { id:'movilidad-diaria', name:'Movilidad Diaria', catKey:'Micro Workouts', level:'Beginner', days:30, min:10, badge:'Nuevo', equipKey:'wk_equip_none', img:'images/prog-movilidad.jpg', pool:MICRO_MOVES },
+  { id:'pilates-silla', name:'Pilates en Silla de 14 Días', catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:'Nuevo', equipKey:'wk_equip_chair', img:'images/prog-pilates.png', pool:PILATES_MOVES }
 ];
 var CATEGORIES = [
   {name:'Tai Chi', badge:'TOP', img:'images/prog-taichi-full.jpg'},
@@ -292,10 +396,52 @@ function genDay(prog, day){
   var start=(day*2)%pool.length, list=[];
   for(var i=0;i<n;i++){ list.push(pool[(start+i)%pool.length]); }
   var kcal = Math.round(prog.min*3.6 + (day%5)*4);
-  return { title:'Día '+day, min:prog.min, kcal:kcal, exercises:list.map(function(name,i){
+  return { min:prog.min, kcal:kcal, exercises:list.map(function(name,i){
     return { name:name, dur: (30+((i*7)%4)*10)+'s', reps: 3+((i+day)%4) };
   })};
 }
+
+/* ===================== AUTH ===================== */
+function renderAuth(mode){
+  mode = mode || 'login';
+  var html = '<div class="tv-auth"><div class="brand"><div class="logo">TaiChi <em>Vital</em></div><p>'+t('auth_sub')+'</p></div>';
+  html += '<div class="tv-auth-tabs"><button data-m="login" class="'+(mode==='login'?'on':'')+'">'+t('auth_login')+'</button><button data-m="register" class="'+(mode==='register'?'on':'')+'">'+t('auth_register')+'</button></div>';
+  html += '<div id="authForm">';
+  if(mode==='register'){
+    html += '<div class="tv-field"><label>'+t('auth_name')+'</label><input id="fName" type="text" autocomplete="name"></div>';
+  }
+  html += '<div class="tv-field"><label>'+t('auth_email')+'</label><input id="fEmail" type="email" autocomplete="email"></div>';
+  html += '<div class="tv-field"><label>'+t('auth_password')+'</label><input id="fPass" type="password" autocomplete="'+(mode==='register'?'new-password':'current-password')+'"></div>';
+  html += '<div class="tv-err" id="authErr" style="display:none"></div>';
+  html += '<button class="tv-btn" id="authSubmit">'+(mode==='register'?t('auth_register'):t('auth_login'))+'</button>';
+  html += '</div>';
+  html += '<p class="tv-authnote">'+t('auth_note')+'</p>';
+  stage.innerHTML = html;
+  tabs.style.display='none';
+  stage.querySelectorAll('[data-m]').forEach(function(b){ b.onclick=function(){ renderAuth(b.dataset.m); }; });
+  $('authSubmit').onclick=function(){ mode==='register' ? doRegister() : doLogin(); };
+  stage.querySelectorAll('#authForm input').forEach(function(inp){
+    inp.onkeydown=function(e){ if(e.key==='Enter'){ mode==='register' ? doRegister() : doLogin(); } };
+  });
+}
+function authErr(msg){ var e=$('authErr'); e.textContent=msg; e.style.display='block'; }
+function doRegister(){
+  var name=($('fName').value||'').trim(), email=($('fEmail').value||'').trim().toLowerCase(), pass=$('fPass').value||'';
+  if(!name){ return authErr(t('auth_err_name')); }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ return authErr(t('auth_err_email')); }
+  if(pass.length<6){ return authErr(t('auth_err_pass')); }
+  if(state.account && state.account.email===email){ return authErr(t('auth_err_exists')); }
+  state.account = { name:name, email:email, passHash:simpleHash(pass) };
+  state.session.loggedIn = true; save();
+  render();
+}
+function doLogin(){
+  var email=($('fEmail').value||'').trim().toLowerCase(), pass=$('fPass').value||'';
+  if(!state.account || state.account.email!==email || state.account.passHash!==simpleHash(pass)){ return authErr(t('auth_err_nomatch')); }
+  state.session.loggedIn = true; save();
+  render();
+}
+window.tvLogout=function(){ state.session.loggedIn=false; save(); location.hash=''; render(); };
 
 /* ===================== router ===================== */
 var stage=$('tvStage'), tabs=$('tvTabs');
@@ -304,12 +450,14 @@ window.addEventListener('hashchange', render);
 tabs.querySelectorAll('button').forEach(function(b){ b.onclick=function(){ nav(b.dataset.r); }; });
 
 function render(){
+  applyTheme();
+  if(!state.session.loggedIn){ return renderAuth(state.account ? 'login' : 'register'); }
   var hash = location.hash.replace('#','') || 'home';
   var parts = hash.split('/');
   var route = parts[0];
   window.scrollTo({top:0});
   tabs.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.r===route); });
-  tabs.style.display = (route==='program' || route==='settings' || route==='diet' || route==='browse-diets') ? 'none' : 'flex';
+  tabs.style.display = (route==='program' || route==='settings' || route==='browse-diets' || route==='coach') ? 'none' : 'flex';
   if(route==='home') return renderHome();
   if(route==='workouts') return renderWorkouts();
   if(route==='program') return renderProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
@@ -318,59 +466,58 @@ function render(){
   if(route==='progress') return renderProgress();
   if(route==='printables') return renderPrintables();
   if(route==='settings') return renderSettings();
+  if(route==='coach') return renderCoach();
   renderHome();
 }
 
 /* ===================== HOME ===================== */
 function renderHome(){
-  var t = today();
-  var activeName = state.activeProgram ? progById(state.activeProgram).name : null;
-  var html = '<div class="tv-top"><div class="tv-streak">🔥 '+state.streak+' día'+(state.streak===1?'':'s')+' de racha</div>'+
+  var tt = today(), lang=state.settings.lang;
+  var activeName = state.activeProgram ? (progById(state.activeProgram)||{}).name : null;
+  var html = '<div class="tv-top"><div class="tv-streak">🔥 '+state.streak+' '+(state.streak===1?t('home_streak_day'):t('home_streak_days'))+' '+t('home_streak_suffix')+'</div>'+
     '<button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
 
-  html += '<div class="tv-banner"><div><b>Desbloqueá tu plan</b><p>Suscribite para empezar tus entrenamientos y registrar tu progreso.</p></div><button class="btn">Suscribite</button></div>';
-
-  html += '<div class="tv-sec">Tu programa de entrenamiento actual</div>';
+  html += '<div class="tv-sec">'+t('home_current_program')+'</div>';
   if(activeName){
     var p=progById(state.activeProgram), d=state.programDay[p.id]||1;
     html += '<a href="#program/'+p.id+'/'+d+'" class="tv-card" style="display:flex;gap:12px;align-items:center;text-decoration:none">'+
       '<img src="'+p.img+'" style="width:52px;height:52px;border-radius:10px;object-fit:cover">'+
-      '<div><b style="font-family:Poppins;font-size:14px;display:block">'+esc(p.name)+'</b><span style="font-size:12px;color:var(--soft)">Día '+d+' de '+p.days+'</span></div></a>';
+      '<div><b style="font-family:Poppins;font-size:14px;display:block">'+esc(p.name)+'</b><span style="font-size:12px;color:var(--soft)">'+t('day_prefix')+' '+d+' / '+p.days+'</span></div></a>';
   } else {
-    html += '<div class="tv-empty"><b>Sin programa activo</b><p>Explorá los programas para comenzar</p><a class="lnk" href="#workouts">Explorar programas ›</a></div>';
+    html += '<div class="tv-empty"><b>'+t('home_no_program')+'</b><p>'+t('home_explore')+'</p><a class="lnk" href="#workouts">'+t('home_explore_link')+'</a></div>';
   }
 
-  html += '<div class="tv-sec">Explorá programas de entrenamiento</div><div class="tv-hscroll">';
+  html += '<div class="tv-sec">'+t('home_explore_title')+'</div><div class="tv-hscroll">';
   PROGRAMS.forEach(function(p){
     html += '<a href="#program/'+p.id+'/1" class="tv-pcard">'+(p.badge?'<span class="badge">🔥 '+esc(p.badge)+'</span>':'')+'<img src="'+p.img+'"><span class="lbl">'+esc(p.name)+'</span></a>';
   });
   html += '</div>';
 
-  html += '<div class="tv-coach"><div class="av">🧑‍⚕️</div><div><div class="eyebrow">Desbloqueá el entrenador</div><h3>Conseguí un coach que conozca tus datos</h3><p>Entrenamientos personalizados, seguimiento diario y respuestas — diseñado en torno a tu sueño, ánimo y protocolo.</p><button class="btn">Probalo ahora →</button></div></div>';
+  html += '<a href="#coach" class="tv-coach" style="text-decoration:none"><div class="av">🧑‍⚕️</div><div><div class="eyebrow">'+t('coach_eyebrow')+'</div><h3>'+t('coach_title')+'</h3><p>'+t('coach_body')+'</p><button class="btn">'+t('coach_btn')+'</button></div></a>';
 
-  var moods=[{k:'low',e:'😔',l:'BAJO'},{k:'steady',e:'😐',l:'ESTABLE'},{k:'great',e:'😊',l:'BIEN'},{k:'peak',e:'🔥',l:'PICO'}];
-  html += '<div class="tv-card" style="margin-top:22px;text-align:center"><div style="font-size:11px;font-weight:700;color:var(--soft);letter-spacing:.05em;text-transform:uppercase">Check-in diario</div><h2 style="font-size:19px;margin:6px 0 12px">¿Cómo te sentís hoy?</h2><div class="tv-mood-row" id="moodRow">'+
-    moods.map(function(m){ return '<div class="tv-mood'+(t.mood===m.k?' sel':'')+'" data-m="'+m.k+'">'+m.e+'<span>'+m.l+'</span></div>'; }).join('')+
+  var moods=[{k:'low',e:'😔',l:t('mood_low')},{k:'steady',e:'😐',l:t('mood_steady')},{k:'great',e:'😊',l:t('mood_great')},{k:'peak',e:'🔥',l:t('mood_peak')}];
+  html += '<div class="tv-card" style="margin-top:22px;text-align:center"><div style="font-size:11px;font-weight:700;color:var(--soft);letter-spacing:.05em;text-transform:uppercase">'+t('checkin_title')+'</div><h2 style="font-size:19px;margin:6px 0 12px">'+t('checkin_q')+'</h2><div class="tv-mood-row" id="moodRow">'+
+    moods.map(function(m){ return '<div class="tv-mood'+(tt.mood===m.k?' sel':'')+'" data-m="'+m.k+'">'+m.e+'<span>'+m.l+'</span></div>'; }).join('')+
   '</div></div>';
 
-  html += '<div class="tv-sec">Rendimiento de hoy</div><div class="tv-grid2">'+
-    '<div class="tv-tile"><div class="ic2">💧</div><div class="lab">Hidratación</div><div class="val">'+t.water+' ml / 2.0L</div><button onclick="tvLogWater()">+ Registrar</button></div>'+
-    '<div class="tv-tile"><div class="ic2">🍽️</div><div class="lab">Calorías</div><div class="val">'+t.cal+' / 2500</div><button onclick="tvLogCal()">+ Registrar</button></div>'+
+  html += '<div class="tv-sec">'+t('perf_title')+'</div><div class="tv-grid2">'+
+    '<div class="tv-tile"><div class="ic2">💧</div><div class="lab">'+t('perf_hydration')+'</div><div class="val">'+tt.water+' ml / 2.0L</div><button onclick="tvLogWater()">'+t('perf_register')+'</button></div>'+
+    '<div class="tv-tile"><div class="ic2">🍽️</div><div class="lab">'+t('perf_cal')+'</div><div class="val">'+tt.cal+' / 2500</div><button onclick="tvLogCal()">'+t('perf_register')+'</button></div>'+
   '</div>';
 
-  html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">Registro de peso</div><div class="tv-weight-row"><input id="weightInput" type="number" placeholder="'+(state.weight||'— ')+' '+state.weightUnit+'"></div><button class="tv-btn" onclick="tvLogWeight()">+ Registrar peso</button></div>';
+  html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('weight_title')+'</div><div class="tv-weight-row"><input id="weightInput" type="number" placeholder="'+(state.weight||'— ')+' '+state.weightUnit+'"></div><button class="tv-btn" onclick="tvLogWeight()">'+t('weight_btn')+'</button></div>';
 
-  html += '<div class="tv-sec">Imprimibles</div><div class="tv-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span>📖</span><b style="font-family:Poppins;font-size:14px">Guías para vos</b><span style="margin-left:auto;font-size:11.5px;color:var(--soft)">'+PRINTABLES.length+' en la biblioteca</span></div><div class="tv-pdf">'+
-    PRINTABLES.slice(0,3).map(function(p){ return '<div class="tv-pdfcard"><div class="cov">📄<span class="lock">🔒</span></div><div class="t">'+esc(p.name)+'</div><div class="m">Imprimible · '+p.pages+'p</div></div>'; }).join('')+
+  html += '<div class="tv-sec">'+t('nav_printables')+'</div><div class="tv-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span>📖</span><b style="font-family:Poppins;font-size:14px">'+t('printables_title')+'</b><span style="margin-left:auto;font-size:11.5px;color:var(--soft)">'+PRINTABLES.length+' '+t('printables_lib')+'</span></div><div class="tv-pdf">'+
+    PRINTABLES.slice(0,3).map(function(p){ return '<div class="tv-pdfcard"><div class="cov">📄</div><div class="t">'+esc(p.name)+'</div><div class="m">'+p.pages+'p</div></div>'; }).join('')+
   '</div></div>';
 
   stage.innerHTML = html;
   stage.querySelectorAll('.tv-mood').forEach(function(el){ el.onclick=function(){
-    t.mood = el.dataset.m; save(); markCheckin(); renderHome();
+    tt.mood = el.dataset.m; save(); markCheckin(); renderHome();
   }; });
 }
-window.tvLogWater=function(){ var t=today(); t.water+=250; save(); renderHome(); };
-window.tvLogCal=function(){ var t=today(); t.cal+=350; save(); renderHome(); };
+window.tvLogWater=function(){ var tt=today(); tt.water+=250; save(); renderHome(); };
+window.tvLogCal=function(){ var tt=today(); tt.cal+=350; save(); renderHome(); };
 window.tvLogWeight=function(){
   var v=parseFloat($('weightInput').value); if(!v) return;
   state.weight=v; state.weightLog.push({date:todayStr(), v:v}); save(); renderHome();
@@ -378,23 +525,23 @@ window.tvLogWeight=function(){
 
 /* ===================== WORKOUTS ===================== */
 function renderWorkouts(){
-  var html = '<div class="tv-top"><h1 style="font-size:20px">Entrenamientos</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
-  html += '<div class="tv-sec">Áreas objetivo</div><div class="tv-hscroll">'+
+  var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('wk_title')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
+  html += '<div class="tv-sec">'+t('wk_areas')+'</div><div class="tv-hscroll">'+
     ['Abs','Brazos','Espalda','Glúteos','Pecho','Cuerpo Completo','Piernas'].map(function(a){
       return '<div class="tv-pcard" style="width:84px;height:84px;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,var(--bronze2),var(--bronze))"><span class="lbl" style="position:static;font-size:11.5px;text-align:center">'+a+'</span></div>';
     }).join('')+'</div>';
 
-  html += '<div class="tv-sec">Nivel</div><div class="tv-pills">'+
-    ['Avanzado','Principiante','Intermedio'].map(function(l,i){ return '<div class="tv-pill'+(i===1?' on':'')+'">'+l+'</div>'; }).join('')+'</div>';
+  html += '<div class="tv-sec">'+t('wk_level')+'</div><div class="tv-pills">'+
+    [t('wk_advanced'),t('wk_beginner'),t('wk_intermediate')].map(function(l,i){ return '<div class="tv-pill'+(i===1?' on':'')+'">'+l+'</div>'; }).join('')+'</div>';
 
-  html += '<div class="tv-sec">Explorar categorías</div><div class="tv-catgrid">'+
+  html += '<div class="tv-sec">'+t('wk_categories')+'</div><div class="tv-catgrid">'+
     CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'"><span class="lbl">'+esc(c.name)+'</span></div>'; }).join('')+
   '</div>';
 
-  html += '<div class="tv-sec">Programas de entrenamiento</div>';
+  html += '<div class="tv-sec">'+t('wk_programs')+'</div>';
   PROGRAMS.forEach(function(p){
     html += '<a href="#program/'+p.id+'/1" class="tv-prow">'+
-      '<img src="'+p.img+'"><div class="info"><b>'+esc(p.name)+'</b><div class="meta">'+(p.badge?'<span class="tag">'+esc(p.badge)+'</span>':'')+'<span>Reto de '+p.days+' días</span><span>⏱ '+p.min+' min/día</span></div></div>'+
+      '<img src="'+p.img+'"><div class="info"><b>'+esc(p.name)+'</b><div class="meta">'+(p.badge?'<span class="tag">'+esc(p.badge)+'</span>':'')+'<span>'+p.days+' '+t('wk_days')+'</span><span>⏱ '+p.min+' '+t('wk_min_day')+'</span></div></div>'+
       '<div class="play">▶</div></a>';
   });
   stage.innerHTML = html;
@@ -405,20 +552,21 @@ function renderProgramDetail(id, day){
   day = Math.max(1, Math.min(p.days, day||1));
   var d = genDay(p, day);
   var done = !!(state.completedDays[p.id] && state.completedDays[p.id][day]);
+  var equip = t(p.equipKey);
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(p.name)+'</h1></div>';
-  html += '<div class="tv-hero"><img src="'+p.img+'"><span class="tag">'+esc(p.equip)+'</span></div>';
-  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+p.days+' días · '+p.min+' min</p>';
-  html += '<button class="tv-btn" onclick="tvSetActive(\''+p.id+'\','+day+')">▶ Iniciar programa de entrenamiento</button>';
+  html += '<div class="tv-hero"><img src="'+p.img+'"><span class="tag">'+esc(equip)+'</span></div>';
+  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+p.days+' '+t('wk_days')+' · '+p.min+' '+t('min')+'</p>';
+  html += '<button class="tv-btn" onclick="tvSetActive(\''+p.id+'\','+day+')">▶ '+t('prog_start')+'</button>';
   html += '<div class="tv-days">';
   for(var i=1;i<=p.days;i++){
     var cls = i===day?'on':(state.completedDays[p.id]&&state.completedDays[p.id][i]?'done':'');
     html += '<a href="#program/'+p.id+'/'+i+'" class="tv-day '+cls+'">'+i+'</a>';
   }
   html += '</div>';
-  html += '<div class="tv-sec" style="margin-top:6px">'+d.title+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+d.min+' min · '+d.kcal+' kcal</span></div>';
-  html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="tvCompleteDay(\''+p.id+'\','+day+','+p.min+','+d.kcal+')">'+(done?'✓ Entrenamiento completado':'Empezá el entrenamiento de hoy ▶')+'</button>';
-  html += '<div class="tv-sec">Circuito de entrenamiento ('+d.exercises.length+' ejercicios)</div>';
-  d.exercises.forEach(function(ex,i){
+  html += '<div class="tv-sec" style="margin-top:6px">'+t('day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+d.min+' '+t('min')+' · '+d.kcal+' '+t('kcal')+'</span></div>';
+  html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="tvCompleteDay(\''+p.id+'\','+day+','+p.min+','+d.kcal+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
+  html += '<div class="tv-sec">'+t('prog_circuit')+' ('+d.exercises.length+' '+t('prog_exercises')+')</div>';
+  d.exercises.forEach(function(ex){
     html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(ex.name)+'</b><span>TaiChi Vital</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
   });
   stage.innerHTML = html;
@@ -429,46 +577,46 @@ window.tvCompleteDay=function(id,day,min,kcal){
   if(state.completedDays[id][day]) return;
   state.completedDays[id][day]=true;
   state.activeProgram=id; state.programDay[id]=Math.min(progById(id).days, day+1);
-  var t=today(); t.burned+=kcal; t.active+=min; save(); markCheckin();
+  var tt=today(); tt.burned+=kcal; tt.active+=min; save(); markCheckin();
   renderProgramDetail(id, day);
 };
 
 /* ===================== MEALS ===================== */
 function renderMeals(){
-  var t = today();
+  var tt = today();
   var goal={cal:1900,p:95,c:210,f:75};
-  var pct = Math.min(100, Math.round(t.cal/goal.cal*100));
+  var pct = Math.min(100, Math.round(tt.cal/goal.cal*100));
   var r=40, circ=2*Math.PI*r, off=circ*(1-pct/100);
-  var html = '<div class="tv-top"><h1 style="font-size:20px">Comidas</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
-  html += '<div class="tv-sec">Tu programa de dieta <a class="lnk" href="#browse-diets">Ver todo ›</a></div>';
-  html += '<a href="#browse-diets" class="tv-card" style="display:flex;align-items:center;gap:12px;text-decoration:none"><div style="width:40px;height:40px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:18px">🥗</div><div><b style="display:block;font-family:Poppins;font-size:14px">Seleccioná un plan</b><span style="font-size:12px;color:var(--soft)">Elegí un programa de 14 o 30 días para seguir</span></div><span style="margin-left:auto;font-size:18px;color:var(--bronze)">▶</span></a>';
+  var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('meals_title')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
+  html += '<div class="tv-sec">'+t('meals_diet')+' <a class="lnk" href="#browse-diets">'+t('meals_view_all')+'</a></div>';
+  html += '<a href="#browse-diets" class="tv-card" style="display:flex;align-items:center;gap:12px;text-decoration:none"><div style="width:40px;height:40px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:18px">🥗</div><div><b style="display:block;font-family:Poppins;font-size:14px">'+t('meals_select')+'</b><span style="font-size:12px;color:var(--soft)">'+t('meals_select_sub')+'</span></div><span style="margin-left:auto;font-size:18px;color:var(--bronze)">▶</span></a>';
 
-  html += '<div class="tv-sec">Nutrición de hoy</div><div class="tv-card"><div class="tv-donut">'+
+  html += '<div class="tv-sec">'+t('meals_nutrition')+'</div><div class="tv-card"><div class="tv-donut">'+
     '<svg width="90" height="90" viewBox="0 0 100 100"><circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="10"/>'+
     '<circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--bronze2)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" transform="rotate(-90 50 50)"/></svg>'+
-    '<div style="flex:1"><div style="font-family:Poppins;font-weight:800;font-size:20px">'+t.cal+' <span style="font-size:12px;font-weight:500;color:var(--soft)">/ '+goal.cal+' kcal</span></div>'+
-    '<div class="tv-macro"><span>Proteína</span><b>'+Math.round(t.cal*0.02)+' / '+goal.p+'g</b></div>'+
-    '<div class="tv-macro"><span>Carbohidratos</span><b>'+Math.round(t.cal*0.04)+' / '+goal.c+'g</b></div>'+
-    '<div class="tv-macro"><span>Grasa</span><b>'+Math.round(t.cal*0.015)+' / '+goal.f+'g</b></div></div></div>'+
-    '<div class="tv-cta-row"><button class="tv-btn" onclick="tvLogCal()">+ Registrar alimento</button><button class="tv-btn ghost" onclick="location.hash=\'browse-diets\'">Explorar</button></div></div>';
+    '<div style="flex:1"><div style="font-family:Poppins;font-weight:800;font-size:20px">'+tt.cal+' <span style="font-size:12px;font-weight:500;color:var(--soft)">/ '+goal.cal+' '+t('kcal')+'</span></div>'+
+    '<div class="tv-macro"><span>'+t('meals_protein')+'</span><b>'+Math.round(tt.cal*0.02)+' / '+goal.p+'g</b></div>'+
+    '<div class="tv-macro"><span>'+t('meals_carbs')+'</span><b>'+Math.round(tt.cal*0.04)+' / '+goal.c+'g</b></div>'+
+    '<div class="tv-macro"><span>'+t('meals_fat')+'</span><b>'+Math.round(tt.cal*0.015)+' / '+goal.f+'g</b></div></div></div>'+
+    '<div class="tv-cta-row"><button class="tv-btn" onclick="tvLogCal()">'+t('meals_log')+'</button><button class="tv-btn ghost" onclick="location.hash=\'browse-diets\'">'+t('meals_explore')+'</button></div></div>';
 
-  html += '<div class="tv-sec">Comidas de hoy <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+fmtDate(new Date())+'</span></div>';
-  if(t.cal===0){
-    html += '<div class="tv-empty">🍽️<b style="margin-top:8px">Todavía no registraste comidas hoy</b><p>Tocá "Registrar alimento" para sumar tu primera comida</p></div>';
+  html += '<div class="tv-sec">'+t('meals_today')+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+fmtDate(new Date(), state.settings.lang)+'</span></div>';
+  if(tt.cal===0){
+    html += '<div class="tv-empty">🍽️<b style="margin-top:8px">'+t('meals_empty_title')+'</b><p>'+t('meals_empty_body')+'</p></div>';
   } else {
-    html += '<div class="tv-card"><p style="font-size:13px;color:var(--soft)">'+t.cal+' kcal registradas hoy.</p></div>';
+    html += '<div class="tv-card"><p style="font-size:13px;color:var(--soft)">'+tt.cal+' '+t('meals_logged')+'</p></div>';
   }
   stage.innerHTML = html;
 }
 
 function renderBrowseDiets(){
-  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>Planes de comida</h1></div>';
-  html += '<div class="tv-sec">Categoría</div><div class="tv-pills">'+
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('diets_title')+'</h1></div>';
+  html += '<div class="tv-sec">'+t('diets_cat')+'</div><div class="tv-pills">'+
     ['Todos','Alta proteína','Antiinflamatoria','Diabetes','Mediterránea'].map(function(c,i){ return '<div class="tv-pill'+(i===0?' on':'')+'">'+c+'</div>'; }).join('')+'</div>';
-  html += '<div class="tv-sec">Programas</div>';
+  html += '<div class="tv-sec">'+t('diets_programs')+'</div>';
   DIETS.forEach(function(d){
-    html += '<div class="tv-card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><b style="font-family:Poppins;font-size:14.5px;max-width:75%">'+esc(d.name)+'</b></div>'+
-      '<div style="font-size:12.5px;color:var(--soft);margin:6px 0 8px">'+d.kcal+' kcal/día · '+d.days+' días</div>'+
+    html += '<div class="tv-card" style="margin-bottom:10px"><b style="font-family:Poppins;font-size:14.5px;display:block;margin-bottom:6px">'+esc(d.name)+'</b>'+
+      '<div style="font-size:12.5px;color:var(--soft);margin-bottom:8px">'+d.kcal+' '+t('diets_kcal_day')+' · '+d.days+' '+t('wk_days')+'</div>'+
       '<span class="tv-pill on" style="display:inline-block;font-size:10.5px;padding:4px 10px">'+esc(d.tag)+'</span></div>';
   });
   stage.innerHTML = html;
@@ -482,43 +630,43 @@ function sparkline(vals, color){
   return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"><path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 }
 function renderProgress(){
-  var t = today(), week = last7();
+  var tt = today(), week = last7();
   var totalDays = Object.keys(state.dailyLog).filter(function(k){ var e=state.dailyLog[k]; return e.active>0 || e.burned>0; }).length;
   var totalWorkouts = 0; Object.keys(state.completedDays).forEach(function(id){ totalWorkouts += Object.keys(state.completedDays[id]).length; });
-  var moods=[{k:'low',e:'😔',l:'BAJO'},{k:'steady',e:'😐',l:'ESTABLE'},{k:'great',e:'😊',l:'BIEN'},{k:'peak',e:'🔥',l:'PICO'}];
+  var moods=[{k:'low',e:'😔',l:t('mood_low')},{k:'steady',e:'😐',l:t('mood_steady')},{k:'great',e:'😊',l:t('mood_great')},{k:'peak',e:'🔥',l:t('mood_peak')}];
   var moodCounts={}; Object.keys(state.dailyLog).forEach(function(k){ var m=state.dailyLog[k].mood; if(m) moodCounts[m]=(moodCounts[m]||0)+1; });
   var topMood = Object.keys(moodCounts).sort(function(a,b){return moodCounts[b]-moodCounts[a];})[0];
 
-  var html = '<div class="tv-top"><h1 style="font-size:20px">Tu progreso</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
-  html += '<div class="tv-banner"><div><b>🔥 Empezá tu racha</b><p>Completá un entrenamiento diario para construir un hábito duradero.</p></div></div>';
+  var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('prog_title')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
+  html += '<div class="tv-banner"><div><b>'+t('prog_streak_title')+'</b><p>'+t('prog_streak_body')+'</p></div></div>';
 
-  html += '<div class="tv-sec">Actividad de hoy</div><div class="tv-grid2">'+
-    '<div class="tv-tile"><div class="ic2">🔥</div><div class="lab">Calorías quemadas</div><div class="val">'+t.burned+' kcal</div></div>'+
-    '<div class="tv-tile"><div class="ic2">⏱</div><div class="lab">Tiempo activo</div><div class="val">'+t.active+' min</div></div>'+
-    '<div class="tv-tile"><div class="ic2">💧</div><div class="lab">Agua consumida</div><div class="val">'+t.water+' ml</div></div>'+
-    '<div class="tv-tile"><div class="ic2">🍽️</div><div class="lab">Calorías consumidas</div><div class="val">'+t.cal+' kcal</div></div>'+
+  html += '<div class="tv-sec">'+t('prog_activity')+'</div><div class="tv-grid2">'+
+    '<div class="tv-tile"><div class="ic2">🔥</div><div class="lab">'+t('prog_burned')+'</div><div class="val">'+tt.burned+' '+t('kcal')+'</div></div>'+
+    '<div class="tv-tile"><div class="ic2">⏱</div><div class="lab">'+t('prog_active')+'</div><div class="val">'+tt.active+' '+t('min')+'</div></div>'+
+    '<div class="tv-tile"><div class="ic2">💧</div><div class="lab">'+t('prog_water')+'</div><div class="val">'+tt.water+' ml</div></div>'+
+    '<div class="tv-tile"><div class="ic2">🍽️</div><div class="lab">'+t('prog_consumed')+'</div><div class="val">'+tt.cal+' '+t('kcal')+'</div></div>'+
   '</div>';
 
-  html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">Seguimiento de peso</div><div style="font-family:Poppins;font-weight:800;font-size:20px;margin-bottom:10px">'+(state.weight||'—')+' '+state.weightUnit+'</div><button class="tv-btn" onclick="location.hash=\'home\'">Actualizar peso</button></div>';
+  html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('prog_weight_track')+'</div><div style="font-family:Poppins;font-weight:800;font-size:20px;margin-bottom:10px">'+(state.weight||'—')+' '+state.weightUnit+'</div><button class="tv-btn" onclick="location.hash=\'home\'">'+t('prog_weight_update')+'</button></div>';
 
-  html += '<div class="tv-sec">Progreso general</div><div class="tv-grid2">'+
-    '<div class="tv-tile"><div class="ic2">📅</div><div class="lab">Días totales</div><div class="val">'+totalDays+' días</div></div>'+
-    '<div class="tv-tile"><div class="ic2">🏋️</div><div class="lab">Total de entrenamientos</div><div class="val">'+totalWorkouts+'</div></div>'+
+  html += '<div class="tv-sec">'+t('prog_general')+'</div><div class="tv-grid2">'+
+    '<div class="tv-tile"><div class="ic2">📅</div><div class="lab">'+t('prog_total_days')+'</div><div class="val">'+totalDays+'</div></div>'+
+    '<div class="tv-tile"><div class="ic2">🏋️</div><div class="lab">'+t('prog_total_workouts')+'</div><div class="val">'+totalWorkouts+'</div></div>'+
   '</div>';
 
-  html += '<div class="tv-sec">Estado de ánimo promedio</div><div class="tv-mood-row">'+
+  html += '<div class="tv-sec">'+t('prog_avg_mood')+'</div><div class="tv-mood-row">'+
     moods.map(function(m){ return '<div class="tv-mood'+(topMood===m.k?' sel':'')+'">'+m.e+'<span>'+m.l+'</span></div>'; }).join('')+'</div>';
 
   ['burned','active','water','cal'].forEach(function(key,idx){
-    var labels={burned:'Calorías quemadas',active:'Tiempo activo',water:'Agua consumida',cal:'Calorías consumidas'};
-    var units={burned:'kcal',active:'min',water:'ml',cal:'kcal'};
+    var labels={burned:t('prog_burned'),active:t('prog_active'),water:t('prog_water'),cal:t('prog_consumed')};
+    var units={burned:t('kcal'),active:t('min'),water:'ml',cal:t('kcal')};
     var colors=['#D14A0A','#0F8A7B','#3B82F6','#155450'];
     var vals = week.map(function(w){ return w.entry[key]; });
     var avg = Math.round(vals.reduce(function(a,b){return a+b;},0)/vals.length);
-    var dayLbls = week.map(function(w){ return new Date(w.date).toLocaleDateString('es-ES',{weekday:'short'}).slice(0,3); });
+    var dayLbls = week.map(function(w){ return new Date(w.date).toLocaleDateString(state.settings.lang==='en'?'en-US':'es-ES',{weekday:'short'}).slice(0,3); });
     html += '<div class="tv-card" style="margin-top:12px"><b style="font-family:Poppins;font-size:13.5px">'+labels[key]+'</b>'+
       '<div class="tv-spark">'+sparkline(vals, colors[idx])+'<div class="lbls">'+dayLbls.map(function(l){return '<span>'+l+'</span>';}).join('')+'</div></div>'+
-      '<div class="tv-avg">Promedio: <b>'+avg+' '+units[key]+'</b></div></div>';
+      '<div class="tv-avg">'+t('prog_avg')+' <b>'+avg+' '+units[key]+'</b></div></div>';
   });
 
   stage.innerHTML = html;
@@ -526,35 +674,48 @@ function renderProgress(){
 
 /* ===================== PRINTABLES ===================== */
 function renderPrintables(){
-  var html = '<div class="tv-top"><h1 style="font-size:20px">Imprimibles</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
-  html += '<div class="tv-banner" style="margin-bottom:18px"><div><b>Desbloqueá la biblioteca</b><p>Suscribite para descargar las guías en PDF.</p></div><button class="btn">Suscribite</button></div>';
+  var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('nav_printables')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
+  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:16px">'+t('print_sub')+'</p>';
   html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">';
   PRINTABLES.forEach(function(p){
-    html += '<div><div class="tv-pdfcard" style="width:100%"><div class="cov" style="width:100%">📄<span class="lock">🔒</span></div><div class="t">'+esc(p.name)+'</div><div class="m">Imprimible · '+p.pages+'p</div></div></div>';
+    html += '<div><div class="tv-pdfcard" style="width:100%"><div class="cov" style="width:100%">📄</div><div class="t">'+esc(p.name)+'</div><div class="m">'+p.pages+'p · '+t('print_soon')+'</div></div></div>';
   });
   html += '</div>';
   stage.innerHTML = html;
 }
 
-/* ===================== SETTINGS ===================== */
-function renderSettings(){
-  var initial = (state.settings.name||'I').charAt(0).toUpperCase();
-  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>Ajustes</h1></div>';
-  html += '<div class="tv-prof"><div class="av">'+initial+'</div><b>'+esc(state.settings.name||'Invitado')+'</b><span>Cuenta local · sin sincronizar</span></div>';
-  html += '<div class="tv-sec">Configuración de cuenta</div><div class="tv-card">'+
-    '<div class="tv-setrow"><span>Unidades</span><div class="tv-seg"><button data-u="metric" class="'+(state.settings.units==='metric'?'on':'')+'">Métrico</button><button data-u="imperial" class="'+(state.settings.units==='imperial'?'on':'')+'">Imperial</button></div></div>'+
-    '<div class="tv-setrow"><span>Recordatorios para entrenar</span><button class="tv-toggle'+(state.settings.reminders?' on':'')+'" id="remToggle"></button></div>'+
-    '<div class="tv-setrow"><span>Idioma</span><select id="langSel"><option'+(state.settings.lang==='Español'?' selected':'')+'>Español</option><option'+(state.settings.lang==='English'?' selected':'')+'>English</option></select></div>'+
-  '</div>';
-  html += '<div class="tv-card" style="margin-top:14px"><div class="tv-linklist">'+
-    '<a href="#">Contactanos ›</a><a href="#">Política de privacidad ›</a><a href="#">Términos de uso ›</a></div></div>';
-  html += '<button class="tv-logout">Cerrar sesión</button><div class="tv-ver">Versión 1.0.0</div>';
+/* ===================== COACH (placeholder) ===================== */
+function renderCoach(){
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('coach_title')+'</h1></div>';
+  html += '<div class="tv-card" style="text-align:center;padding:40px 20px"><div style="font-size:38px;margin-bottom:10px">🧑‍⚕️</div>'+
+    '<b style="font-family:Poppins;font-size:16px;display:block;margin-bottom:6px">'+t('coach_title')+'</b>'+
+    '<p style="color:var(--soft);font-size:13.5px">'+t('coach_body')+'<br><br>'+t('coach_btn')+'</p></div>';
   stage.innerHTML = html;
-  stage.querySelectorAll('[data-u]').forEach(function(b){ b.onclick=function(){ state.settings.units=b.dataset.u; state.weightUnit = b.dataset.u==='metric'?'kg':'lb'; save(); renderSettings(); }; });
-  $('remToggle').onclick=function(){ state.settings.reminders=!state.settings.reminders; save(); renderSettings(); };
-  $('langSel').onchange=function(){ state.settings.lang=this.value; save(); };
 }
 
+/* ===================== SETTINGS ===================== */
+function renderSettings(){
+  var acc = state.account || {name:'',email:''};
+  var initial = (acc.name||'?').charAt(0).toUpperCase();
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('set_title')+'</h1></div>';
+  html += '<div class="tv-prof"><div class="av">'+initial+'</div><b>'+esc(acc.name||'')+'</b><span>'+esc(acc.email||'')+'</span><span>'+t('set_local_account')+'</span></div>';
+  html += '<div class="tv-sec">'+t('set_account_cfg')+'</div><div class="tv-card">'+
+    '<div class="tv-setrow"><span>'+t('set_units')+'</span><div class="tv-seg"><button data-u="metric" class="'+(state.settings.units==='metric'?'on':'')+'">'+t('set_metric')+'</button><button data-u="imperial" class="'+(state.settings.units==='imperial'?'on':'')+'">'+t('set_imperial')+'</button></div></div>'+
+    '<div class="tv-setrow"><span>'+t('set_theme')+'</span><div class="tv-seg"><button data-th="light" class="'+(state.settings.theme==='light'?'on':'')+'">'+t('set_theme_light')+'</button><button data-th="dark" class="'+(state.settings.theme==='dark'?'on':'')+'">'+t('set_theme_dark')+'</button></div></div>'+
+    '<div class="tv-setrow"><span>'+t('set_reminders')+'</span><button class="tv-toggle'+(state.settings.reminders?' on':'')+'" id="remToggle"></button></div>'+
+    '<div class="tv-setrow"><span>'+t('set_lang')+'</span><div class="tv-seg"><button data-lg="es" class="'+(state.settings.lang==='es'?'on':'')+'">Español</button><button data-lg="en" class="'+(state.settings.lang==='en'?'on':'')+'">English</button></div></div>'+
+  '</div>';
+  html += '<div class="tv-card" style="margin-top:14px"><div class="tv-linklist">'+
+    '<a href="#">'+t('set_contact')+'</a><a href="#">'+t('set_privacy')+'</a><a href="#">'+t('set_terms')+'</a></div></div>';
+  html += '<button class="tv-logout" onclick="tvLogout()">'+t('set_logout')+'</button><div class="tv-ver">'+t('set_version')+'</div>';
+  stage.innerHTML = html;
+  stage.querySelectorAll('[data-u]').forEach(function(b){ b.onclick=function(){ state.settings.units=b.dataset.u; state.weightUnit = b.dataset.u==='metric'?'kg':'lb'; save(); renderSettings(); }; });
+  stage.querySelectorAll('[data-th]').forEach(function(b){ b.onclick=function(){ state.settings.theme=b.dataset.th; save(); renderSettings(); }; });
+  stage.querySelectorAll('[data-lg]').forEach(function(b){ b.onclick=function(){ state.settings.lang=b.dataset.lg; save(); renderSettings(); }; });
+  $('remToggle').onclick=function(){ state.settings.reminders=!state.settings.reminders; save(); renderSettings(); };
+}
+
+applyTheme();
 render();
 })();
 </script>
