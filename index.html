@@ -396,14 +396,19 @@ var MICRO_MOVES = [
   bi("Rotación de Muñecas","Wrist Circles"), bi("Estiramiento de Espalda Alta","Upper Back Stretch"), bi("Respiración Energizante","Energizing Breath"),
   bi("Balanceo de Brazos","Arm Swings"), bi("Paso Lateral Suave","Gentle Side Step")
 ];
+var MILITARY_MOVES = [
+  bi("Flexiones de Brazos","Push-Ups"), bi("Sentadillas con Salto","Jump Squats"), bi("Plancha Lateral","Side Plank"),
+  bi("Burpees","Burpees"), bi("Escaladores","Mountain Climbers"), bi("Zancadas","Lunges"),
+  bi("Plancha Alta","High Plank"), bi("Saltos de Tijera","Jumping Jacks")
+];
 
 var PROGRAMS = [
+  { id:'military-strength-28', name:bi('Entrenamiento Militar de Fuerza de 28 Días','28 Day Military Strength Training'), catKey:'Military Bootcamp', level:'Intermediate', days:28, min:30, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-military-strength.png', pool:MILITARY_MOVES },
+  { id:'suelo-pelvico', name:bi('Fortalecimiento del Suelo Pélvico','Pelvic Floor Strengthening'), catKey:'Pilates', level:'Beginner', days:14, min:10, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-suelo-pelvico-2.png', pool:PILATES_MOVES },
   { id:'taichi-full-flow', name:bi('Tai Chi Full Flow','Tai Chi Full Flow'), catKey:'Tai Chi', level:'Beginner', days:60, min:30, badge:'TOP', equipKey:'wk_equip_none', img:'images/prog-taichi-full.jpg', pool:TAICHI_MOVES },
+  { id:'yoga-reset-14', name:bi('Reinicio de Yoga de 14 Días','14 Day Yoga Reset'), catKey:'Yoga', level:'Beginner', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-yoga-reset.png', pool:CHAIR_MOVES },
   { id:'taichi-light', name:bi('Tai Chi Light','Tai Chi Light'), catKey:'Tai Chi', level:'Beginner', days:60, min:20, badge:'', equipKey:'wk_equip_none', img:'images/prog-taichi-light.jpg', pool:TAICHI_MOVES },
-  { id:'yoga-silla-reinicio', name:bi('Yoga en Silla: Reinicio de 14 Días','Chair Yoga: 14-Day Reset'), catKey:'Yoga en Silla', level:'Beginner', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_chair', img:'images/prog-yoga-silla.jpg', pool:CHAIR_MOVES },
-  { id:'suelo-pelvico', name:bi('Fortalecimiento del Suelo Pélvico','Pelvic Floor Strengthening'), catKey:'Pilates', level:'Beginner', days:14, min:10, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-suelo-pelvico.webp', pool:PILATES_MOVES },
-  { id:'movilidad-diaria', name:bi('Movilidad Diaria','Daily Mobility'), catKey:'Micro Workouts', level:'Beginner', days:30, min:10, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-movilidad.jpg', pool:MICRO_MOVES },
-  { id:'pilates-silla', name:bi('Pilates en Silla de 14 Días','14-Day Chair Pilates'), catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_chair', img:'images/prog-pilates.png', pool:PILATES_MOVES }
+  { id:'pilates-challenge-14', name:bi('Desafío de Pilates de 14 Días','14 Day Pilates Challenge'), catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-pilates-challenge.png', pool:PILATES_MOVES }
 ];
 var AREAS = [
   {key:'abs', name:bi('Abs','Abs'), img:'images/area-abs.png'},
