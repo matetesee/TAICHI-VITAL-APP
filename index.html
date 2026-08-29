@@ -110,7 +110,8 @@ html,body{margin:0;padding:0;background:var(--bg)}
 
 /* ===== coach promo ===== */
 #tv .tv-coach{background:linear-gradient(140deg,var(--bronze),var(--bronze2));border-radius:16px;padding:16px 18px;color:#fff;display:flex;gap:12px}
-#tv .tv-coach .av{width:42px;height:42px;border-radius:50%;background:#fff;flex:none;display:flex;align-items:center;justify-content:center;font-size:18px}
+#tv .tv-coach .av{width:42px;height:42px;border-radius:50%;background:#fff;flex:none;display:flex;align-items:center;justify-content:center;font-size:18px;overflow:hidden}
+#tv .tv-coach .av img{width:100%;height:100%;object-fit:cover;display:block}
 #tv .tv-coach .eyebrow{font-size:11px;font-weight:800;letter-spacing:.06em;color:#FDE68A;text-transform:uppercase;margin-bottom:3px}
 #tv .tv-coach h3{font-size:15.5px;margin-bottom:5px}
 #tv .tv-coach p{font-size:12.5px;opacity:.92;line-height:1.4;margin-bottom:10px}
@@ -625,7 +626,7 @@ function renderHome(){
   });
   html += '</div>';
 
-  html += '<a href="#coach" class="tv-coach" style="text-decoration:none"><div class="av">🧑‍⚕️</div><div><div class="eyebrow">'+t('coach_eyebrow')+'</div><h3>'+t('coach_title')+'</h3><p>'+t('coach_body')+'</p><button class="btn">'+t('coach_btn')+'</button></div></a>';
+  html += '<a href="#coach" class="tv-coach" style="text-decoration:none"><div class="av"><img src="images/coach-avatar.png" alt=""></div><div><div class="eyebrow">'+t('coach_eyebrow')+'</div><h3>'+t('coach_title')+'</h3><p>'+t('coach_body')+'</p><button class="btn">'+t('coach_btn')+'</button></div></a>';
 
   var moods=[{k:'low',e:'😔',l:t('mood_low')},{k:'steady',e:'😐',l:t('mood_steady')},{k:'great',e:'😊',l:t('mood_great')},{k:'peak',e:'🔥',l:t('mood_peak')}];
   html += '<div class="tv-card" style="margin-top:22px;text-align:center"><div style="font-size:11px;font-weight:700;color:var(--soft);letter-spacing:.05em;text-transform:uppercase">'+t('checkin_title')+'</div><h2 style="font-size:19px;margin:6px 0 12px">'+t('checkin_q')+'</h2><div class="tv-mood-row" id="moodRow">'+
@@ -664,7 +665,7 @@ function renderWorkouts(){
     }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_level')+'</div><div class="tv-pills">'+
-    [{k:'Advanced',l:t('wk_advanced')},{k:'Beginner',l:t('wk_beginner')},{k:'Intermediate',l:t('wk_intermediate')}].map(function(o,i){ return '<a href="#level/'+o.k+'" class="tv-pill'+(i===1?' on':'')+'">'+o.l+'</a>'; }).join('')+'</div>';
+    [{k:'Advanced',l:t('wk_advanced')},{k:'Beginner',l:t('wk_beginner')},{k:'Intermediate',l:t('wk_intermediate')}].map(function(o){ return '<a href="#level/'+o.k+'" class="tv-pill">'+o.l+'</a>'; }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_categories')+'</div><div class="tv-catgrid">'+
     CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'"><span class="lbl">'+esc(tn(c.name))+'</span></div>'; }).join('')+
@@ -849,7 +850,7 @@ function renderPrintables(){
 /* ===================== COACH (placeholder) ===================== */
 function renderCoach(){
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('coach_title')+'</h1></div>';
-  html += '<div class="tv-card" style="text-align:center;padding:40px 20px"><div style="font-size:38px;margin-bottom:10px">🧑‍⚕️</div>'+
+  html += '<div class="tv-card" style="text-align:center;padding:40px 20px"><div style="width:76px;height:76px;border-radius:50%;overflow:hidden;margin:0 auto 14px"><img src="images/coach-avatar.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>'+
     '<b style="font-family:Poppins;font-size:16px;display:block;margin-bottom:6px">'+t('coach_title')+'</b>'+
     '<p style="color:var(--soft);font-size:13.5px">'+t('coach_body')+'<br><br>'+t('coach_btn')+'</p></div>';
   stage.innerHTML = html;
