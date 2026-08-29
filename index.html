@@ -91,6 +91,10 @@ html,body{margin:0;padding:0;background:var(--bg)}
 /* ===== horizontal scroller ===== */
 #tv .tv-hscroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
 #tv .tv-hscroll::-webkit-scrollbar{display:none}
+#tv .tv-hscroll-visible{padding-bottom:12px;scrollbar-width:thin;scrollbar-color:var(--bronze2) var(--card2)}
+#tv .tv-hscroll-visible::-webkit-scrollbar{display:block;height:6px}
+#tv .tv-hscroll-visible::-webkit-scrollbar-track{background:var(--card2);border-radius:10px}
+#tv .tv-hscroll-visible::-webkit-scrollbar-thumb{background:var(--bronze2);border-radius:10px}
 #tv .tv-pcard{flex:none;width:150px;border-radius:14px;overflow:hidden;position:relative;height:110px;background:var(--card2);box-shadow:var(--shadow)}
 #tv .tv-pcard img{width:100%;height:100%;object-fit:cover;display:block}
 #tv .tv-pcard::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.05) 55%)}
@@ -368,6 +372,15 @@ var PROGRAMS = [
   { id:'movilidad-diaria', name:'Movilidad Diaria', catKey:'Micro Workouts', level:'Beginner', days:30, min:10, badge:'Nuevo', equipKey:'wk_equip_none', img:'images/prog-movilidad.jpg', pool:MICRO_MOVES },
   { id:'pilates-silla', name:'Pilates en Silla de 14 Días', catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:'Nuevo', equipKey:'wk_equip_chair', img:'images/prog-pilates.png', pool:PILATES_MOVES }
 ];
+var AREAS = [
+  {name:'Abs', img:'images/area-abs.png'},
+  {name:'Brazos', img:'images/area-brazos.png'},
+  {name:'Espalda', img:'images/area-espalda.png'},
+  {name:'Glúteos', img:'images/area-gluteos.png'},
+  {name:'Pecho', img:'images/area-pecho.png'},
+  {name:'Cuerpo Completo', img:'images/area-cuerpocompleto.png'},
+  {name:'Piernas', img:'images/area-piernas.png'}
+];
 var CATEGORIES = [
   {name:'Tai Chi', badge:'TOP', img:'images/prog-taichi-full.jpg'},
   {name:'Yoga en Silla', badge:'NEW', img:'images/prog-yoga-silla.jpg'},
@@ -526,9 +539,9 @@ window.tvLogWeight=function(){
 /* ===================== WORKOUTS ===================== */
 function renderWorkouts(){
   var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('wk_title')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
-  html += '<div class="tv-sec">'+t('wk_areas')+'</div><div class="tv-hscroll">'+
-    ['Abs','Brazos','Espalda','Glúteos','Pecho','Cuerpo Completo','Piernas'].map(function(a){
-      return '<div class="tv-pcard" style="width:84px;height:84px;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,var(--bronze2),var(--bronze))"><span class="lbl" style="position:static;font-size:11.5px;text-align:center">'+a+'</span></div>';
+  html += '<div class="tv-sec">'+t('wk_areas')+'</div><div class="tv-hscroll tv-hscroll-visible">'+
+    AREAS.map(function(a){
+      return '<div class="tv-pcard" style="width:96px;height:96px"><img src="'+a.img+'" alt=""><span class="lbl" style="font-size:11.5px;text-align:center">'+esc(a.name)+'</span></div>';
     }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_level')+'</div><div class="tv-pills">'+
