@@ -266,7 +266,7 @@ var I18N = {
     printables_title:'Guías para vos', printables_lib:'en la biblioteca',
     day_prefix:'Día', min:'min', kcal:'kcal',
     wk_title:'Entrenamientos', wk_areas:'Áreas objetivo', wk_level:'Nivel', wk_beginner:'Principiante', wk_intermediate:'Intermedio', wk_advanced:'Avanzado',
-    wk_categories:'Explorar categorías', wk_programs:'Programas de entrenamiento', wk_challenge:'Reto de', wk_days:'días', wk_min_day:'min/día',
+    wk_categories:'Explorar categorías', wk_programs:'Programas de entrenamiento', wk_challenge:'Reto de', wk_days:'días', wk_min_day:'min/día', wk_filtered:'Entrenamientos Filtrados',
     wk_equip_none:'Sin equipamiento', wk_equip_chair:'Necesitás una silla',
     prog_start:'Iniciar programa de entrenamiento', prog_today_btn:'Empezá el entrenamiento de hoy ▶', prog_done:'✓ Entrenamiento completado', prog_circuit:'Circuito de entrenamiento',
     prog_exercises:'ejercicios',
@@ -300,7 +300,7 @@ var I18N = {
     printables_title:'Guides for you', printables_lib:'in the library',
     day_prefix:'Day', min:'min', kcal:'kcal',
     wk_title:'Workouts', wk_areas:'Target areas', wk_level:'Level', wk_beginner:'Beginner', wk_intermediate:'Intermediate', wk_advanced:'Advanced',
-    wk_categories:'Explore categories', wk_programs:'Training programs', wk_challenge:'', wk_days:'day challenge', wk_min_day:'min/day',
+    wk_categories:'Explore categories', wk_programs:'Training programs', wk_challenge:'', wk_days:'day challenge', wk_min_day:'min/day', wk_filtered:'Filtered Workouts',
     wk_equip_none:'No equipment', wk_equip_chair:'You need a chair',
     prog_start:'Start training program', prog_today_btn:"Start today's workout ▶", prog_done:'✓ Workout completed', prog_circuit:'Training circuit',
     prog_exercises:'exercises',
@@ -501,7 +501,24 @@ var WORKOUT_CATALOG = [
   wc('Máximo de Tren Superior','Upper body max','Intermediate',['chest','arms']),
   wc('Fuerza de Tren Superior','Upper body strength','Intermediate',['chest','arms']),
   wc('Yoga Abre Pecho y Hombros','Yoga Chest & Shoulder Openers','Beginner',['chest']),
-  wc('Yoga de Recuperación','Yoga recovery','Beginner',['chest','fullbody'])
+  wc('Yoga de Recuperación','Yoga recovery','Beginner',['chest','fullbody']),
+  wc('Pilates Recupera y Fortalece','Rise & Strengthen Pilates','Intermediate',['chest'],'images/prog-pilates.png'),
+  wc('Entrenamiento de Ignición Total','Total Ignition Workout','Advanced',['fullbody']),
+  wc('Fuerza en la Quietud','Strength Within Stillness','Beginner',['fullbody']),
+  wc('Tai Chi Fuerza y Equilibrio','Tai Chi Strength & Balance Workout','Beginner',['arms','legs']),
+  wc('Flujo Total de Relajación','Total Unwind Flow','Beginner',['fullbody']),
+  wc('Pilates Pausa Laboral','Work Break Pilates','Beginner',['back','arms']),
+  wc('Yoga de Espalda y Columna','Yoga Back & Spine','Beginner',['back']),
+  wc('Yoga Abre Cadera y Piernas','Yoga Hip & Leg Openers','Beginner',['butt','legs']),
+  wc('Yoga Alivio del Estrés','Yoga Stress Relief','Beginner',['fullbody']),
+  wc('Pilates Enfoque de Core','Pilates Core Focus','Intermediate',['abs']),
+  wc('Pilates Caderas y Piernas','Pilates Hips & Legs','Intermediate',['butt','legs']),
+  wc('Potencia de Core y Piernas','Power Core and Legs','Intermediate',['abs','legs']),
+  wc('Pilates Libera Tensión','Tension Release Pilates','Intermediate',['back','fullbody']),
+  wc('Pilates Tonifica y Esculpe','Tone & Sculpt Pilates','Intermediate',['fullbody']),
+  wc('Flujo de Yoga Erguido','Upright Yoga Flow','Intermediate',['back','fullbody']),
+  wc('Pilates Flujo Vital','Vitality Flow Pilates','Intermediate',['fullbody']),
+  wc('Pilates de Cuerpo Completo','Whole Body Pilates','Intermediate',['fullbody'])
 ];
 function progById(id){ for(var i=0;i<PROGRAMS.length;i++) if(PROGRAMS[i].id===id) return PROGRAMS[i]; return null; }
 function genDay(prog, day){
@@ -574,6 +591,7 @@ function render(){
   if(route==='home') return renderHome();
   if(route==='workouts') return renderWorkouts();
   if(route==='area') return renderAreaPrograms(parts[1]);
+  if(route==='level') return renderLevelPrograms(parts[1]);
   if(route==='program') return renderProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
   if(route==='meals') return renderMeals();
   if(route==='browse-diets') return renderBrowseDiets();
@@ -646,7 +664,7 @@ function renderWorkouts(){
     }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_level')+'</div><div class="tv-pills">'+
-    [t('wk_advanced'),t('wk_beginner'),t('wk_intermediate')].map(function(l,i){ return '<div class="tv-pill'+(i===1?' on':'')+'">'+l+'</div>'; }).join('')+'</div>';
+    [{k:'Advanced',l:t('wk_advanced')},{k:'Beginner',l:t('wk_beginner')},{k:'Intermediate',l:t('wk_intermediate')}].map(function(o,i){ return '<a href="#level/'+o.k+'" class="tv-pill'+(i===1?' on':'')+'">'+o.l+'</a>'; }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_categories')+'</div><div class="tv-catgrid">'+
     CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'"><span class="lbl">'+esc(tn(c.name))+'</span></div>'; }).join('')+
@@ -668,6 +686,19 @@ function renderAreaPrograms(key){
   var title = area ? tn(area.name) : '';
   var items = WORKOUT_CATALOG.filter(function(w){ return w.areas.indexOf(key) !== -1; });
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(title)+'</h1></div>';
+  html += '<div class="tv-wgrid">'+
+    items.map(function(w){
+      var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
+      var media = w.img ? '<img src="'+w.img+'" alt="">' : '<div class="ico">🧘</div>';
+      return '<div class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></div>';
+    }).join('')+
+  '</div>';
+  stage.innerHTML = html;
+}
+
+function renderLevelPrograms(level){
+  var items = WORKOUT_CATALOG.filter(function(w){ return w.level === level; });
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(t('wk_filtered'))+'</h1></div>';
   html += '<div class="tv-wgrid">'+
     items.map(function(w){
       var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
