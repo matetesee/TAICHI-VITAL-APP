@@ -159,12 +159,12 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-pill.on{background:var(--bronze);border-color:var(--bronze);color:#fff}
 
 /* ===== category grid ===== */
-#tv .tv-catgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-#tv .tv-cat{position:relative;border-radius:14px;overflow:hidden;height:96px;background:var(--card2)}
+#tv .tv-catgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#tv .tv-cat{position:relative;border-radius:16px;overflow:hidden;height:150px;background:var(--card2)}
 #tv .tv-cat img{width:100%;height:100%;object-fit:cover}
 #tv .tv-cat::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 60%)}
-#tv .tv-cat .badge{position:absolute;top:7px;left:7px;background:#fff;color:var(--crimson);font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:20px;z-index:2}
-#tv .tv-cat .lbl{position:absolute;left:9px;bottom:8px;color:#fff;font-family:'Poppins';font-weight:700;font-size:13px;z-index:2}
+#tv .tv-cat .badge{position:absolute;top:9px;left:9px;background:#fff;color:var(--crimson);font-size:10px;font-weight:800;padding:3px 8px;border-radius:20px;z-index:2}
+#tv .tv-cat .lbl{position:absolute;left:11px;bottom:10px;color:#fff;font-family:'Poppins';font-weight:700;font-size:14.5px;z-index:2}
 
 /* ===== program list row ===== */
 #tv .tv-prow{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px;margin-bottom:10px}
@@ -416,9 +416,11 @@ var AREAS = [
 ];
 var CATEGORIES = [
   {name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg'},
-  {name:bi('Yoga en Silla','Chair Yoga'), badge:'NEW', img:'images/prog-yoga-silla.jpg'},
-  {name:bi('Pilates','Pilates'), badge:'', img:'images/prog-pilates.png'},
-  {name:bi('Micro Workouts','Micro Workouts'), badge:'NEW', img:'images/prog-movilidad.jpg'}
+  {name:bi('Micro Workouts','Micro Workouts'), badge:'NEW', img:'images/cat-micro.png'},
+  {name:bi('Military Bootcamp','Military Bootcamp'), badge:'NEW', img:'images/cat-military.png'},
+  {name:bi('Pilates','Pilates'), badge:'', img:'images/cat-pilates.png'},
+  {name:bi('Yoga','Yoga'), badge:'', img:'images/cat-yoga.png'},
+  {name:bi('Power Series','Power Series'), badge:'NEW', img:'images/cat-power.png'}
 ];
 var DIETS = [
   {id:'alta-proteina', name:bi('30 Días Alta en Proteína','30-Day High Protein'), kcal:1500, days:30, tag:bi('ALTA PROTEÍNA','HIGH PROTEIN')},
