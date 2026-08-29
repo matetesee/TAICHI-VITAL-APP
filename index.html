@@ -312,6 +312,7 @@ var I18N = {
   }
 };
 function t(key){ var d=I18N[state.settings.lang]||I18N.es; return d[key]!==undefined ? d[key] : (I18N.es[key]||key); }
+function tn(v){ if(v==null) return ''; if(typeof v==='object') return v[state.settings.lang]||v.es||v.en||''; return v; }
 
 /* ===================== helpers ===================== */
 function $(id){ return document.getElementById(id); }
@@ -359,49 +360,73 @@ function markCheckin(){
 }
 
 /* ===================== data: programs ===================== */
-var TAICHI_MOVES = ["Respiración de Enraizamiento","Abrir el Corazón","Círculos Externos","Empujar las Nubes","El Tigre se Lava la Cara","El Ganso Salvaje Vuela","Separar el Cielo y la Tierra","Contemplar la Luna","Pintar el Arcoíris","Extender las Alas","El Oso Gira de Lado a Lado","Estiramiento Lateral Derecho","Estiramiento Lateral Izquierdo","Mirar Hacia el Horizonte","Círculos Yin","Abrazar el Árbol","Acariciar la Cola del Ave","Manos como Nubes","Elevar y Descender","Respiración de Cierre"];
-var CHAIR_MOVES = ["Estiramiento de Cuello Sentado","Rotación de Hombros","Elevación de Rodillas","Torsión Suave de Torso","Extensión de Piernas Sentado","Respiración Profunda Guiada","Círculos de Tobillo","Elevación de Brazos","Inclinación Pélvica Sentada","Gato-Vaca Sentado","Flexión Lateral Sentada","Marcha Sentada","Apertura de Pecho","Estiramiento de Pantorrilla Sentado","Relajación Final"];
-var PILATES_MOVES = ["Activación del Core Sentado","Elevación de Talón","Puente de Cadera","Círculos de Cintura","Respiración Diafragmática","Extensión de Columna Sentado","Elevación Lateral de Pierna","Contracción Abdominal Suave","Estiramiento de Isquiotibiales","Rotación de Cadera Sentado"];
-var MICRO_MOVES = ["Sentadilla Asistida en Silla","Marcha en el Lugar","Elevación de Talones","Rotación de Muñecas","Estiramiento de Espalda Alta","Respiración Energizante","Balanceo de Brazos","Paso Lateral Suave"];
+function bi(es,en){ return {es:es, en:en}; }
+var TAICHI_MOVES = [
+  bi("Respiración de Enraizamiento","Grounding Breath"), bi("Abrir el Corazón","Opening the Heart"), bi("Círculos Externos","Outer Circles"),
+  bi("Empujar las Nubes","Push the Clouds"), bi("El Tigre se Lava la Cara","Tiger Washes Its Face"), bi("El Ganso Salvaje Vuela","Wild Goose Flies"),
+  bi("Separar el Cielo y la Tierra","Separate Heaven and Earth"), bi("Contemplar la Luna","Gazing at the Moon"), bi("Pintar el Arcoíris","Painting the Rainbow"),
+  bi("Extender las Alas","Spreading the Wings"), bi("El Oso Gira de Lado a Lado","Bear Turns Side to Side"), bi("Estiramiento Lateral Derecho","Right Side Stretch"),
+  bi("Estiramiento Lateral Izquierdo","Left Side Stretch"), bi("Mirar Hacia el Horizonte","Gazing at the Horizon"), bi("Círculos Yin","Yin Circles"),
+  bi("Abrazar el Árbol","Embracing the Tree"), bi("Acariciar la Cola del Ave","Stroking the Bird's Tail"), bi("Manos como Nubes","Hands Like Clouds"),
+  bi("Elevar y Descender","Rise and Fall"), bi("Respiración de Cierre","Closing Breath")
+];
+var CHAIR_MOVES = [
+  bi("Estiramiento de Cuello Sentado","Seated Neck Stretch"), bi("Rotación de Hombros","Shoulder Rolls"), bi("Elevación de Rodillas","Knee Lifts"),
+  bi("Torsión Suave de Torso","Gentle Torso Twist"), bi("Extensión de Piernas Sentado","Seated Leg Extension"), bi("Respiración Profunda Guiada","Guided Deep Breathing"),
+  bi("Círculos de Tobillo","Ankle Circles"), bi("Elevación de Brazos","Arm Raises"), bi("Inclinación Pélvica Sentada","Seated Pelvic Tilt"),
+  bi("Gato-Vaca Sentado","Seated Cat-Cow"), bi("Flexión Lateral Sentada","Seated Side Bend"), bi("Marcha Sentada","Seated March"),
+  bi("Apertura de Pecho","Chest Opener"), bi("Estiramiento de Pantorrilla Sentado","Seated Calf Stretch"), bi("Relajación Final","Final Relaxation")
+];
+var PILATES_MOVES = [
+  bi("Activación del Core Sentado","Seated Core Activation"), bi("Elevación de Talón","Heel Raises"), bi("Puente de Cadera","Hip Bridge"),
+  bi("Círculos de Cintura","Waist Circles"), bi("Respiración Diafragmática","Diaphragmatic Breathing"), bi("Extensión de Columna Sentado","Seated Spine Extension"),
+  bi("Elevación Lateral de Pierna","Side Leg Raise"), bi("Contracción Abdominal Suave","Gentle Abdominal Contraction"), bi("Estiramiento de Isquiotibiales","Hamstring Stretch"),
+  bi("Rotación de Cadera Sentado","Seated Hip Rotation")
+];
+var MICRO_MOVES = [
+  bi("Sentadilla Asistida en Silla","Chair-Assisted Squat"), bi("Marcha en el Lugar","Marching in Place"), bi("Elevación de Talones","Heel Raises"),
+  bi("Rotación de Muñecas","Wrist Circles"), bi("Estiramiento de Espalda Alta","Upper Back Stretch"), bi("Respiración Energizante","Energizing Breath"),
+  bi("Balanceo de Brazos","Arm Swings"), bi("Paso Lateral Suave","Gentle Side Step")
+];
 
 var PROGRAMS = [
-  { id:'taichi-full-flow', name:'Tai Chi Full Flow', catKey:'Tai Chi', level:'Beginner', days:60, min:30, badge:'TOP', equipKey:'wk_equip_none', img:'images/prog-taichi-full.jpg', pool:TAICHI_MOVES },
-  { id:'taichi-light', name:'Tai Chi Light', catKey:'Tai Chi', level:'Beginner', days:60, min:20, badge:'', equipKey:'wk_equip_none', img:'images/prog-taichi-light.jpg', pool:TAICHI_MOVES },
-  { id:'yoga-silla-reinicio', name:'Yoga en Silla: Reinicio de 14 Días', catKey:'Yoga en Silla', level:'Beginner', days:14, min:15, badge:'Nuevo', equipKey:'wk_equip_chair', img:'images/prog-yoga-silla.jpg', pool:CHAIR_MOVES },
-  { id:'suelo-pelvico', name:'Fortalecimiento del Suelo Pélvico', catKey:'Pilates', level:'Beginner', days:14, min:10, badge:'Nuevo', equipKey:'wk_equip_none', img:'images/prog-suelo-pelvico.webp', pool:PILATES_MOVES },
-  { id:'movilidad-diaria', name:'Movilidad Diaria', catKey:'Micro Workouts', level:'Beginner', days:30, min:10, badge:'Nuevo', equipKey:'wk_equip_none', img:'images/prog-movilidad.jpg', pool:MICRO_MOVES },
-  { id:'pilates-silla', name:'Pilates en Silla de 14 Días', catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:'Nuevo', equipKey:'wk_equip_chair', img:'images/prog-pilates.png', pool:PILATES_MOVES }
+  { id:'taichi-full-flow', name:bi('Tai Chi Full Flow','Tai Chi Full Flow'), catKey:'Tai Chi', level:'Beginner', days:60, min:30, badge:'TOP', equipKey:'wk_equip_none', img:'images/prog-taichi-full.jpg', pool:TAICHI_MOVES },
+  { id:'taichi-light', name:bi('Tai Chi Light','Tai Chi Light'), catKey:'Tai Chi', level:'Beginner', days:60, min:20, badge:'', equipKey:'wk_equip_none', img:'images/prog-taichi-light.jpg', pool:TAICHI_MOVES },
+  { id:'yoga-silla-reinicio', name:bi('Yoga en Silla: Reinicio de 14 Días','Chair Yoga: 14-Day Reset'), catKey:'Yoga en Silla', level:'Beginner', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_chair', img:'images/prog-yoga-silla.jpg', pool:CHAIR_MOVES },
+  { id:'suelo-pelvico', name:bi('Fortalecimiento del Suelo Pélvico','Pelvic Floor Strengthening'), catKey:'Pilates', level:'Beginner', days:14, min:10, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-suelo-pelvico.webp', pool:PILATES_MOVES },
+  { id:'movilidad-diaria', name:bi('Movilidad Diaria','Daily Mobility'), catKey:'Micro Workouts', level:'Beginner', days:30, min:10, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-movilidad.jpg', pool:MICRO_MOVES },
+  { id:'pilates-silla', name:bi('Pilates en Silla de 14 Días','14-Day Chair Pilates'), catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_chair', img:'images/prog-pilates.png', pool:PILATES_MOVES }
 ];
 var AREAS = [
-  {name:'Abs', img:'images/area-abs.png'},
-  {name:'Brazos', img:'images/area-brazos.png'},
-  {name:'Espalda', img:'images/area-espalda.png'},
-  {name:'Glúteos', img:'images/area-gluteos.png'},
-  {name:'Pecho', img:'images/area-pecho.png'},
-  {name:'Cuerpo Completo', img:'images/area-cuerpocompleto.png'},
-  {name:'Piernas', img:'images/area-piernas.png'}
+  {name:bi('Abs','Abs'), img:'images/area-abs.png'},
+  {name:bi('Brazos','Arms'), img:'images/area-brazos.png'},
+  {name:bi('Espalda','Back'), img:'images/area-espalda.png'},
+  {name:bi('Glúteos','Glutes'), img:'images/area-gluteos.png'},
+  {name:bi('Pecho','Chest'), img:'images/area-pecho.png'},
+  {name:bi('Cuerpo Completo','Full Body'), img:'images/area-cuerpocompleto.png'},
+  {name:bi('Piernas','Legs'), img:'images/area-piernas.png'}
 ];
 var CATEGORIES = [
-  {name:'Tai Chi', badge:'TOP', img:'images/prog-taichi-full.jpg'},
-  {name:'Yoga en Silla', badge:'NEW', img:'images/prog-yoga-silla.jpg'},
-  {name:'Pilates', badge:'', img:'images/prog-pilates.png'},
-  {name:'Micro Workouts', badge:'NEW', img:'images/prog-movilidad.jpg'}
+  {name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg'},
+  {name:bi('Yoga en Silla','Chair Yoga'), badge:'NEW', img:'images/prog-yoga-silla.jpg'},
+  {name:bi('Pilates','Pilates'), badge:'', img:'images/prog-pilates.png'},
+  {name:bi('Micro Workouts','Micro Workouts'), badge:'NEW', img:'images/prog-movilidad.jpg'}
 ];
 var DIETS = [
-  {id:'alta-proteina', name:'30 Días Alta en Proteína', kcal:1500, days:30, tag:'ALTA PROTEÍNA'},
-  {id:'antiinflamatoria', name:'30 Días Antiinflamatoria', kcal:1600, days:30, tag:'ANTIINFLAMATORIA'},
-  {id:'diabetes', name:'30 Días Amigable con la Diabetes', kcal:1700, days:30, tag:'DIABETES'},
-  {id:'mediterranea', name:'30 Días Mediterránea', kcal:1800, days:30, tag:'MEDITERRÁNEA'},
-  {id:'bajo-sodio', name:'14 Días Baja en Sodio', kcal:1700, days:14, tag:'BAJO SODIO'},
-  {id:'facil-digestion', name:'14 Días Fácil Digestión', kcal:1600, days:14, tag:'FÁCIL DIGESTIÓN'}
+  {id:'alta-proteina', name:bi('30 Días Alta en Proteína','30-Day High Protein'), kcal:1500, days:30, tag:bi('ALTA PROTEÍNA','HIGH PROTEIN')},
+  {id:'antiinflamatoria', name:bi('30 Días Antiinflamatoria','30-Day Anti-Inflammatory'), kcal:1600, days:30, tag:bi('ANTIINFLAMATORIA','ANTI-INFLAMMATORY')},
+  {id:'diabetes', name:bi('30 Días Amigable con la Diabetes','30-Day Diabetes-Friendly'), kcal:1700, days:30, tag:bi('DIABETES','DIABETES')},
+  {id:'mediterranea', name:bi('30 Días Mediterránea','30-Day Mediterranean'), kcal:1800, days:30, tag:bi('MEDITERRÁNEA','MEDITERRANEAN')},
+  {id:'bajo-sodio', name:bi('14 Días Baja en Sodio','14-Day Low Sodium'), kcal:1700, days:14, tag:bi('BAJO SODIO','LOW SODIUM')},
+  {id:'facil-digestion', name:bi('14 Días Fácil Digestión','14-Day Easy Digestion'), kcal:1600, days:14, tag:bi('FÁCIL DIGESTIÓN','EASY DIGESTION')}
 ];
 var PRINTABLES = [
-  {name:'Guía de Respiración para Tai Chi', pages:10},
-  {name:'Yoga en Silla para Principiantes', pages:16},
-  {name:'Caminata Consciente: Guía Práctica', pages:12},
-  {name:'Diario de Hábitos Semanal', pages:8},
-  {name:'Recetario Antiinflamatorio', pages:20},
-  {name:'Rutina de Movilidad Matutina', pages:9}
+  {name:bi('Guía de Respiración para Tai Chi','Tai Chi Breathing Guide'), pages:10},
+  {name:bi('Yoga en Silla para Principiantes','Chair Yoga for Beginners'), pages:16},
+  {name:bi('Caminata Consciente: Guía Práctica','Mindful Walking: A Practical Guide'), pages:12},
+  {name:bi('Diario de Hábitos Semanal','Weekly Habit Journal'), pages:8},
+  {name:bi('Recetario Antiinflamatorio','Anti-Inflammatory Recipe Book'), pages:20},
+  {name:bi('Rutina de Movilidad Matutina','Morning Mobility Routine'), pages:9}
 ];
 function progById(id){ for(var i=0;i<PROGRAMS.length;i++) if(PROGRAMS[i].id===id) return PROGRAMS[i]; return null; }
 function genDay(prog, day){
@@ -495,14 +520,14 @@ function renderHome(){
     var p=progById(state.activeProgram), d=state.programDay[p.id]||1;
     html += '<a href="#program/'+p.id+'/'+d+'" class="tv-card" style="display:flex;gap:12px;align-items:center;text-decoration:none">'+
       '<img src="'+p.img+'" style="width:52px;height:52px;border-radius:10px;object-fit:cover">'+
-      '<div><b style="font-family:Poppins;font-size:14px;display:block">'+esc(p.name)+'</b><span style="font-size:12px;color:var(--soft)">'+t('day_prefix')+' '+d+' / '+p.days+'</span></div></a>';
+      '<div><b style="font-family:Poppins;font-size:14px;display:block">'+esc(tn(p.name))+'</b><span style="font-size:12px;color:var(--soft)">'+t('day_prefix')+' '+d+' / '+p.days+'</span></div></a>';
   } else {
     html += '<div class="tv-empty"><b>'+t('home_no_program')+'</b><p>'+t('home_explore')+'</p><a class="lnk" href="#workouts">'+t('home_explore_link')+'</a></div>';
   }
 
   html += '<div class="tv-sec">'+t('home_explore_title')+'</div><div class="tv-hscroll">';
   PROGRAMS.forEach(function(p){
-    html += '<a href="#program/'+p.id+'/1" class="tv-pcard">'+(p.badge?'<span class="badge">🔥 '+esc(p.badge)+'</span>':'')+'<img src="'+p.img+'"><span class="lbl">'+esc(p.name)+'</span></a>';
+    html += '<a href="#program/'+p.id+'/1" class="tv-pcard">'+(p.badge?'<span class="badge">🔥 '+esc(tn(p.badge))+'</span>':'')+'<img src="'+p.img+'"><span class="lbl">'+esc(tn(p.name))+'</span></a>';
   });
   html += '</div>';
 
@@ -521,7 +546,7 @@ function renderHome(){
   html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('weight_title')+'</div><div class="tv-weight-row"><input id="weightInput" type="number" placeholder="'+(state.weight||'— ')+' '+state.weightUnit+'"></div><button class="tv-btn" onclick="tvLogWeight()">'+t('weight_btn')+'</button></div>';
 
   html += '<div class="tv-sec">'+t('nav_printables')+'</div><div class="tv-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span>📖</span><b style="font-family:Poppins;font-size:14px">'+t('printables_title')+'</b><span style="margin-left:auto;font-size:11.5px;color:var(--soft)">'+PRINTABLES.length+' '+t('printables_lib')+'</span></div><div class="tv-pdf">'+
-    PRINTABLES.slice(0,3).map(function(p){ return '<div class="tv-pdfcard"><div class="cov">📄</div><div class="t">'+esc(p.name)+'</div><div class="m">'+p.pages+'p</div></div>'; }).join('')+
+    PRINTABLES.slice(0,3).map(function(p){ return '<div class="tv-pdfcard"><div class="cov">📄</div><div class="t">'+esc(tn(p.name))+'</div><div class="m">'+p.pages+'p</div></div>'; }).join('')+
   '</div></div>';
 
   stage.innerHTML = html;
@@ -541,20 +566,20 @@ function renderWorkouts(){
   var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('wk_title')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
   html += '<div class="tv-sec">'+t('wk_areas')+'</div><div class="tv-hscroll tv-hscroll-visible">'+
     AREAS.map(function(a){
-      return '<div class="tv-pcard" style="width:96px;height:96px"><img src="'+a.img+'" alt=""><span class="lbl" style="font-size:11.5px;text-align:center">'+esc(a.name)+'</span></div>';
+      return '<div class="tv-pcard" style="width:96px;height:96px"><img src="'+a.img+'" alt=""><span class="lbl" style="font-size:11.5px;text-align:center">'+esc(tn(a.name))+'</span></div>';
     }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_level')+'</div><div class="tv-pills">'+
     [t('wk_advanced'),t('wk_beginner'),t('wk_intermediate')].map(function(l,i){ return '<div class="tv-pill'+(i===1?' on':'')+'">'+l+'</div>'; }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_categories')+'</div><div class="tv-catgrid">'+
-    CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'"><span class="lbl">'+esc(c.name)+'</span></div>'; }).join('')+
+    CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'"><span class="lbl">'+esc(tn(c.name))+'</span></div>'; }).join('')+
   '</div>';
 
   html += '<div class="tv-sec">'+t('wk_programs')+'</div>';
   PROGRAMS.forEach(function(p){
     html += '<a href="#program/'+p.id+'/1" class="tv-prow">'+
-      '<img src="'+p.img+'"><div class="info"><b>'+esc(p.name)+'</b><div class="meta">'+(p.badge?'<span class="tag">'+esc(p.badge)+'</span>':'')+'<span>'+p.days+' '+t('wk_days')+'</span><span>⏱ '+p.min+' '+t('wk_min_day')+'</span></div></div>'+
+      '<img src="'+p.img+'"><div class="info"><b>'+esc(tn(p.name))+'</b><div class="meta">'+(p.badge?'<span class="tag">'+esc(tn(p.badge))+'</span>':'')+'<span>'+p.days+' '+t('wk_days')+'</span><span>⏱ '+p.min+' '+t('wk_min_day')+'</span></div></div>'+
       '<div class="play">▶</div></a>';
   });
   stage.innerHTML = html;
@@ -566,7 +591,7 @@ function renderProgramDetail(id, day){
   var d = genDay(p, day);
   var done = !!(state.completedDays[p.id] && state.completedDays[p.id][day]);
   var equip = t(p.equipKey);
-  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(p.name)+'</h1></div>';
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(p.name))+'</h1></div>';
   html += '<div class="tv-hero"><img src="'+p.img+'"><span class="tag">'+esc(equip)+'</span></div>';
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+p.days+' '+t('wk_days')+' · '+p.min+' '+t('min')+'</p>';
   html += '<button class="tv-btn" onclick="tvSetActive(\''+p.id+'\','+day+')">▶ '+t('prog_start')+'</button>';
@@ -580,7 +605,7 @@ function renderProgramDetail(id, day){
   html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="tvCompleteDay(\''+p.id+'\','+day+','+p.min+','+d.kcal+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
   html += '<div class="tv-sec">'+t('prog_circuit')+' ('+d.exercises.length+' '+t('prog_exercises')+')</div>';
   d.exercises.forEach(function(ex){
-    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(ex.name)+'</b><span>TaiChi Vital</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
+    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>TaiChi Vital</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
   });
   stage.innerHTML = html;
 }
@@ -628,9 +653,9 @@ function renderBrowseDiets(){
     ['Todos','Alta proteína','Antiinflamatoria','Diabetes','Mediterránea'].map(function(c,i){ return '<div class="tv-pill'+(i===0?' on':'')+'">'+c+'</div>'; }).join('')+'</div>';
   html += '<div class="tv-sec">'+t('diets_programs')+'</div>';
   DIETS.forEach(function(d){
-    html += '<div class="tv-card" style="margin-bottom:10px"><b style="font-family:Poppins;font-size:14.5px;display:block;margin-bottom:6px">'+esc(d.name)+'</b>'+
+    html += '<div class="tv-card" style="margin-bottom:10px"><b style="font-family:Poppins;font-size:14.5px;display:block;margin-bottom:6px">'+esc(tn(d.name))+'</b>'+
       '<div style="font-size:12.5px;color:var(--soft);margin-bottom:8px">'+d.kcal+' '+t('diets_kcal_day')+' · '+d.days+' '+t('wk_days')+'</div>'+
-      '<span class="tv-pill on" style="display:inline-block;font-size:10.5px;padding:4px 10px">'+esc(d.tag)+'</span></div>';
+      '<span class="tv-pill on" style="display:inline-block;font-size:10.5px;padding:4px 10px">'+esc(tn(d.tag))+'</span></div>';
   });
   stage.innerHTML = html;
 }
@@ -691,7 +716,7 @@ function renderPrintables(){
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:16px">'+t('print_sub')+'</p>';
   html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">';
   PRINTABLES.forEach(function(p){
-    html += '<div><div class="tv-pdfcard" style="width:100%"><div class="cov" style="width:100%">📄</div><div class="t">'+esc(p.name)+'</div><div class="m">'+p.pages+'p · '+t('print_soon')+'</div></div></div>';
+    html += '<div><div class="tv-pdfcard" style="width:100%"><div class="cov" style="width:100%">📄</div><div class="t">'+esc(tn(p.name))+'</div><div class="m">'+p.pages+'p · '+t('print_soon')+'</div></div></div>';
   });
   html += '</div>';
   stage.innerHTML = html;
