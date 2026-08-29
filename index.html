@@ -174,6 +174,41 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-prow .info .meta{font-size:11.5px;color:var(--soft);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 #tv .tv-prow .info .tag{background:var(--card2);color:var(--bronze2);font-weight:700;padding:1px 7px;border-radius:20px;font-size:10px}
 #tv .tv-prow .play{width:38px;height:38px;border-radius:50%;background:var(--bronze);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none}
+#tv .tv-prow .icon{width:76px;height:76px;border-radius:12px;flex:none;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:26px}
+#tv .tv-mstats{display:flex;gap:8px;margin:14px 0}
+#tv .tv-mstat{flex:1;background:var(--card2);border-radius:12px;padding:10px 4px;text-align:center}
+#tv .tv-mstat b{display:block;font-family:'Poppins';font-weight:800;font-size:18px}
+#tv .tv-mstat span{font-size:10.5px;color:var(--soft)}
+#tv .tv-mstat.kcal b{color:var(--bronze2)}
+#tv .tv-mstat.p b{color:var(--crimson)}
+#tv .tv-mstat.c b{color:var(--bronze)}
+#tv .tv-mstat.f b{color:#C99A2E}
+#tv .tv-stepper{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin-bottom:16px}
+#tv .tv-stepper button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);background:var(--card2);color:var(--ink);font-size:16px;font-weight:700}
+#tv .tv-stepper .n{font-family:'Poppins';font-weight:800;font-size:16px;min-width:20px;text-align:center}
+#tv .tv-ing-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+#tv .tv-ing-row:last-child{border-bottom:none}
+#tv .tv-ing-row .dot{width:6px;height:6px;border-radius:50%;background:var(--bronze2);flex:none}
+#tv .tv-step-row{display:flex;gap:12px;margin-bottom:12px}
+#tv .tv-step-row .n{width:26px;height:26px;border-radius:50%;background:var(--bronze);color:#fff;font-weight:800;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex:none}
+#tv .tv-step-row p{font-size:13.5px;padding-top:2px}
+#tv .tv-tags-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+#tv .tv-tags-row span{background:var(--card2);color:var(--bronze2);font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px}
+#tv .tv-mealtype{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--bronze2)}
+#tv .tv-log-tabs{display:flex;gap:8px;margin-bottom:16px}
+#tv .tv-log-tabs button{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:11px;padding:11px;font-weight:700;font-size:13.5px;color:var(--ink)}
+#tv .tv-log-tabs button.on{background:var(--bronze);border-color:var(--bronze);color:#fff}
+#tv .tv-mealpills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+#tv .tv-mealpills button{flex:none;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:8px 14px;font-size:12.5px;font-weight:600;color:var(--ink)}
+#tv .tv-mealpills button.on{background:var(--bronze);border-color:var(--bronze);color:#fff}
+#tv .tv-search{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:12px 14px;font-size:14px;font-family:inherit;color:var(--ink);background:var(--bg2);margin-bottom:14px}
+#tv .tv-search:focus{outline:none;border-color:var(--bronze2)}
+#tv .tv-dietcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow)}
+#tv .tv-dietcard .hero{position:relative;height:120px;background:linear-gradient(150deg,var(--bronze2),var(--bronze));padding:12px;display:flex;flex-direction:column;justify-content:flex-end}
+#tv .tv-dietcard .badge{position:absolute;top:10px;left:10px;background:#fff;color:var(--crimson);font-size:9.5px;font-weight:800;padding:2px 8px;border-radius:20px}
+#tv .tv-dietcard .title{color:#fff;font-family:'Poppins';font-weight:700;font-size:15px;line-height:1.25}
+#tv .tv-dietcard .foot{display:flex;align-items:center;gap:10px;padding:10px 13px;font-size:11.5px;color:var(--soft);flex-wrap:wrap}
+#tv .tv-dietcard .foot .tag{margin-left:auto;background:var(--card2);color:var(--bronze2);font-weight:800;font-size:10px;padding:3px 9px;border-radius:20px;text-transform:uppercase}
 
 /* ===== program detail ===== */
 #tv .tv-hero{width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;position:relative;margin-bottom:12px}
@@ -305,6 +340,16 @@ var I18N = {
     meals_nutrition:'Nutrición de hoy', meals_protein:'Proteína', meals_carbs:'Carbohidratos', meals_fat:'Grasa', meals_log:'+ Registrar alimento', meals_explore:'Explorar',
     meals_today:'Comidas de hoy', meals_empty_title:'Todavía no registraste comidas hoy', meals_empty_body:'Tocá "Registrar alimento" para sumar tu primera comida', meals_logged:'kcal registradas hoy.',
     diets_title:'Planes de comida', diets_cat:'Categoría', diets_programs:'Programas', diets_kcal_day:'kcal/día',
+    diets_all:'Todos', diets_start:'Comenzar Este Plan', diets_active:'✓ Plan Activo', diets_days:'Días', diets_day_prefix:'Día',
+    cat_highprotein:'Alta Proteína', cat_glp1:'GLP-1', cat_diabetes:'Diabetes', cat_fattyliver:'Hígado Graso', cat_keto:'Keto', cat_mediterranean:'Mediterránea',
+    mt_all:'Todos', mt_breakfast:'Desayuno', mt_lunch:'Almuerzo', mt_dinner:'Cena', mt_snack:'Snack',
+    recipe_about:'Acerca de este plato', recipe_portions:'Porciones', recipe_portions_sub:'Ajusta a tu porción',
+    recipe_ingredients:'Ingredientes', recipe_steps:'Cómo prepararlo', recipe_mark_eaten:'Marcar como comido', recipe_already_eaten:'✓ Ya lo comiste',
+    browse_title:'Explorar Recetas', browse_search:'Buscar recetas', browse_all:'Todas las recetas', browse_empty:'No se encontraron recetas',
+    log_title:'Registrar una comida', log_quick:'Agregar rápido', log_recipes:'Recetas', log_anything:'Cualquier cosa que hayas comido',
+    log_anything_sub:'¿No está en la biblioteca de recetas? Escríbelo directamente.', log_meal_optional:'Comida (opcional)',
+    log_food_name:'Nombre del alimento', log_food_placeholder:'p. ej. Plátano, Café con leche', log_calories:'Calorías',
+    log_macros_optional:'Macros (opcional, en gramos)', log_submit:'Registrar comida', log_search_placeholder:'Buscar en recetas…',
     prog_title:'Tu progreso', prog_streak_title:'🔥 Empezá tu racha', prog_streak_body:'Completá un entrenamiento diario para construir un hábito duradero.',
     prog_activity:'Actividad de hoy', prog_burned:'Calorías quemadas', prog_active:'Tiempo activo', prog_water:'Agua consumida', prog_consumed:'Calorías consumidas',
     prog_weight_track:'Seguimiento de peso', prog_weight_update:'Actualizar peso', prog_general:'Progreso general', prog_total_days:'Días totales', prog_total_workouts:'Total de entrenamientos',
@@ -344,6 +389,16 @@ var I18N = {
     meals_nutrition:"Today's nutrition", meals_protein:'Protein', meals_carbs:'Carbs', meals_fat:'Fat', meals_log:'+ Log food', meals_explore:'Explore',
     meals_today:"Today's meals", meals_empty_title:"You haven't logged any meals today", meals_empty_body:'Tap "Log food" to add your first meal', meals_logged:'kcal logged today.',
     diets_title:'Meal plans', diets_cat:'Category', diets_programs:'Programs', diets_kcal_day:'kcal/day',
+    diets_all:'All', diets_start:'Start This Plan', diets_active:'✓ Active Plan', diets_days:'Days', diets_day_prefix:'Day',
+    cat_highprotein:'High Protein', cat_glp1:'GLP-1', cat_diabetes:'Diabetes', cat_fattyliver:'Fatty Liver', cat_keto:'Keto', cat_mediterranean:'Mediterranean',
+    mt_all:'All', mt_breakfast:'Breakfast', mt_lunch:'Lunch', mt_dinner:'Dinner', mt_snack:'Snack',
+    recipe_about:'About this dish', recipe_portions:'Portions', recipe_portions_sub:'Adjust to your serving',
+    recipe_ingredients:'Ingredients', recipe_steps:'How to make it', recipe_mark_eaten:'Mark as eaten', recipe_already_eaten:'✓ Already eaten',
+    browse_title:'Explore Recipes', browse_search:'Search recipes', browse_all:'All recipes', browse_empty:'No recipes found',
+    log_title:'Log a meal', log_quick:'Quick add', log_recipes:'Recipes', log_anything:'Anything you ate',
+    log_anything_sub:"Not in the recipe library? Just type it in.", log_meal_optional:'Meal (optional)',
+    log_food_name:'Food name', log_food_placeholder:'e.g. Banana, Coffee with milk', log_calories:'Calories',
+    log_macros_optional:'Macros (optional, in grams)', log_submit:'Log meal', log_search_placeholder:'Search recipes…',
     prog_title:'Your progress', prog_streak_title:'🔥 Start your streak', prog_streak_body:'Complete a daily workout to build a habit that sticks.',
     prog_activity:"Today's activity", prog_burned:'Calories burned', prog_active:'Active time', prog_water:'Water consumed', prog_consumed:'Calories consumed',
     prog_weight_track:'Weight tracking', prog_weight_update:'Update weight', prog_general:'Overall progress', prog_total_days:'Total days', prog_total_workouts:'Total workouts',
@@ -373,6 +428,7 @@ var DEFAULT_STATE = {
   streak:0, lastCheckinDate:null,
   weightUnit:'kg', weight:null, weightLog:[],
   activeProgram:null, programDay:{}, completedDays:{}, catalogSessions:0,
+  activeDiet:null, dietDay:{},
   dailyLog:{},
   settings:{ units:'metric', reminders:false, lang:'es', theme:'light' }
 };
@@ -385,8 +441,23 @@ function save(){ localStorage.setItem('tcv_state', JSON.stringify(state)); apply
 function applyTheme(){ document.documentElement.setAttribute('data-theme', state.settings.theme==='dark'?'dark':'light'); }
 function today(){
   var tk = todayStr();
-  if(!state.dailyLog[tk]) state.dailyLog[tk] = { water:0, cal:0, burned:0, active:0, mood:null };
+  if(!state.dailyLog[tk]) state.dailyLog[tk] = { water:0, cal:0, burned:0, active:0, mood:null, items:[] };
+  if(!state.dailyLog[tk].items) state.dailyLog[tk].items = [];
   return state.dailyLog[tk];
+}
+function logMeal(mealType, name, kcal, p, c, f, recipeId){
+  var tt = today();
+  tt.items.push({ mealType:mealType||null, name:name, kcal:Math.round(kcal), p:Math.round(p||0), c:Math.round(c||0), f:Math.round(f||0), recipeId:recipeId||null });
+  tt.cal += Math.round(kcal);
+  save();
+}
+function todayMacros(){
+  var tt = today();
+  return (tt.items||[]).reduce(function(a,it){ a.p+=it.p; a.c+=it.c; a.f+=it.f; return a; }, {p:0,c:0,f:0});
+}
+function hasEatenToday(recipeId){
+  var tt = today();
+  return (tt.items||[]).some(function(it){ return it.recipeId===recipeId; });
 }
 function last7(){
   var out=[];
@@ -463,13 +534,278 @@ var CATEGORIES = [
   {key:'Power Series', name:bi('Power Series','Power Series'), badge:'NEW', img:'images/cat-power.png'}
 ];
 var DIETS = [
-  {id:'alta-proteina', name:bi('30 Días Alta en Proteína','30-Day High Protein'), kcal:1500, days:30, tag:bi('ALTA PROTEÍNA','HIGH PROTEIN')},
-  {id:'antiinflamatoria', name:bi('30 Días Antiinflamatoria','30-Day Anti-Inflammatory'), kcal:1600, days:30, tag:bi('ANTIINFLAMATORIA','ANTI-INFLAMMATORY')},
-  {id:'diabetes', name:bi('30 Días Amigable con la Diabetes','30-Day Diabetes-Friendly'), kcal:1700, days:30, tag:bi('DIABETES','DIABETES')},
-  {id:'mediterranea', name:bi('30 Días Mediterránea','30-Day Mediterranean'), kcal:1800, days:30, tag:bi('MEDITERRÁNEA','MEDITERRANEAN')},
-  {id:'bajo-sodio', name:bi('14 Días Baja en Sodio','14-Day Low Sodium'), kcal:1700, days:14, tag:bi('BAJO SODIO','LOW SODIUM')},
-  {id:'facil-digestion', name:bi('14 Días Fácil Digestión','14-Day Easy Digestion'), kcal:1600, days:14, tag:bi('FÁCIL DIGESTIÓN','EASY DIGESTION')}
+  {id:'high-protein', name:bi('Dieta Alta en Proteína de 30 Días','30-Day High Protein Diet'), kcal:1400, days:30, cat:'highprotein', tag:bi('ALTA PROTEÍNA','HIGHPROTEIN'), macros:{p:150,c:82,f:50}, badge:bi('Nuevo','New')},
+  {id:'glp1', name:bi('Dieta Complementaria GLP-1 de 30 Días','30-Day GLP-1 Companion Diet'), kcal:1500, days:30, cat:'glp1', tag:bi('GLP-1','GLP-1'), macros:{p:120,c:150,f:45}, badge:bi('Nuevo','New')},
+  {id:'diabetes-friendly', name:bi('Dieta Amigable para Diabéticos de 30 Días','30-Day Diabetes-Friendly Diet'), kcal:1700, days:30, cat:'diabetes', tag:bi('DIABETES','DIABETES'), macros:{p:110,c:180,f:60}, badge:bi('Nuevo','New')},
+  {id:'fatty-liver', name:bi('Dieta Amigable con el Hígado Graso de 30 Días','30-Day Fatty Liver Friendly Diet'), kcal:1700, days:30, cat:'fattyliver', tag:bi('HÍGADO GRASO','FATTY LIVER'), macros:{p:100,c:195,f:55}, badge:bi('Nuevo','New')},
+  {id:'keto-14', name:bi('Dieta Keto de 14 Días','14-Day Keto Diet'), kcal:1800, days:14, cat:'keto', tag:bi('KETO','KETO'), macros:{p:110,c:40,f:145}, badge:bi('Nuevo','New')},
+  {id:'mediterranean', name:bi('Dieta Mediterránea de 30 Días','30-Day Mediterranean Diet'), kcal:1800, days:30, cat:'mediterranean', tag:bi('MEDITERRÁNEA','MEDITERRANEAN'), macros:{p:95,c:210,f:70}, badge:bi('Nuevo','New')}
 ];
+function dietById(id){ for(var i=0;i<DIETS.length;i++){ if(DIETS[i].id===id) return DIETS[i]; } return null; }
+function rc(es,en,mt,cuisine,diff,min,kcal,p,c,f,descEs,descEn,ing,steps,tags,dietId){
+  return { id:slugify(en), name:bi(es,en), mealType:mt, cuisine:cuisine, diff:diff, min:min, kcal:kcal, p:p, c:c, f:f, desc:bi(descEs,descEn), ing:ing, steps:steps, tags:tags, dietId:dietId };
+}
+var RECIPES = [
+  // ---- High Protein ----
+  rc('Wrap de Pavo Ahumado y Claras','Smoked Turkey & Egg White Wrap','Breakfast','American','Easy',10,325,39,32,6,
+    'Un wrap ligero y alto en proteína con claras de huevo, pavo ahumado, espinaca y salsa picante.','A light, high-protein wrap with egg whites, smoked turkey, spinach, and hot sauce.',
+    [bi('Tortilla integral — 1 grande','Whole wheat tortilla — 1 large'),bi('Claras de huevo — 4 grandes','Egg whites — 4 large'),bi('Pavo ahumado — 60 g','Smoked turkey — 60 g'),bi('Espinaca — 30 g','Spinach — 30 g'),bi('Salsa picante — 1 cdta','Hot sauce — 1 tsp')],
+    [bi('Bate las claras hasta que estén esponjosas.','Scramble egg whites until fluffy.'),bi('Calienta la tortilla.','Warm tortilla.'),bi('Coloca el pavo, las claras, la espinaca y un toque de salsa picante.','Layer turkey, egg whites, spinach, and a dash of hot sauce.'),bi('Enrolla firme y sirve.','Roll tightly and serve.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Baja en Carbohidratos','Low-Carb'),bi('Rápida','Quick')], 'high-protein'),
+  rc('Bowl de Yogur Griego y Bayas','Greek Yogurt Power Bowl','Breakfast','Mediterranean','Easy',5,290,28,30,7,
+    'Un bowl cremoso de yogur griego con bayas frescas, granola y semillas de chía.','A creamy Greek yogurt bowl with fresh berries, granola, and chia seeds.',
+    [bi('Yogur griego — 200 g','Greek yogurt — 200 g'),bi('Frutos rojos mixtos — 80 g','Mixed berries — 80 g'),bi('Granola — 20 g','Granola — 20 g'),bi('Semillas de chía — 1 cda','Chia seeds — 1 tbsp')],
+    [bi('Mezcla el yogur con la mitad de las bayas.','Mix yogurt with half the berries.'),bi('Cubre con granola, chía y el resto de las bayas.','Top with granola, chia, and remaining berries.'),bi('Sirve bien frío.','Serve chilled.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Rápida','Quick'),bi('Sin Cocción','No-Cook')], 'high-protein'),
+  rc('Wrap de Pollo con Harissa Marroquí','Moroccan Harissa Chicken Wrap','Lunch','Moroccan','Medium',20,452,46,36,13,
+    'Pollo especiado con harissa envuelto con salsa de yogur y vegetales frescos.','Harissa-spiced chicken wrapped with a cooling yogurt sauce and fresh vegetables.',
+    [bi('Pechuga de pollo — 150 g','Chicken breast — 150 g'),bi('Pasta de harissa — 1 cda','Harissa paste — 1 tbsp'),bi('Tortilla integral — 1 grande','Whole wheat tortilla — 1 large'),bi('Yogur griego — 40 g','Greek yogurt — 40 g'),bi('Pepino — 30 g','Cucumber — 30 g')],
+    [bi('Cocina el pollo con la harissa hasta dorar.','Cook chicken with harissa until browned.'),bi('Calienta la tortilla.','Warm tortilla.'),bi('Arma el wrap con pollo, salsa de yogur y pepino.','Assemble wrap with chicken, yogurt sauce, and cucumber.'),bi('Enrolla y sirve.','Roll and serve.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Picante','Spicy')], 'high-protein'),
+  rc('Bowl de Pollo y Quinoa','Chicken & Quinoa Power Bowl','Lunch','American','Medium',25,480,44,42,14,
+    'Pollo a la parrilla sobre quinoa con vegetales y un toque de tahini.','Grilled chicken over quinoa with roasted vegetables and a drizzle of tahini.',
+    [bi('Pechuga de pollo — 150 g','Chicken breast — 150 g'),bi('Quinoa cocida — 150 g','Cooked quinoa — 150 g'),bi('Vegetales mixtos — 100 g','Mixed vegetables — 100 g'),bi('Tahini — 1 cda','Tahini — 1 tbsp')],
+    [bi('Cocina la quinoa.','Cook the quinoa.'),bi('Asa el pollo a la parrilla.','Grill the chicken.'),bi('Arma el bowl con quinoa, vegetales y pollo.','Assemble bowl with quinoa, vegetables, and chicken.'),bi('Rocía con tahini.','Drizzle with tahini.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Sin Gluten','Gluten-Free')], 'high-protein'),
+  rc('Kebabs de Pollo Tikka','Chicken Tikka Kebabs','Dinner','Indian','Medium',30,357,56,11,5,
+    'Brochetas de pollo marinadas en especias tikka, asadas hasta quedar jugosas.','Chicken skewers marinated in tikka spices, grilled until juicy.',
+    [bi('Pechuga de pollo — 180 g','Chicken breast — 180 g'),bi('Pasta tikka masala — 2 cdas','Tikka masala paste — 2 tbsp'),bi('Yogur — 2 cdas','Yogurt — 2 tbsp'),bi('Pimiento — 60 g','Bell pepper — 60 g'),bi('Cebolla — 40 g','Onion — 40 g')],
+    [bi('Marina el pollo con la pasta tikka y el yogur.','Marinate chicken in tikka paste and yogurt.'),bi('Ensarta con pimiento y cebolla.','Skewer with pepper and onion.'),bi('Asa hasta que esté bien cocido.','Grill until fully cooked.'),bi('Sirve caliente.','Serve hot.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Baja en Carbohidratos','Low-Carb')], 'high-protein'),
+  rc('Salmón a la Plancha con Espárragos','Pan-Seared Salmon with Asparagus','Dinner','American','Medium',25,410,42,10,22,
+    'Filete de salmón dorado con espárragos asados, limón y ajo.','Golden seared salmon fillet with roasted asparagus, lemon, and garlic.',
+    [bi('Filete de salmón — 180 g','Salmon fillet — 180 g'),bi('Espárragos — 100 g','Asparagus — 100 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Limón — 1/2','Lemon — 1/2'),bi('Ajo — 1 diente','Garlic — 1 clove')],
+    [bi('Sazona el salmón.','Season the salmon.'),bi('Sella en sartén caliente.','Sear in a hot pan.'),bi('Asa los espárragos con aceite y ajo.','Roast asparagus with oil and garlic.'),bi('Sirve con un toque de limón.','Serve with a squeeze of lemon.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Sin Gluten','Gluten-Free')], 'high-protein'),
+  rc('Cóctel de Camarones','Shrimp Cocktail','Snack','American','Easy',15,154,28,7,1,
+    'Camarones fríos con una salsa cóctel picante y limón.','Chilled shrimp with a tangy cocktail sauce and lemon.',
+    [bi('Camarones cocidos — 150 g','Cooked shrimp — 150 g'),bi('Salsa cóctel — 3 cdas','Cocktail sauce — 3 tbsp'),bi('Limón — 1 gajo','Lemon — 1 wedge')],
+    [bi('Enfría los camarones.','Chill the shrimp.'),bi('Acomoda en un plato.','Arrange on a plate.'),bi('Sirve con salsa cóctel y limón.','Serve with cocktail sauce and lemon.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Baja en Grasa','Low-Fat')], 'high-protein'),
+  rc('Batido de Proteína de Chocolate','Chocolate Protein Shake','Snack','American','Easy',5,220,30,14,5,
+    'Un batido rápido de proteína con plátano y cacao.','A quick protein shake with banana and cocoa.',
+    [bi('Proteína en polvo — 1 medida','Protein powder — 1 scoop'),bi('Leche — 250 ml','Milk — 250 ml'),bi('Plátano — 1/2','Banana — 1/2'),bi('Cacao en polvo — 1 cda','Cocoa powder — 1 tbsp')],
+    [bi('Coloca todo en la licuadora.','Add everything to the blender.'),bi('Licúa hasta que quede suave.','Blend until smooth.'),bi('Sirve de inmediato.','Serve immediately.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Rápida','Quick')], 'high-protein'),
+  // ---- GLP-1 Companion ----
+  rc('Avena Cremosa con Manzana','Creamy Apple Oatmeal','Breakfast','American','Easy',10,240,10,40,5,
+    'Avena suave con manzana guisada y canela, ideal para un estómago sensible.','Gentle oatmeal with stewed apple and cinnamon, easy on a sensitive stomach.',
+    [bi('Avena — 50 g','Rolled oats — 50 g'),bi('Manzana — 1','Apple — 1'),bi('Canela — 1 cdta','Cinnamon — 1 tsp'),bi('Leche — 200 ml','Milk — 200 ml'),bi('Miel — 1 cdta','Honey — 1 tsp')],
+    [bi('Cocina la avena con la leche.','Cook oats with milk.'),bi('Guisa la manzana con canela.','Stew apple with cinnamon.'),bi('Combina y agrega un toque de miel.','Combine and drizzle with honey.')],
+    [bi('Suave','Gentle'),bi('Alta en Fibra','High-Fiber')], 'glp1'),
+  rc('Batido Suave de Proteína y Plátano','Gentle Banana Protein Smoothie','Breakfast','American','Easy',5,210,20,26,4,
+    'Un batido suave y fácil de digerir con plátano y proteína.','A gentle, easy-to-digest smoothie with banana and protein.',
+    [bi('Proteína en polvo — 1 medida','Protein powder — 1 scoop'),bi('Plátano — 1','Banana — 1'),bi('Leche — 250 ml','Milk — 250 ml'),bi('Hielo — al gusto','Ice — to taste')],
+    [bi('Licúa todos los ingredientes.','Blend all ingredients.'),bi('Bebe lentamente.','Sip slowly.')],
+    [bi('Suave','Gentle'),bi('Rápido','Quick')], 'glp1'),
+  rc('Sopa de Pollo y Fideos','Chicken Noodle Broth','Lunch','American','Easy',20,260,22,28,6,
+    'Una sopa liviana a base de caldo, suave para el estómago.','A light broth-based soup, gentle on the stomach.',
+    [bi('Pechuga de pollo — 100 g','Chicken breast — 100 g'),bi('Fideos de huevo — 60 g','Egg noodles — 60 g'),bi('Zanahoria — 30 g','Carrot — 30 g'),bi('Apio — 30 g','Celery — 30 g'),bi('Caldo — 400 ml','Broth — 400 ml')],
+    [bi('Cocina el pollo en el caldo con las verduras.','Simmer chicken in broth with vegetables.'),bi('Agrega los fideos y cocina hasta que estén tiernos.','Add noodles and cook until tender.')],
+    [bi('Suave','Gentle'),bi('Reconfortante','Comforting')], 'glp1'),
+  rc('Ensalada Tibia de Lentejas','Warm Lentil Salad','Lunch','Mediterranean','Easy',20,300,18,38,8,
+    'Lentejas tibias con espinaca, tomate y un toque de limón.','Warm lentils with spinach, tomato, and a touch of lemon.',
+    [bi('Lentejas cocidas — 150 g','Cooked lentils — 150 g'),bi('Espinaca — 40 g','Spinach — 40 g'),bi('Tomates cherry — 50 g','Cherry tomatoes — 50 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Limón — 1/2','Lemon — 1/2')],
+    [bi('Cocina las lentejas.','Cook the lentils.'),bi('Mezcla tibias con espinaca y tomate.','Toss warm with spinach and tomato.'),bi('Alíña con aceite y limón.','Dress with oil and lemon.')],
+    [bi('Alta en Fibra','High-Fiber'),bi('Vegetariana','Vegetarian')], 'glp1'),
+  rc('Pescado Blanco al Vapor con Puré','Steamed White Fish with Mash','Dinner','American','Medium',25,320,30,30,8,
+    'Pescado blanco al vapor con eneldo y un puré de papa suave.','Steamed white fish with dill and a gentle potato mash.',
+    [bi('Filete de pescado blanco — 150 g','White fish fillet — 150 g'),bi('Papa — 200 g','Potato — 200 g'),bi('Manteca — 1 cdta','Butter — 1 tsp'),bi('Eneldo — al gusto','Dill — to taste')],
+    [bi('Cocina el pescado al vapor con eneldo.','Steam fish with dill.'),bi('Hace un puré suave de papa con manteca.','Mash potato with a touch of butter.'),bi('Sirve juntos.','Plate together.')],
+    [bi('Suave','Gentle'),bi('Baja en Grasa','Low-Fat')], 'glp1'),
+  rc('Pollo Desmenuzado con Arroz Suave','Shredded Chicken with Soft Rice','Dinner','American','Medium',30,340,32,34,7,
+    'Pollo tierno desmenuzado sobre arroz suave con zanahoria al vapor.','Tender shredded chicken over soft rice with steamed carrot.',
+    [bi('Pechuga de pollo — 150 g','Chicken breast — 150 g'),bi('Arroz blanco — 150 g','White rice — 150 g'),bi('Caldo — 300 ml','Broth — 300 ml'),bi('Zanahoria — 50 g','Carrot — 50 g')],
+    [bi('Pocha el pollo en el caldo.','Poach chicken in broth.'),bi('Desmenuza.','Shred it.'),bi('Sirve sobre arroz suave con zanahoria al vapor.','Serve over soft rice with steamed carrot.')],
+    [bi('Suave','Gentle'),bi('Alta en Proteína','High-Protein')], 'glp1'),
+  rc('Puré de Manzana Casero','Homemade Applesauce','Snack','American','Easy',15,90,1,22,0,
+    'Puré de manzana casero con canela, suave y reconfortante.','Homemade applesauce with cinnamon, gentle and comforting.',
+    [bi('Manzanas — 3','Apples — 3'),bi('Canela — 1 cdta','Cinnamon — 1 tsp'),bi('Agua — 100 ml','Water — 100 ml')],
+    [bi('Cocina las manzanas con agua y canela hasta ablandar.','Simmer apples with water and cinnamon until soft.'),bi('Licúa hasta lograr un puré suave.','Blend until smooth.')],
+    [bi('Suave','Gentle'),bi('Sin Grasa','Fat-Free')], 'glp1'),
+  rc('Galletas de Arroz con Queso Crema','Rice Cakes with Cream Cheese','Snack','American','Easy',3,120,4,16,5,
+    'Galletas de arroz con una capa de queso crema light.','Rice cakes topped with a layer of light cream cheese.',
+    [bi('Galletas de arroz — 2','Rice cakes — 2'),bi('Queso crema light — 2 cdas','Light cream cheese — 2 tbsp')],
+    [bi('Unta el queso crema sobre las galletas.','Spread cream cheese over rice cakes.'),bi('Sirve de inmediato.','Serve immediately.')],
+    [bi('Suave','Gentle'),bi('Rápido','Quick')], 'glp1'),
+  // ---- Diabetes-Friendly ----
+  rc('Tostada de Aguacate y Huevo','Avocado & Egg Toast','Breakfast','American','Easy',10,310,16,26,16,
+    'Tostada integral con aguacate, huevo y un toque de chile.','Whole grain toast with avocado, egg, and a touch of chili.',
+    [bi('Pan integral — 1 rebanada','Whole grain bread — 1 slice'),bi('Aguacate — 1/2','Avocado — 1/2'),bi('Huevo — 1','Egg — 1'),bi('Hojuelas de chile — al gusto','Chili flakes — to taste')],
+    [bi('Tuesta el pan.','Toast the bread.'),bi('Machaca el aguacate encima.','Mash avocado on top.'),bi('Agrega el huevo frito.','Add fried egg.'),bi('Espolvorea chile.','Sprinkle chili flakes.')],
+    [bi('Alta en Fibra','High-Fiber'),bi('Bajo Índice Glucémico','Low-Glycemic')], 'diabetes-friendly'),
+  rc('Bowl de Chía Nocturna con Frutos Rojos','Overnight Chia Berry Bowl','Breakfast','American','Easy',5,260,10,28,11,
+    'Chía remojada durante la noche con frutos rojos y canela.','Chia seeds soaked overnight with mixed berries and cinnamon.',
+    [bi('Semillas de chía — 3 cdas','Chia seeds — 3 tbsp'),bi('Leche de almendra — 200 ml','Almond milk — 200 ml'),bi('Frutos rojos — 60 g','Mixed berries — 60 g'),bi('Canela — 1 cdta','Cinnamon — 1 tsp')],
+    [bi('Mezcla la chía con la leche de almendra.','Mix chia with almond milk.'),bi('Refrigera toda la noche.','Refrigerate overnight.'),bi('Cubre con frutos rojos.','Top with berries.')],
+    [bi('Alta en Fibra','High-Fiber'),bi('Bajo Índice Glucémico','Low-Glycemic')], 'diabetes-friendly'),
+  rc('Ensalada de Quinoa y Garbanzos','Quinoa & Chickpea Salad','Lunch','Mediterranean','Easy',20,380,16,48,13,
+    'Quinoa con garbanzos, pepino y queso feta, aliñada con aceite de oliva.','Quinoa with chickpeas, cucumber, and feta, dressed with olive oil.',
+    [bi('Quinoa cocida — 150 g','Cooked quinoa — 150 g'),bi('Garbanzos — 100 g','Chickpeas — 100 g'),bi('Pepino — 50 g','Cucumber — 50 g'),bi('Queso feta — 30 g','Feta cheese — 30 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp')],
+    [bi('Cocina la quinoa.','Cook the quinoa.'),bi('Mezcla con garbanzos, pepino y feta.','Toss with chickpeas, cucumber, and feta.'),bi('Aliña con aceite de oliva.','Dress with olive oil.')],
+    [bi('Alta en Fibra','High-Fiber'),bi('Vegetariana','Vegetarian')], 'diabetes-friendly'),
+  rc('Wrap de Pavo y Vegetales','Turkey & Veggie Wrap','Lunch','American','Easy',15,340,28,32,10,
+    'Pavo magro envuelto con lechuga, tomate y mostaza.','Lean turkey wrapped with lettuce, tomato, and mustard.',
+    [bi('Tortilla integral — 1 grande','Whole wheat tortilla — 1 large'),bi('Pechuga de pavo — 100 g','Turkey breast — 100 g'),bi('Lechuga — 20 g','Lettuce — 20 g'),bi('Tomate — 30 g','Tomato — 30 g'),bi('Mostaza — 1 cdta','Mustard — 1 tsp')],
+    [bi('Coloca el pavo y los vegetales sobre la tortilla.','Layer turkey and vegetables on tortilla.'),bi('Agrega mostaza.','Add mustard.'),bi('Enrolla y corta.','Roll and slice.')],
+    [bi('Bajo Índice Glucémico','Low-Glycemic'),bi('Rápida','Quick')], 'diabetes-friendly'),
+  rc('Salmón al Horno con Brócoli','Baked Salmon with Broccoli','Dinner','American','Medium',25,420,38,18,22,
+    'Salmón al horno con brócoli, aceite de oliva y ajo.','Baked salmon with broccoli, olive oil, and garlic.',
+    [bi('Filete de salmón — 180 g','Salmon fillet — 180 g'),bi('Brócoli — 150 g','Broccoli — 150 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Ajo — 1 diente','Garlic — 1 clove')],
+    [bi('Sazona el salmón.','Season the salmon.'),bi('Hornea con el brócoli, aceite y ajo.','Bake with broccoli, oil, and garlic.'),bi('Sirve caliente.','Serve hot.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Bajo Índice Glucémico','Low-Glycemic')], 'diabetes-friendly'),
+  rc('Pechuga de Pollo con Vegetales Salteados','Chicken Breast with Sautéed Vegetables','Dinner','American','Medium',25,360,40,20,12,
+    'Pechuga de pollo a la parrilla con calabacín y pimiento salteados.','Grilled chicken breast with sautéed zucchini and bell pepper.',
+    [bi('Pechuga de pollo — 180 g','Chicken breast — 180 g'),bi('Calabacín — 80 g','Zucchini — 80 g'),bi('Pimiento — 60 g','Bell pepper — 60 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp')],
+    [bi('Asa el pollo a la parrilla.','Grill the chicken.'),bi('Saltea los vegetales en aceite de oliva.','Sauté vegetables in olive oil.'),bi('Sirve juntos.','Plate together.')],
+    [bi('Alta en Proteína','High-Protein'),bi('Bajo Índice Glucémico','Low-Glycemic')], 'diabetes-friendly'),
+  rc('Palitos de Zanahoria con Hummus','Carrot Sticks with Hummus','Snack','Mediterranean','Easy',5,140,5,16,6,
+    'Palitos de zanahoria crujientes con hummus casero.','Crunchy carrot sticks with homemade hummus.',
+    [bi('Zanahorias — 2','Carrots — 2'),bi('Hummus — 60 g','Hummus — 60 g')],
+    [bi('Corta las zanahorias en palitos.','Cut carrots into sticks.'),bi('Sirve con hummus.','Serve with hummus.')],
+    [bi('Alta en Fibra','High-Fiber'),bi('Vegana','Vegan')], 'diabetes-friendly'),
+  rc('Puñado de Almendras y Manzana','Handful of Almonds & Apple','Snack','American','Easy',2,180,5,20,10,
+    'Manzana en rodajas con un puñado de almendras.','Sliced apple with a small handful of almonds.',
+    [bi('Manzana — 1','Apple — 1'),bi('Almendras — 20 g','Almonds — 20 g')],
+    [bi('Corta la manzana en rodajas.','Slice the apple.'),bi('Sirve junto con las almendras.','Serve with the almonds.')],
+    [bi('Bajo Índice Glucémico','Low-Glycemic'),bi('Rápido','Quick')], 'diabetes-friendly'),
+  // ---- Fatty Liver Friendly ----
+  rc('Avena con Arándanos y Nueces','Blueberry Walnut Oatmeal','Breakfast','American','Easy',10,280,9,42,9,
+    'Avena con arándanos frescos, nueces y canela.','Oatmeal with fresh blueberries, walnuts, and cinnamon.',
+    [bi('Avena — 50 g','Rolled oats — 50 g'),bi('Arándanos — 60 g','Blueberries — 60 g'),bi('Nueces — 15 g','Walnuts — 15 g'),bi('Canela — 1 cdta','Cinnamon — 1 tsp')],
+    [bi('Cocina la avena.','Cook the oats.'),bi('Cubre con arándanos, nueces y canela.','Top with blueberries, walnuts, and cinnamon.')],
+    [bi('Antioxidante','Antioxidant-Rich'),bi('Baja en Grasa','Low-Fat')], 'fatty-liver'),
+  rc('Batido Verde Detox','Green Detox Smoothie','Breakfast','American','Easy',5,190,6,32,4,
+    'Batido de espinaca, manzana, plátano y jengibre.','Spinach, apple, banana, and ginger smoothie.',
+    [bi('Espinaca — 40 g','Spinach — 40 g'),bi('Plátano — 1','Banana — 1'),bi('Manzana — 1','Apple — 1'),bi('Jengibre — 1 cdta','Ginger — 1 tsp'),bi('Agua — 200 ml','Water — 200 ml')],
+    [bi('Licúa todos los ingredientes.','Blend all ingredients.'),bi('Sirve frío.','Serve cold.')],
+    [bi('Antioxidante','Antioxidant-Rich'),bi('Vegana','Vegan')], 'fatty-liver'),
+  rc('Ensalada de Remolacha y Espinaca','Beet & Spinach Salad','Lunch','Mediterranean','Easy',15,260,8,26,12,
+    'Remolacha asada con espinaca, nueces y aliño de limón.','Roasted beets with spinach, walnuts, and a lemon dressing.',
+    [bi('Remolacha asada — 100 g','Roasted beets — 100 g'),bi('Espinaca — 50 g','Spinach — 50 g'),bi('Nueces — 15 g','Walnuts — 15 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Limón — 1/2','Lemon — 1/2')],
+    [bi('Mezcla la espinaca con la remolacha.','Toss spinach with beets.'),bi('Cubre con nueces.','Top with walnuts.'),bi('Aliña con aceite y limón.','Dress with olive oil and lemon.')],
+    [bi('Antioxidante','Antioxidant-Rich'),bi('Vegetariana','Vegetarian')], 'fatty-liver'),
+  rc('Sopa de Lentejas y Verduras','Lentil & Vegetable Soup','Lunch','Mediterranean','Easy',30,300,16,44,6,
+    'Sopa reconfortante de lentejas con zanahoria, apio y tomate.','A comforting lentil soup with carrot, celery, and tomato.',
+    [bi('Lentejas — 150 g','Lentils — 150 g'),bi('Zanahoria — 50 g','Carrot — 50 g'),bi('Apio — 50 g','Celery — 50 g'),bi('Tomate — 60 g','Tomato — 60 g'),bi('Caldo de verduras — 400 ml','Vegetable broth — 400 ml')],
+    [bi('Cocina las lentejas con las verduras en el caldo.','Simmer lentils with vegetables in broth.'),bi('Cocina hasta que estén tiernas.','Cook until tender.')],
+    [bi('Alta en Fibra','High-Fiber'),bi('Baja en Grasa','Low-Fat')], 'fatty-liver'),
+  rc('Pescado al Horno con Vegetales al Vapor','Baked Fish with Steamed Vegetables','Dinner','American','Medium',25,340,32,24,10,
+    'Pescado blanco al horno con limón y vegetales al vapor.','Baked white fish with lemon and steamed vegetables.',
+    [bi('Filete de pescado blanco — 150 g','White fish fillet — 150 g'),bi('Calabacín — 60 g','Zucchini — 60 g'),bi('Zanahoria — 60 g','Carrot — 60 g'),bi('Limón — 1/2','Lemon — 1/2')],
+    [bi('Hornea el pescado con limón.','Bake fish with lemon.'),bi('Cocina los vegetales al vapor.','Steam the vegetables.'),bi('Sirve juntos.','Plate together.')],
+    [bi('Baja en Grasa','Low-Fat'),bi('Alta en Proteína','High-Protein')], 'fatty-liver'),
+  rc('Pollo al Limón con Arroz Integral','Lemon Chicken with Brown Rice','Dinner','American','Medium',30,380,34,38,8,
+    'Pollo al limón y ajo servido sobre arroz integral.','Lemon and garlic chicken served over brown rice.',
+    [bi('Pechuga de pollo — 180 g','Chicken breast — 180 g'),bi('Limón — 1','Lemon — 1'),bi('Ajo — 2 dientes','Garlic — 2 cloves'),bi('Arroz integral — 150 g','Brown rice — 150 g')],
+    [bi('Cocina el pollo con limón y ajo.','Cook chicken with lemon and garlic.'),bi('Sirve sobre arroz integral.','Serve over brown rice.')],
+    [bi('Alta en Fibra','High-Fiber'),bi('Baja en Grasa','Low-Fat')], 'fatty-liver'),
+  rc('Manzana con Canela al Horno','Baked Cinnamon Apple','Snack','American','Easy',15,110,1,26,1,
+    'Rodajas de manzana horneadas con canela hasta ablandar.','Apple slices baked with cinnamon until soft.',
+    [bi('Manzana — 1','Apple — 1'),bi('Canela — 1 cdta','Cinnamon — 1 tsp')],
+    [bi('Hornea las rodajas de manzana con canela.','Bake apple slices with cinnamon.'),bi('Sirve tibio.','Serve warm.')],
+    [bi('Baja en Grasa','Low-Fat'),bi('Vegana','Vegan')], 'fatty-liver'),
+  rc('Té Verde con Nueces','Green Tea with Walnuts','Snack','American','Easy',5,130,3,8,10,
+    'Té verde antioxidante acompañado de un puñado de nueces.','Antioxidant-rich green tea paired with a handful of walnuts.',
+    [bi('Té verde — 1 taza','Green tea — 1 cup'),bi('Nueces — 15 g','Walnuts — 15 g')],
+    [bi('Prepara el té verde.','Brew the green tea.'),bi('Sirve con las nueces.','Serve with the walnuts.')],
+    [bi('Antioxidante','Antioxidant-Rich'),bi('Rápido','Quick')], 'fatty-liver'),
+  // ---- Keto ----
+  rc('Huevos Revueltos con Aguacate','Scrambled Eggs with Avocado','Breakfast','American','Easy',10,420,20,8,34,
+    'Huevos revueltos en manteca con aguacate y ciboulette.','Eggs scrambled in butter with avocado and chives.',
+    [bi('Huevos — 3','Eggs — 3'),bi('Aguacate — 1/2','Avocado — 1/2'),bi('Manteca — 1 cda','Butter — 1 tbsp'),bi('Ciboulette — al gusto','Chives — to taste')],
+    [bi('Bate los huevos con manteca.','Scramble eggs in butter.'),bi('Sirve con aguacate y ciboulette.','Serve with sliced avocado and chives.')],
+    [bi('Keto','Keto'),bi('Baja en Carbohidratos','Low-Carb')], 'keto-14'),
+  rc('Bowl de Yogur Griego con Nueces','Greek Yogurt & Nut Bowl','Breakfast','Mediterranean','Easy',5,380,18,10,30,
+    'Yogur griego entero con nueces mixtas y canela.','Full-fat Greek yogurt with mixed nuts and cinnamon.',
+    [bi('Yogur griego entero — 200 g','Full-fat Greek yogurt — 200 g'),bi('Nueces mixtas — 30 g','Mixed nuts — 30 g'),bi('Canela — al gusto','Cinnamon — to taste')],
+    [bi('Cubre el yogur con las nueces.','Top yogurt with nuts.'),bi('Espolvorea canela.','Sprinkle with cinnamon.')],
+    [bi('Keto','Keto'),bi('Rápido','Quick')], 'keto-14'),
+  rc('Ensalada César con Pollo (sin crutones)','Chicken Caesar Salad (No Croutons)','Lunch','American','Easy',15,460,38,8,30,
+    'Ensalada César clásica sin crutones, con pollo a la parrilla.','A classic Caesar salad without croutons, topped with grilled chicken.',
+    [bi('Pechuga de pollo — 150 g','Chicken breast — 150 g'),bi('Lechuga romana — 80 g','Romaine lettuce — 80 g'),bi('Parmesano — 20 g','Parmesan — 20 g'),bi('Aliño César — 2 cdas','Caesar dressing — 2 tbsp')],
+    [bi('Asa el pollo a la parrilla.','Grill the chicken.'),bi('Mezcla la lechuga con el aliño y el parmesano.','Toss lettuce with dressing and parmesan.'),bi('Corona con el pollo.','Top with chicken.')],
+    [bi('Keto','Keto'),bi('Baja en Carbohidratos','Low-Carb')], 'keto-14'),
+  rc('Rollitos de Pavo y Queso Crema','Turkey & Cream Cheese Roll-Ups','Lunch','American','Easy',10,400,30,4,28,
+    'Fetas de pavo rellenas de queso crema y espinaca.','Turkey slices rolled with cream cheese and spinach.',
+    [bi('Fetas de pavo — 120 g','Turkey slices — 120 g'),bi('Queso crema — 60 g','Cream cheese — 60 g'),bi('Espinaca — 20 g','Spinach — 20 g')],
+    [bi('Unta queso crema en el pavo.','Spread cream cheese on turkey.'),bi('Agrega espinaca y enrolla.','Add spinach and roll up.'),bi('Corta y sirve.','Slice and serve.')],
+    [bi('Keto','Keto'),bi('Sin Cocción','No-Cook')], 'keto-14'),
+  rc('Salmón con Mantequilla de Limón','Salmon with Lemon Butter','Dinner','American','Medium',20,520,40,3,38,
+    'Salmón sellado bañado en una salsa de mantequilla y limón.','Seared salmon bathed in a lemon butter sauce.',
+    [bi('Filete de salmón — 180 g','Salmon fillet — 180 g'),bi('Manteca — 2 cdas','Butter — 2 tbsp'),bi('Limón — 1','Lemon — 1'),bi('Ajo — 1 diente','Garlic — 1 clove')],
+    [bi('Sella el salmón.','Sear the salmon.'),bi('Prepara la salsa de manteca y limón.','Make the lemon butter sauce.'),bi('Baña el salmón con la salsa.','Spoon sauce over the fish.')],
+    [bi('Keto','Keto'),bi('Alta en Grasas Saludables','High-Healthy-Fat')], 'keto-14'),
+  rc('Muslos de Pollo con Coliflor Asada','Chicken Thighs with Roasted Cauliflower','Dinner','American','Medium',35,480,36,10,32,
+    'Muslos de pollo dorados con coliflor asada y pimentón.','Golden chicken thighs with roasted cauliflower and paprika.',
+    [bi('Muslos de pollo — 220 g','Chicken thighs — 220 g'),bi('Coliflor — 150 g','Cauliflower — 150 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Pimentón — 1 cdta','Paprika — 1 tsp')],
+    [bi('Sazona el pollo y la coliflor con aceite y pimentón.','Season chicken and cauliflower with oil and paprika.'),bi('Asa hasta dorar.','Roast until golden.')],
+    [bi('Keto','Keto'),bi('Sin Gluten','Gluten-Free')], 'keto-14'),
+  rc('Cubos de Queso y Aceitunas','Cheese Cubes & Olives','Snack','Mediterranean','Easy',3,220,12,3,18,
+    'Cubos de queso curado con aceitunas, servidos fríos.','Cubed aged cheese with olives, served chilled.',
+    [bi('Queso curado en cubos — 60 g','Aged cheese, cubed — 60 g'),bi('Aceitunas — 40 g','Olives — 40 g')],
+    [bi('Acomoda los cubos de queso en un plato.','Plate the cheese cubes.'),bi('Sirve con las aceitunas.','Serve with the olives.')],
+    [bi('Keto','Keto'),bi('Sin Cocción','No-Cook')], 'keto-14'),
+  rc('Chips de Kale al Horno','Baked Kale Chips','Snack','American','Easy',15,150,4,6,12,
+    'Hojas de kale horneadas con aceite de oliva hasta quedar crocantes.','Kale leaves baked with olive oil until crisp.',
+    [bi('Kale — 80 g','Kale — 80 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Sal — al gusto','Salt — to taste')],
+    [bi('Mezcla el kale con aceite y sal.','Toss kale with oil and salt.'),bi('Hornea hasta que esté crocante.','Bake until crisp.')],
+    [bi('Keto','Keto'),bi('Vegana','Vegan')], 'keto-14'),
+  // ---- Mediterranean ----
+  rc('Yogur Griego con Miel y Nueces','Greek Yogurt with Honey & Walnuts','Breakfast','Mediterranean','Easy',5,320,18,30,14,
+    'Yogur griego con un toque de miel y nueces.','Greek yogurt with a drizzle of honey and walnuts.',
+    [bi('Yogur griego — 200 g','Greek yogurt — 200 g'),bi('Miel — 1 cda','Honey — 1 tbsp'),bi('Nueces — 20 g','Walnuts — 20 g')],
+    [bi('Sirve el yogur en un bowl.','Serve yogurt in a bowl.'),bi('Rocía con miel y cubre con nueces.','Drizzle with honey and top with walnuts.')],
+    [bi('Mediterránea','Mediterranean'),bi('Rápida','Quick')], 'mediterranean'),
+  rc('Tostada Mediterránea con Tomate','Mediterranean Tomato Toast','Breakfast','Mediterranean','Easy',10,280,9,34,11,
+    'Pan integral tostado con tomate, feta, aceite de oliva y orégano.','Toasted whole grain bread with tomato, feta, olive oil, and oregano.',
+    [bi('Pan integral — 1 rebanada','Whole grain bread — 1 slice'),bi('Tomate — 1','Tomato — 1'),bi('Queso feta — 20 g','Feta cheese — 20 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Orégano — al gusto','Oregano — to taste')],
+    [bi('Tuesta el pan.','Toast the bread.'),bi('Cubre con tomate, feta, aceite de oliva y orégano.','Top with tomato, feta, olive oil, and oregano.')],
+    [bi('Mediterránea','Mediterranean'),bi('Vegetariana','Vegetarian')], 'mediterranean'),
+  rc('Ensalada Griega con Pollo','Greek Chicken Salad','Lunch','Mediterranean','Easy',20,420,36,18,22,
+    'Ensalada griega clásica con pepino, tomate, feta, aceitunas y pollo a la parrilla.','A classic Greek salad with cucumber, tomato, feta, olives, and grilled chicken.',
+    [bi('Pechuga de pollo — 150 g','Chicken breast — 150 g'),bi('Pepino — 50 g','Cucumber — 50 g'),bi('Tomate — 50 g','Tomato — 50 g'),bi('Queso feta — 30 g','Feta cheese — 30 g'),bi('Aceitunas — 20 g','Olives — 20 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp')],
+    [bi('Asa el pollo a la parrilla.','Grill the chicken.'),bi('Mezcla los vegetales con feta y aceitunas.','Toss vegetables with feta and olives.'),bi('Aliña con aceite de oliva y corona con pollo.','Dress with olive oil and top with chicken.')],
+    [bi('Mediterránea','Mediterranean'),bi('Alta en Proteína','High-Protein')], 'mediterranean'),
+  rc('Bowl de Falafel y Hummus','Falafel & Hummus Bowl','Lunch','Mediterranean','Medium',25,460,16,52,18,
+    'Falafel tibio con hummus, vegetales frescos y pan pita.','Warm falafel with hummus, fresh vegetables, and pita bread.',
+    [bi('Falafel — 6 unidades','Falafel — 6 pieces'),bi('Hummus — 60 g','Hummus — 60 g'),bi('Pepino — 40 g','Cucumber — 40 g'),bi('Tomate — 40 g','Tomato — 40 g'),bi('Pan pita — 1','Pita bread — 1')],
+    [bi('Calienta el falafel.','Warm the falafel.'),bi('Arma el bowl con hummus, vegetales y pita.','Assemble bowl with hummus, vegetables, and pita.')],
+    [bi('Mediterránea','Mediterranean'),bi('Vegetariana','Vegetarian')], 'mediterranean'),
+  rc('Pescado al Horno con Aceitunas y Tomate','Baked Fish with Olives & Tomato','Dinner','Mediterranean','Medium',25,380,34,16,18,
+    'Pescado blanco al horno con tomates cherry, aceitunas y aceite de oliva.','Baked white fish with cherry tomatoes, olives, and olive oil.',
+    [bi('Filete de pescado blanco — 180 g','White fish fillet — 180 g'),bi('Tomates cherry — 80 g','Cherry tomatoes — 80 g'),bi('Aceitunas — 30 g','Olives — 30 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp')],
+    [bi('Hornea el pescado con tomates, aceitunas y aceite.','Bake fish with tomatoes, olives, and oil.'),bi('Cocina hasta que esté tierno.','Cook until flaky.')],
+    [bi('Mediterránea','Mediterranean'),bi('Sin Gluten','Gluten-Free')], 'mediterranean'),
+  rc('Pasta Integral con Vegetales y Aceite de Oliva','Whole Wheat Pasta with Vegetables','Dinner','Mediterranean','Medium',25,440,16,60,14,
+    'Pasta integral salteada con calabacín, tomates cherry y parmesano.','Whole wheat pasta sautéed with zucchini, cherry tomatoes, and parmesan.',
+    [bi('Pasta integral — 150 g','Whole wheat pasta — 150 g'),bi('Calabacín — 80 g','Zucchini — 80 g'),bi('Tomates cherry — 60 g','Cherry tomatoes — 60 g'),bi('Aceite de oliva — 1 cda','Olive oil — 1 tbsp'),bi('Parmesano — 20 g','Parmesan — 20 g')],
+    [bi('Cocina la pasta.','Cook the pasta.'),bi('Saltea los vegetales en aceite de oliva.','Sauté vegetables in olive oil.'),bi('Mezcla todo con parmesano.','Toss together with parmesan.')],
+    [bi('Mediterránea','Mediterranean'),bi('Vegetariana','Vegetarian')], 'mediterranean'),
+  rc('Hummus con Vegetales','Hummus with Veggie Sticks','Snack','Mediterranean','Easy',5,180,7,20,8,
+    'Hummus casero con bastones de zanahoria, pepino y pimiento.','Homemade hummus with carrot, cucumber, and bell pepper sticks.',
+    [bi('Hummus — 80 g','Hummus — 80 g'),bi('Zanahoria — 1','Carrot — 1'),bi('Pepino — 1/2','Cucumber — 1/2'),bi('Pimiento — 1/2','Bell pepper — 1/2')],
+    [bi('Corta los vegetales en bastones.','Cut vegetables into sticks.'),bi('Sirve con hummus.','Serve with hummus.')],
+    [bi('Mediterránea','Mediterranean'),bi('Vegana','Vegan')], 'mediterranean'),
+  rc('Puñado de Aceitunas y Almendras','Olives & Almonds','Snack','Mediterranean','Easy',2,200,6,8,17,
+    'Un puñado de aceitunas y almendras, el snack mediterráneo clásico.','A handful of olives and almonds, the classic Mediterranean snack.',
+    [bi('Aceitunas — 40 g','Olives — 40 g'),bi('Almendras — 20 g','Almonds — 20 g')],
+    [bi('Sirve las aceitunas y almendras juntas en un bowl pequeño.','Serve olives and almonds together in a small bowl.')],
+    [bi('Mediterránea','Mediterranean'),bi('Rápido','Quick')], 'mediterranean')
+];
+function recipeById(id){ for(var i=0;i<RECIPES.length;i++){ if(RECIPES[i].id===id) return RECIPES[i]; } return null; }
+function recipesForDiet(dietId, mealType){ return RECIPES.filter(function(r){ return r.dietId===dietId && r.mealType===mealType; }); }
+function genMealDay(diet, day){
+  var types = ['Breakfast','Lunch','Dinner','Snack'];
+  var meals = types.map(function(mt){
+    var pool = recipesForDiet(diet.id, mt);
+    if(!pool.length) return null;
+    return pool[day % pool.length];
+  }).filter(Boolean);
+  var kcal = meals.reduce(function(s,m){ return s+m.kcal; },0);
+  var p = meals.reduce(function(s,m){ return s+m.p; },0), c = meals.reduce(function(s,m){ return s+m.c; },0), f = meals.reduce(function(s,m){ return s+m.f; },0);
+  return { meals:meals, kcal:kcal, p:p, c:c, f:f };
+}
 var PRINTABLES = [
   {name:bi('Guía de Respiración para Tai Chi','Tai Chi Breathing Guide'), pages:10},
   {name:bi('Yoga en Silla para Principiantes','Chair Yoga for Beginners'), pages:16},
@@ -642,7 +978,11 @@ function render(){
   if(route==='player') return renderPlayer(parts[1], parts[2], parts[3]?parseInt(parts[3],10):null);
   if(route==='program') return renderProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
   if(route==='meals') return renderMeals();
-  if(route==='browse-diets') return renderBrowseDiets();
+  if(route==='browse-diets') return renderBrowseDiets(parts[1]);
+  if(route==='dietprogram') return renderDietProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
+  if(route==='recipe') return renderRecipeDetail(parts[1]);
+  if(route==='meals-browse') return renderBrowseRecipes(parts[1], parts[2]?decodeURIComponent(parts[2]):'');
+  if(route==='meals-log') return renderLogMeal(parts[1], parts[2]);
   if(route==='progress') return renderProgress();
   if(route==='printables') return renderPrintables();
   if(route==='settings') return renderSettings();
@@ -976,45 +1316,194 @@ window.tvCompleteDay=function(id,day,min,kcal){
 };
 
 /* ===================== MEALS ===================== */
+var MEALTYPE_ICON = {Breakfast:'🥐', Lunch:'🥗', Dinner:'🍝', Snack:'🍎'};
+var MEALTYPE_KEY = {Breakfast:'mt_breakfast', Lunch:'mt_lunch', Dinner:'mt_dinner', Snack:'mt_snack'};
 function renderMeals(){
   var tt = today();
-  var goal={cal:1900,p:95,c:210,f:75};
+  var diet = state.activeDiet ? dietById(state.activeDiet) : null;
+  var goal = diet ? {cal:diet.kcal, p:diet.macros.p, c:diet.macros.c, f:diet.macros.f} : {cal:1900,p:95,c:210,f:75};
   var pct = Math.min(100, Math.round(tt.cal/goal.cal*100));
   var r=40, circ=2*Math.PI*r, off=circ*(1-pct/100);
+  var macros = todayMacros();
   var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('meals_title')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
   html += '<div class="tv-sec">'+t('meals_diet')+' <a class="lnk" href="#browse-diets">'+t('meals_view_all')+'</a></div>';
-  html += '<a href="#browse-diets" class="tv-card" style="display:flex;align-items:center;gap:12px;text-decoration:none"><div style="width:40px;height:40px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:18px">🥗</div><div><b style="display:block;font-family:Poppins;font-size:14px">'+t('meals_select')+'</b><span style="font-size:12px;color:var(--soft)">'+t('meals_select_sub')+'</span></div><span style="margin-left:auto;font-size:18px;color:var(--bronze)">▶</span></a>';
+  if(diet){
+    var day = state.dietDay[diet.id]||1;
+    html += '<a href="#dietprogram/'+diet.id+'/'+day+'" class="tv-card" style="display:flex;align-items:center;gap:12px;text-decoration:none"><div style="width:40px;height:40px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:18px">🥗</div><div><b style="display:block;font-family:Poppins;font-size:14px">'+esc(tn(diet.name))+'</b><span style="font-size:12px;color:var(--soft)">'+t('diets_day_prefix')+' '+day+' · '+diet.kcal+' '+t('diets_kcal_day')+'</span></div><span style="margin-left:auto;font-size:18px;color:var(--bronze)">▶</span></a>';
+  } else {
+    html += '<a href="#browse-diets" class="tv-card" style="display:flex;align-items:center;gap:12px;text-decoration:none"><div style="width:40px;height:40px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:18px">🥗</div><div><b style="display:block;font-family:Poppins;font-size:14px">'+t('meals_select')+'</b><span style="font-size:12px;color:var(--soft)">'+t('meals_select_sub')+'</span></div><span style="margin-left:auto;font-size:18px;color:var(--bronze)">▶</span></a>';
+  }
 
   html += '<div class="tv-sec">'+t('meals_nutrition')+'</div><div class="tv-card"><div class="tv-donut">'+
     '<svg width="90" height="90" viewBox="0 0 100 100"><circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="10"/>'+
     '<circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--bronze2)" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" transform="rotate(-90 50 50)"/></svg>'+
     '<div style="flex:1"><div style="font-family:Poppins;font-weight:800;font-size:20px">'+tt.cal+' <span style="font-size:12px;font-weight:500;color:var(--soft)">/ '+goal.cal+' '+t('kcal')+'</span></div>'+
-    '<div class="tv-macro"><span>'+t('meals_protein')+'</span><b>'+Math.round(tt.cal*0.02)+' / '+goal.p+'g</b></div>'+
-    '<div class="tv-macro"><span>'+t('meals_carbs')+'</span><b>'+Math.round(tt.cal*0.04)+' / '+goal.c+'g</b></div>'+
-    '<div class="tv-macro"><span>'+t('meals_fat')+'</span><b>'+Math.round(tt.cal*0.015)+' / '+goal.f+'g</b></div></div></div>'+
-    '<div class="tv-cta-row"><button class="tv-btn" onclick="tvLogCal()">'+t('meals_log')+'</button><button class="tv-btn ghost" onclick="location.hash=\'browse-diets\'">'+t('meals_explore')+'</button></div></div>';
+    '<div class="tv-macro"><span>'+t('meals_protein')+'</span><b>'+macros.p+' / '+goal.p+'g</b></div>'+
+    '<div class="tv-macro"><span>'+t('meals_carbs')+'</span><b>'+macros.c+' / '+goal.c+'g</b></div>'+
+    '<div class="tv-macro"><span>'+t('meals_fat')+'</span><b>'+macros.f+' / '+goal.f+'g</b></div></div></div>'+
+    '<div class="tv-cta-row"><button class="tv-btn" onclick="location.hash=\'meals-log\'">'+t('meals_log')+'</button><button class="tv-btn ghost" onclick="location.hash=\'meals-browse\'">'+t('meals_explore')+'</button></div></div>';
 
   html += '<div class="tv-sec">'+t('meals_today')+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+fmtDate(new Date(), state.settings.lang)+'</span></div>';
-  if(tt.cal===0){
+  if(!tt.items || !tt.items.length){
     html += '<div class="tv-empty">🍽️<b style="margin-top:8px">'+t('meals_empty_title')+'</b><p>'+t('meals_empty_body')+'</p></div>';
   } else {
-    html += '<div class="tv-card"><p style="font-size:13px;color:var(--soft)">'+tt.cal+' '+t('meals_logged')+'</p></div>';
+    tt.items.slice().reverse().forEach(function(it){
+      html += '<div class="tv-prow"><div class="icon">'+(MEALTYPE_ICON[it.mealType]||'🍽️')+'</div><div class="info"><b>'+esc(it.name)+'</b><div class="meta">'+(it.mealType?'<span class="tag">'+esc(t(MEALTYPE_KEY[it.mealType]))+'</span>':'')+'<span>'+it.kcal+' '+t('kcal')+'</span></div></div></div>';
+    });
   }
   stage.innerHTML = html;
 }
 
-function renderBrowseDiets(){
+function renderBrowseDiets(cat){
+  cat = cat || 'all';
+  var cats = ['all'].concat(DIETS.map(function(d){ return d.cat; }).filter(function(c,i,a){ return a.indexOf(c)===i; }));
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('diets_title')+'</h1></div>';
   html += '<div class="tv-sec">'+t('diets_cat')+'</div><div class="tv-pills">'+
-    [bi('Todos','All'),bi('Alta proteína','High Protein'),bi('Antiinflamatoria','Anti-Inflammatory'),bi('Diabetes','Diabetes'),bi('Mediterránea','Mediterranean')].map(function(c,i){ return '<div class="tv-pill'+(i===0?' on':'')+'">'+esc(tn(c))+'</div>'; }).join('')+'</div>';
+    cats.map(function(c){ var lbl = c==='all'?t('diets_all'):t('cat_'+c); return '<a href="#browse-diets/'+c+'" class="tv-pill'+(c===cat?' on':'')+'">'+esc(lbl)+'</a>'; }).join('')+'</div>';
   html += '<div class="tv-sec">'+t('diets_programs')+'</div>';
-  DIETS.forEach(function(d){
-    html += '<div class="tv-card" style="margin-bottom:10px"><b style="font-family:Poppins;font-size:14.5px;display:block;margin-bottom:6px">'+esc(tn(d.name))+'</b>'+
-      '<div style="font-size:12.5px;color:var(--soft);margin-bottom:8px">'+d.kcal+' '+t('diets_kcal_day')+' · '+d.days+' '+t('wk_days')+'</div>'+
-      '<span class="tv-pill on" style="display:inline-block;font-size:10.5px;padding:4px 10px">'+esc(tn(d.tag))+'</span></div>';
+  var items = cat==='all' ? DIETS : DIETS.filter(function(d){ return d.cat===cat; });
+  items.forEach(function(d){
+    html += '<a href="#dietprogram/'+d.id+'" class="tv-dietcard">'+
+      '<div class="hero"><span class="badge">🔥 '+esc(tn(d.badge))+'</span><div class="title">'+esc(tn(d.name))+'</div></div>'+
+      '<div class="foot"><span>📅 '+d.kcal+' '+t('diets_kcal_day')+'</span><span>🕐 '+d.days+' '+t('wk_days')+'</span><span class="tag">'+esc(tn(d.tag))+'</span></div>'+
+    '</a>';
   });
   stage.innerHTML = html;
 }
+
+function renderDietProgramDetail(id, day){
+  var d = dietById(id); if(!d){ nav('browse-diets'); return; }
+  day = Math.max(1, Math.min(d.days, day||1));
+  var meal = genMealDay(d, day);
+  var isActive = state.activeDiet===d.id;
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(d.name))+'</h1></div>';
+  html += '<div class="tv-hero" style="background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:flex-end;padding:14px"><div style="color:#fff;font-family:Poppins;font-weight:800;font-size:20px">'+esc(tn(d.name))+'</div></div>';
+  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+d.days+' '+t('wk_days')+' · '+d.kcal+' '+t('diets_kcal_day')+'</p>';
+  html += '<div class="tv-mstats"><div class="tv-mstat p"><b>'+d.macros.p+'g</b><span>'+t('meals_protein')+'</span></div><div class="tv-mstat c"><b>'+d.macros.c+'g</b><span>'+t('meals_carbs')+'</span></div><div class="tv-mstat f"><b>'+d.macros.f+'g</b><span>'+t('meals_fat')+'</span></div></div>';
+  html += '<button class="tv-btn'+(isActive?' ghost':'')+'" onclick="tvStartDiet(\''+d.id+'\','+day+')">'+(isActive?t('diets_active'):t('diets_start'))+'</button>';
+  html += '<div class="tv-sec" style="margin-top:16px">'+t('diets_days')+'</div><div class="tv-days">';
+  for(var i=1;i<=d.days;i++){
+    var cls = i===day?'on':'';
+    html += '<a href="#dietprogram/'+d.id+'/'+i+'" class="tv-day '+cls+'">'+i+'</a>';
+  }
+  html += '</div>';
+  html += '<div class="tv-sec" style="margin-top:6px">'+t('diets_day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+meal.kcal+' '+t('kcal')+' · '+meal.p+'P · '+meal.c+'C · '+meal.f+'F</span></div>';
+  meal.meals.forEach(function(m){
+    html += '<a href="#recipe/'+m.id+'" class="tv-prow"><div class="icon">'+(MEALTYPE_ICON[m.mealType]||'🍽️')+'</div><div class="info"><div class="tv-mealtype">'+esc(t(MEALTYPE_KEY[m.mealType]))+'</div><b>'+esc(tn(m.name))+'</b><div class="meta"><span>'+m.kcal+' '+t('kcal')+' · '+m.p+'P · '+m.c+'C · '+m.f+'F</span><span>⏱ '+m.min+' '+t('min')+'</span></div></div></a>';
+  });
+  stage.innerHTML = html;
+}
+window.tvStartDiet = function(id, day){ state.activeDiet=id; state.dietDay[id]=day; save(); renderDietProgramDetail(id, day); };
+
+function renderRecipeDetail(id){
+  var r = recipeById(id); if(!r){ nav('meals'); return; }
+  var already = hasEatenToday(r.id);
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(r.name))+'</h1></div>';
+  html += '<div class="tv-hero" style="background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:center;justify-content:center"><span style="font-size:52px;opacity:.5">'+(MEALTYPE_ICON[r.mealType]||'🍽️')+'</span>'+
+    '<div style="position:absolute;left:10px;bottom:10px;display:flex;gap:6px"><span class="tag" style="position:static;background:var(--bronze);color:#fff">'+esc(t(MEALTYPE_KEY[r.mealType]))+'</span><span class="tag" style="position:static">🔥 '+esc(r.diff)+'</span><span class="tag" style="position:static">'+r.min+' '+t('min')+'</span></div></div>';
+  html += '<h2 style="font-family:Poppins;font-size:19px;margin-bottom:2px">'+esc(tn(r.name))+'</h2>';
+  html += '<p style="color:var(--soft);font-size:12.5px;margin-bottom:10px">'+esc(r.cuisine)+'</p>';
+  html += '<div class="tv-mstats"><div class="tv-mstat kcal"><b>'+r.kcal+'</b><span>'+t('kcal')+'</span></div><div class="tv-mstat p"><b>'+r.p+'g</b><span>'+t('meals_protein')+'</span></div><div class="tv-mstat c"><b>'+r.c+'g</b><span>'+t('meals_carbs')+'</span></div><div class="tv-mstat f"><b>'+r.f+'g</b><span>'+t('meals_fat')+'</span></div></div>';
+  html += '<div class="tv-sec">'+t('recipe_about')+'</div><p style="color:var(--soft);font-size:13.5px;margin-bottom:16px">'+esc(tn(r.desc))+'</p>';
+  html += '<div class="tv-sec">'+t('recipe_portions')+'</div><div class="tv-stepper"><button onclick="tvPortion(-1)">−</button><div class="n" id="portionN">1</div><button onclick="tvPortion(1)">+</button><span style="color:var(--soft);font-size:12px;margin-left:6px">'+t('recipe_portions_sub')+'</span></div>';
+  html += '<div class="tv-sec">'+t('recipe_ingredients')+'</div><div class="tv-card" id="ingList" style="margin-bottom:16px">'+r.ing.map(function(ing){ return '<div class="tv-ing-row"><span class="dot"></span>'+esc(tn(ing))+'</div>'; }).join('')+'</div>';
+  html += '<div class="tv-sec">'+t('recipe_steps')+'</div><div style="margin-bottom:6px">'+r.steps.map(function(s,i){ return '<div class="tv-step-row"><div class="n">'+(i+1)+'</div><p>'+esc(tn(s))+'</p></div>'; }).join('')+'</div>';
+  html += '<div class="tv-tags-row">'+r.tags.map(function(tg){ return '<span>'+esc(tn(tg))+'</span>'; }).join('')+'</div>';
+  html += '<button class="tv-btn'+(already?' ghost':'')+'" id="eatBtn" onclick="tvMarkEaten(\''+r.id+'\')">'+(already?t('recipe_already_eaten'):'✓ '+t('recipe_mark_eaten'))+'</button>';
+  stage.innerHTML = html;
+}
+window.tvPortion = function(delta){
+  var el = $('portionN'); if(!el) return;
+  var n = Math.max(1, Math.min(8, parseInt(el.textContent,10)+delta));
+  el.textContent = n;
+};
+window.tvMarkEaten = function(id){
+  if(hasEatenToday(id)) return;
+  var r = recipeById(id); if(!r) return;
+  var mult = parseInt(($('portionN')&&$('portionN').textContent)||'1',10) || 1;
+  logMeal(r.mealType, tn(r.name), r.kcal*mult, r.p*mult, r.c*mult, r.f*mult, r.id);
+  renderRecipeDetail(id);
+};
+
+function renderBrowseRecipes(mt, q){
+  mt = mt || 'all'; q = q || '';
+  var types = ['all','Breakfast','Lunch','Dinner','Snack'];
+  var typeIcon = {all:'🍽️', Breakfast:'🥐', Lunch:'🥗', Dinner:'🍝', Snack:'🍎'};
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('browse_title')+'</h1></div>';
+  html += '<input class="tv-search" id="recipeSearch" placeholder="'+esc(t('browse_search'))+'" value="'+esc(q)+'">';
+  html += '<div class="tv-mealpills">'+types.map(function(ty){ var lbl = ty==='all'?t('mt_all'):t(MEALTYPE_KEY[ty]); return '<button data-mt="'+ty+'" class="'+(ty===mt?'on':'')+'">'+typeIcon[ty]+' '+esc(lbl)+'</button>'; }).join('')+'</div>';
+  var uniq = {}, list = [];
+  RECIPES.forEach(function(r){ if(!uniq[r.id]){ uniq[r.id]=1; list.push(r); } });
+  if(mt!=='all') list = list.filter(function(r){ return r.mealType===mt; });
+  if(q) list = list.filter(function(r){ return tn(r.name).toLowerCase().indexOf(q.toLowerCase())!==-1; });
+  html += '<div class="tv-sec">'+t('browse_all')+'</div>';
+  if(!list.length){
+    html += '<div class="tv-empty">🔍<p>'+t('browse_empty')+'</p></div>';
+  } else {
+    html += '<div class="tv-wgrid">'+list.map(function(r){
+      return '<a href="#recipe/'+r.id+'" class="tv-wcard has-img" style="background:linear-gradient(150deg,var(--bronze2),var(--bronze))"><span class="lvl">🔥 '+esc(r.diff)+'</span><div class="ico" style="opacity:.35">'+(MEALTYPE_ICON[r.mealType]||'🍽️')+'</div><span class="wlbl">'+esc(tn(r.name))+'<br><span style="font-weight:500;font-size:11px;opacity:.85">'+r.kcal+' '+t('kcal')+' · ⏱ '+r.min+' '+t('min')+'</span></span></a>';
+    }).join('')+'</div>';
+  }
+  stage.innerHTML = html;
+  stage.querySelectorAll('.tv-mealpills button').forEach(function(b){ b.onclick=function(){ location.hash='meals-browse/'+b.dataset.mt+(q?('/'+encodeURIComponent(q)):''); }; });
+  var search = $('recipeSearch');
+  if(search){
+    search.onkeydown = function(e){ if(e.key==='Enter'){ location.hash='meals-browse/'+mt+'/'+encodeURIComponent(search.value); } };
+  }
+}
+
+function renderLogMeal(tab, mt){
+  tab = tab || 'quick';
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('log_title')+'</h1></div>';
+  html += '<div class="tv-log-tabs"><button data-tb="quick" class="'+(tab==='quick'?'on':'')+'">'+t('log_quick')+'</button><button data-tb="recipes" class="'+(tab==='recipes'?'on':'')+'">'+t('log_recipes')+'</button></div>';
+  if(tab==='quick'){
+    var types = ['Breakfast','Lunch','Dinner','Snack'];
+    mt = mt || 'Breakfast';
+    html += '<div class="tv-sec" style="margin-top:0">'+t('log_anything')+'</div><p style="color:var(--soft);font-size:12.5px;margin-bottom:14px">'+t('log_anything_sub')+'</p>';
+    html += '<div class="tv-field"><label>'+t('log_meal_optional')+'</label><div class="tv-mealpills" id="mtPills">'+types.map(function(ty){ return '<button data-mt="'+ty+'" class="'+(ty===mt?'on':'')+'">'+MEALTYPE_ICON[ty]+' '+esc(t(MEALTYPE_KEY[ty]))+'</button>'; }).join('')+'</div></div>';
+    html += '<div class="tv-field"><label>'+t('log_food_name')+'</label><input id="fFoodName" type="text" placeholder="'+esc(t('log_food_placeholder'))+'"></div>';
+    html += '<div class="tv-field"><label>'+t('log_calories')+'</label><input id="fFoodKcal" type="number" placeholder="0"></div>';
+    html += '<div class="tv-sec" style="margin-top:4px">'+t('log_macros_optional')+'</div>';
+    html += '<div style="display:flex;gap:10px;margin-bottom:16px">'+
+      '<div class="tv-field" style="flex:1;margin-bottom:0"><label>'+t('meals_protein')+'</label><input id="fFoodP" type="number" placeholder="0"></div>'+
+      '<div class="tv-field" style="flex:1;margin-bottom:0"><label>'+t('meals_carbs')+'</label><input id="fFoodC" type="number" placeholder="0"></div>'+
+      '<div class="tv-field" style="flex:1;margin-bottom:0"><label>'+t('meals_fat')+'</label><input id="fFoodF" type="number" placeholder="0"></div>'+
+    '</div>';
+    html += '<button class="tv-btn" onclick="tvSubmitQuickLog()">✓ '+t('log_submit')+'</button>';
+  } else {
+    html += '<div class="tv-sec" style="margin-top:0">'+t('log_recipes')+'</div>';
+    html += '<input class="tv-search" id="logSearch" placeholder="'+esc(t('log_search_placeholder'))+'">';
+    html += '<div id="logRecipeList"></div>';
+  }
+  stage.innerHTML = html;
+  stage.querySelectorAll('.tv-log-tabs button').forEach(function(b){ b.onclick=function(){ location.hash='meals-log/'+b.dataset.tb; }; });
+  if(tab==='quick'){
+    stage.querySelectorAll('#mtPills button').forEach(function(b){ b.onclick=function(){ location.hash='meals-log/quick/'+b.dataset.mt; }; });
+  } else {
+    var renderList = function(q){
+      q = (q||'').toLowerCase();
+      var uniq={}, list=[];
+      RECIPES.forEach(function(r){ if(!uniq[r.id]){ uniq[r.id]=1; list.push(r); } });
+      if(q) list = list.filter(function(r){ return tn(r.name).toLowerCase().indexOf(q)!==-1; });
+      list = list.slice(0,20);
+      $('logRecipeList').innerHTML = list.map(function(r){
+        return '<a href="#recipe/'+r.id+'" class="tv-prow"><div class="icon">'+(MEALTYPE_ICON[r.mealType]||'🍽️')+'</div><div class="info"><b>'+esc(tn(r.name))+'</b><div class="meta"><span>'+r.kcal+' '+t('kcal')+'</span><span>⏱ '+r.min+' '+t('min')+'</span></div></div></a>';
+      }).join('');
+    };
+    renderList('');
+    $('logSearch').oninput = function(){ renderList(this.value); };
+  }
+}
+window.tvSubmitQuickLog = function(){
+  var name = ($('fFoodName').value||'').trim();
+  var kcal = parseFloat($('fFoodKcal').value)||0;
+  if(!name || kcal<=0) return;
+  var p = parseFloat($('fFoodP').value)||0, c = parseFloat($('fFoodC').value)||0, f = parseFloat($('fFoodF').value)||0;
+  var mtBtn = stage.querySelector('#mtPills button.on');
+  var mt = mtBtn ? mtBtn.dataset.mt : null;
+  logMeal(mt, name, kcal, p, c, f, null);
+  nav('meals');
+};
 
 /* ===================== PROGRESS ===================== */
 function sparkline(vals, color){
