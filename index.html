@@ -270,6 +270,7 @@ var I18N = {
     wk_categories:'Explorar categorías', wk_programs:'Programas de entrenamiento', wk_challenge:'Reto de', wk_days:'días', wk_min_day:'min/día', wk_filtered:'Entrenamientos Filtrados',
     wk_equip_none:'Sin equipamiento', wk_equip_chair:'Necesitás una silla',
     prog_start:'Iniciar programa de entrenamiento', prog_today_btn:'Empezá el entrenamiento de hoy ▶', prog_done:'✓ Entrenamiento completado', prog_circuit:'Circuito de entrenamiento',
+    prog_start_session:'Iniciar entrenamiento', prog_about:'Acerca de esta sesión',
     prog_exercises:'ejercicios',
     meals_title:'Comidas', meals_diet:'Tu programa de dieta', meals_view_all:'Ver todo ›', meals_select:'Seleccioná un plan', meals_select_sub:'Elegí un programa de 14 o 30 días para seguir',
     meals_nutrition:'Nutrición de hoy', meals_protein:'Proteína', meals_carbs:'Carbohidratos', meals_fat:'Grasa', meals_log:'+ Registrar alimento', meals_explore:'Explorar',
@@ -304,6 +305,7 @@ var I18N = {
     wk_categories:'Explore categories', wk_programs:'Training programs', wk_challenge:'', wk_days:'day challenge', wk_min_day:'min/day', wk_filtered:'Filtered Workouts',
     wk_equip_none:'No equipment', wk_equip_chair:'You need a chair',
     prog_start:'Start training program', prog_today_btn:"Start today's workout ▶", prog_done:'✓ Workout completed', prog_circuit:'Training circuit',
+    prog_start_session:'Start workout', prog_about:'About this session',
     prog_exercises:'exercises',
     meals_title:'Meals', meals_diet:'Your diet plan', meals_view_all:'View all ›', meals_select:'Select a plan', meals_select_sub:'Choose a 14 or 30-day program to follow',
     meals_nutrition:"Today's nutrition", meals_protein:'Protein', meals_carbs:'Carbs', meals_fat:'Fat', meals_log:'+ Log food', meals_explore:'Explore',
@@ -443,7 +445,8 @@ var PRINTABLES = [
   {name:bi('Recetario Antiinflamatorio','Anti-Inflammatory Recipe Book'), pages:20},
   {name:bi('Rutina de Movilidad Matutina','Morning Mobility Routine'), pages:9}
 ];
-function wc(name_es,name_en,level,areas,img,cat,pos){ return {name:bi(name_es,name_en), level:level, areas:areas, img:img||null, cat:cat||null, pos:pos||null}; }
+function slugify(s){ return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+function wc(name_es,name_en,level,areas,img,cat,pos){ return {id:slugify(name_en), name:bi(name_es,name_en), level:level, areas:areas, img:img||null, cat:cat||null, pos:pos||null}; }
 var POS_BOTTOM = 'bottom center';
 var WORKOUT_CATALOG = [
   wc('Fundamentos de Peso Corporal','Bodyweight Fundamentals','Advanced',['abs','arms','chest','fullbody'],'images/w-bodyweight-fundamentals.png','Military Bootcamp'),
@@ -601,6 +604,7 @@ function render(){
   if(route==='area') return renderAreaPrograms(parts[1]);
   if(route==='level') return renderLevelPrograms(parts[1]);
   if(route==='category') return renderCategoryPrograms(decodeURIComponent(parts[1]||''));
+  if(route==='catalogprogram') return renderCatalogProgramDetail(parts[1]);
   if(route==='program') return renderProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
   if(route==='meals') return renderMeals();
   if(route==='browse-diets') return renderBrowseDiets();
@@ -699,7 +703,7 @@ function renderAreaPrograms(key){
     items.map(function(w){
       var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
       var media = w.img ? '<img src="'+w.img+'" alt="" style="object-position:'+(w.pos||'top center')+'">' : '<div class="ico">🧘</div>';
-      return '<div class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></div>';
+      return '<a href="#catalogprogram/'+w.id+'" class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></a>';
     }).join('')+
   '</div>';
   stage.innerHTML = html;
@@ -712,7 +716,7 @@ function renderLevelPrograms(level){
     items.map(function(w){
       var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
       var media = w.img ? '<img src="'+w.img+'" alt="" style="object-position:'+(w.pos||'top center')+'">' : '<div class="ico">🧘</div>';
-      return '<div class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></div>';
+      return '<a href="#catalogprogram/'+w.id+'" class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></a>';
     }).join('')+
   '</div>';
   stage.innerHTML = html;
@@ -728,10 +732,53 @@ function renderCategoryPrograms(catKey){
     items.map(function(w){
       var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
       var media = w.img ? '<img src="'+w.img+'" alt="" style="object-position:'+(w.pos||'top center')+'">' : '<div class="ico">🧘</div>';
-      return '<div class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></div>';
+      return '<a href="#catalogprogram/'+w.id+'" class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></a>';
     }).join('')+
   '</div>';
   stage.innerHTML = html;
+}
+
+function poolForCat(cat){
+  if(cat==='Tai Chi') return TAICHI_MOVES;
+  if(cat==='Pilates') return PILATES_MOVES;
+  if(cat==='Yoga') return CHAIR_MOVES;
+  if(cat==='Military Bootcamp') return MILITARY_MOVES;
+  if(cat==='Power Series') return MILITARY_MOVES;
+  return MICRO_MOVES;
+}
+function minForLevel(level){ return level==='Advanced'?20:(level==='Intermediate'?16:12); }
+function descForCat(cat){
+  var d = {
+    'Tai Chi': bi('Un flujo de Tai Chi para mantenerte con los pies en la tierra, activo/a y con la mente clara.','A gentle Tai Chi flow to keep you grounded, active, and mentally clear.'),
+    'Pilates': bi('Un circuito de Pilates para fortalecer y tonificar tu cuerpo de forma consciente.','A Pilates circuit to strengthen and tone your body mindfully.'),
+    'Yoga': bi('Una práctica de yoga para estirar, respirar y encontrar equilibrio.','A yoga practice to stretch, breathe, and find balance.'),
+    'Military Bootcamp': bi('Un entrenamiento intenso inspirado en rutinas militares para desafiar tu fuerza.','An intense workout inspired by military routines to challenge your strength.'),
+    'Micro Workouts': bi('Una rutina corta para sumar movimiento a tu día, sin importar cuán ocupado/a estés.','A quick routine to add movement to your day, no matter how busy you are.'),
+    'Power Series': bi('Un entrenamiento de alta intensidad para llevar tu fuerza al siguiente nivel.','A high-intensity workout to take your strength to the next level.')
+  };
+  return d[cat] || bi('Una rutina guiada para sentirte mejor, paso a paso.','A guided routine to help you feel your best, step by step.');
+}
+function renderCatalogProgramDetail(id){
+  var w = null;
+  for(var i=0;i<WORKOUT_CATALOG.length;i++){ if(WORKOUT_CATALOG[i].id===id){ w=WORKOUT_CATALOG[i]; break; } }
+  if(!w){ nav('workouts'); return; }
+  var pool = poolForCat(w.cat);
+  var minutes = minForLevel(w.level);
+  var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
+  var desc = descForCat(w.cat);
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(w.name))+'</h1></div>';
+  if(w.img) html += '<div class="tv-hero"><img src="'+w.img+'" alt="" style="object-position:'+(w.pos||'top center')+'"><span class="tag">'+esc(t('wk_equip_none'))+'</span></div>';
+  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+esc(lvl)+' · '+minutes+' '+t('min')+'</p>';
+  html += '<button class="tv-btn">▶ '+t('prog_start_session')+'</button>';
+  html += '<div class="tv-sec" style="margin-top:18px">'+t('prog_about')+'</div>';
+  html += '<p style="color:var(--soft);font-size:13.5px;margin-bottom:16px">'+esc(tn(desc))+'</p>';
+  html += '<div class="tv-sec">'+t('prog_circuit')+' ('+pool.length+' '+t('prog_exercises')+')</div>';
+  pool.forEach(function(ex,i){
+    var kcal = 3 + (i%4) + (w.level==='Advanced'?2:(w.level==='Intermediate'?1:0));
+    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex))+'</b><span>TaiChi Vital</span></div><div class="dur">60s<br><span style="font-weight:400;color:var(--soft)">'+kcal+' kcal</span></div></div>';
+  });
+  stage.innerHTML = html;
+  window.scrollTo({top:0});
 }
 
 function renderProgramDetail(id, day){
