@@ -27,11 +27,11 @@
 <div id="tv">
   <main class="tv-stage" id="tvStage"></main>
   <nav class="tv-tabs" id="tvTabs">
-    <button data-r="home"><span class="ic">🏠</span><span data-t="nav_home">Mi Camino</span></button>
-    <button data-r="workouts"><span class="ic">🧘</span><span data-t="nav_workouts">Entrenam.</span></button>
-    <button data-r="meals"><span class="ic">🍽️</span><span data-t="nav_meals">Comidas</span></button>
-    <button data-r="progress"><span class="ic">📈</span><span data-t="nav_progress">Progreso</span></button>
-    <button data-r="printables"><span class="ic">📖</span><span data-t="nav_printables">Guías</span></button>
+    <button data-r="home"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10.5V20h4v-6h4v6h4V10.5"/></svg></span><span data-t="nav_home">Mi Camino</span></button>
+    <button data-r="workouts"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="18" x2="6" y2="10"/><line x1="12" y1="18" x2="12" y2="6"/><line x1="18" y1="18" x2="18" y2="13"/></svg></span><span data-t="nav_workouts">Entrenam.</span></button>
+    <button data-r="meals"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v6a2 2 0 0 0 4 0V3"/><line x1="9" y1="3" x2="9" y2="21"/><path d="M16 3c1.5 2.5 1.5 6.5 0 8-.4.5-.8.6-.8.6V21"/></svg></span><span data-t="nav_meals">Comidas</span></button>
+    <button data-r="progress"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><line x1="8" y1="15" x2="8" y2="17"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="16" y1="8" x2="16" y2="17"/></svg></span><span data-t="nav_progress">Progreso</span></button>
+    <button data-r="printables"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4.5h12v15l-6-4-6 4z"/></svg></span><span data-t="nav_printables">Guías</span></button>
   </nav>
 </div>
 
@@ -147,10 +147,10 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-pdfcard .m{font-size:10.5px;color:var(--soft)}
 
 /* ===== bottom nav ===== */
-#tv .tv-tabs{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:calc(100% - 24px);max-width:496px;background:var(--card);border:1px solid var(--line);border-radius:18px;display:flex;box-shadow:0 12px 28px rgba(21,84,80,.18);z-index:10}
-#tv .tv-tabs button{flex:1;background:none;border:none;padding:10px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--soft);font-size:9.5px;font-weight:700}
-#tv .tv-tabs button .ic{font-size:18px}
-#tv .tv-tabs button.on{color:var(--bronze2)}
+#tv .tv-tabs{position:fixed;left:0;right:0;bottom:0;width:100%;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:10}
+#tv .tv-tabs button{flex:1;background:none;border:none;padding:9px 2px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--soft);font-size:9.5px;font-weight:600}
+#tv .tv-tabs button .ic{display:flex}
+#tv .tv-tabs button.on{color:var(--bronze2);font-weight:700}
 
 /* ===== filters / pills ===== */
 #tv .tv-pills{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
@@ -255,7 +255,7 @@ var I18N = {
     auth_welcome:'Bienvenido a TaiChi Vital', auth_sub:'Tu plan de Tai Chi y Yoga en Silla', auth_login:'Iniciar sesión', auth_register:'Registrarme',
     auth_name:'Nombre', auth_email:'Correo electrónico', auth_password:'Contraseña', auth_no_account:'¿No tenés cuenta? ', auth_has_account:'¿Ya tenés cuenta? ',
     auth_switch_register:'Registrate', auth_switch_login:'Iniciá sesión', auth_err_email:'Ingresá un email válido.', auth_err_pass:'La contraseña debe tener al menos 6 caracteres.',
-    auth_err_name:'Ingresá tu nombre.', auth_err_nomatch:'Email o contraseña incorrectos.', auth_err_exists:'Ya existe una cuenta local con ese email — iniciá sesión.',
+    auth_err_name:'Ingresá tu nombre.', auth_err_nomatch:'No encontramos una cuenta con ese email.', auth_err_exists:'Ya existe una cuenta local con ese email — iniciá sesión.',
     auth_note:'Tu cuenta se guarda solo en este dispositivo (todavía no hay servidor).',
     home_streak_day:'día', home_streak_days:'días', home_streak_suffix:'de racha',
     home_current_program:'Tu programa de entrenamiento actual', home_no_program:'Sin programa activo', home_explore:'Explorá los programas para comenzar', home_explore_link:'Explorar programas ›',
@@ -289,7 +289,7 @@ var I18N = {
     auth_welcome:'Welcome to TaiChi Vital', auth_sub:'Your Tai Chi & Chair Yoga plan', auth_login:'Log in', auth_register:'Sign up',
     auth_name:'Name', auth_email:'Email', auth_password:'Password', auth_no_account:"Don't have an account? ", auth_has_account:'Already have an account? ',
     auth_switch_register:'Sign up', auth_switch_login:'Log in', auth_err_email:'Enter a valid email.', auth_err_pass:'Password must be at least 6 characters.',
-    auth_err_name:'Enter your name.', auth_err_nomatch:'Incorrect email or password.', auth_err_exists:'A local account with that email already exists — log in instead.',
+    auth_err_name:'Enter your name.', auth_err_nomatch:'We couldn\'t find an account with that email.', auth_err_exists:'A local account with that email already exists — log in instead.',
     auth_note:'Your account is stored only on this device (no server yet).',
     home_streak_day:'day', home_streak_days:'days', home_streak_suffix:'streak',
     home_current_program:'Your current training program', home_no_program:'No active program', home_explore:'Explore programs to get started', home_explore_link:'Explore programs ›',
@@ -542,7 +542,6 @@ function renderAuth(mode){
     html += '<div class="tv-field"><label>'+t('auth_name')+'</label><input id="fName" type="text" autocomplete="name"></div>';
   }
   html += '<div class="tv-field"><label>'+t('auth_email')+'</label><input id="fEmail" type="email" autocomplete="email"></div>';
-  html += '<div class="tv-field"><label>'+t('auth_password')+'</label><input id="fPass" type="password" autocomplete="'+(mode==='register'?'new-password':'current-password')+'"></div>';
   html += '<div class="tv-err" id="authErr" style="display:none"></div>';
   html += '<button class="tv-btn" id="authSubmit">'+(mode==='register'?t('auth_register'):t('auth_login'))+'</button>';
   html += '</div>';
@@ -557,18 +556,17 @@ function renderAuth(mode){
 }
 function authErr(msg){ var e=$('authErr'); e.textContent=msg; e.style.display='block'; }
 function doRegister(){
-  var name=($('fName').value||'').trim(), email=($('fEmail').value||'').trim().toLowerCase(), pass=$('fPass').value||'';
+  var name=($('fName').value||'').trim(), email=($('fEmail').value||'').trim().toLowerCase();
   if(!name){ return authErr(t('auth_err_name')); }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ return authErr(t('auth_err_email')); }
-  if(pass.length<6){ return authErr(t('auth_err_pass')); }
   if(state.account && state.account.email===email){ return authErr(t('auth_err_exists')); }
-  state.account = { name:name, email:email, passHash:simpleHash(pass) };
+  state.account = { name:name, email:email };
   state.session.loggedIn = true; save();
   render();
 }
 function doLogin(){
-  var email=($('fEmail').value||'').trim().toLowerCase(), pass=$('fPass').value||'';
-  if(!state.account || state.account.email!==email || state.account.passHash!==simpleHash(pass)){ return authErr(t('auth_err_nomatch')); }
+  var email=($('fEmail').value||'').trim().toLowerCase();
+  if(!state.account || state.account.email!==email){ return authErr(t('auth_err_nomatch')); }
   state.session.loggedIn = true; save();
   render();
 }
