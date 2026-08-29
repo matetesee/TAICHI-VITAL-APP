@@ -190,6 +190,31 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-exrow .info b{display:block;font-size:13.5px}
 #tv .tv-exrow .info span{font-size:11px;color:var(--soft)}
 #tv .tv-exrow .dur{font-size:12px;font-weight:700;color:var(--bronze2);text-align:right}
+#tv .tv-player{display:flex;flex-direction:column;align-items:center;padding:22px 18px 100px;min-height:100vh;box-sizing:border-box;background:var(--bg)}
+#tv .tv-player-top{width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+#tv .tv-player-exit{background:none;border:none;color:var(--soft);font-size:13px;font-weight:600}
+#tv .tv-player-count{font-size:12px;font-weight:700;color:var(--soft)}
+#tv .tv-player-phase{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--bronze2);margin-top:18px}
+#tv .tv-player-name{font-family:'Poppins';font-weight:800;font-size:22px;text-align:center;margin:8px 0 22px;max-width:320px}
+#tv .tv-ring-wrap{position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+#tv .tv-ring-wrap svg{width:220px;height:220px;transform:rotate(-90deg)}
+#tv .tv-ring-time{position:absolute;font-family:'Poppins';font-weight:800;font-size:44px}
+#tv .tv-player-next{color:var(--soft);font-size:13px;margin-bottom:22px;text-align:center}
+#tv .tv-player-next b{color:var(--ink)}
+#tv .tv-player-controls{width:100%;max-width:340px;display:flex;gap:10px;margin-top:auto}
+#tv .tv-player-controls .tv-btn{flex:1}
+#tv .tv-player-dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:300px;margin-bottom:8px}
+#tv .tv-player-dots span{width:7px;height:7px;border-radius:50%;background:var(--line)}
+#tv .tv-player-dots span.done{background:var(--bronze2)}
+#tv .tv-player-dots span.on{background:var(--bronze);width:9px;height:9px}
+#tv .tv-player-done{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:60px}
+#tv .tv-player-done .ico{font-size:52px;margin-bottom:14px}
+#tv .tv-player-done h2{font-family:'Poppins';font-weight:800;font-size:21px;margin-bottom:8px}
+#tv .tv-player-done p{color:var(--soft);font-size:13.5px;margin-bottom:22px;max-width:280px}
+#tv .tv-player-stats{display:flex;gap:24px;margin-bottom:28px}
+#tv .tv-player-stats div{text-align:center}
+#tv .tv-player-stats b{display:block;font-family:'Poppins';font-weight:800;font-size:20px;color:var(--bronze2)}
+#tv .tv-player-stats span{font-size:11px;color:var(--soft)}
 
 /* ===== meals ===== */
 #tv .tv-donut{display:flex;align-items:center;gap:16px}
@@ -272,6 +297,10 @@ var I18N = {
     prog_start:'Iniciar programa de entrenamiento', prog_today_btn:'Empezá el entrenamiento de hoy ▶', prog_done:'✓ Entrenamiento completado', prog_circuit:'Circuito de entrenamiento',
     prog_start_session:'Iniciar entrenamiento', prog_about:'Acerca de esta sesión',
     prog_exercises:'ejercicios',
+    player_ready:'Preparate…', player_rest:'Descanso', player_next:'Siguiente', player_pause:'Pausar', player_resume:'Reanudar', player_skip:'Saltar ›',
+    player_exit:'Salir', player_exit_confirm:'¿Seguro que querés salir? Perderás el progreso de este entrenamiento.',
+    player_done_title:'¡Entrenamiento completado! 🎉', player_done_body:'Gran trabajo. Sumaste esta sesión a tu progreso.',
+    player_finish:'Finalizar', player_of:'de', player_exercise:'Ejercicio', player_up_next:'A continuación',
     meals_title:'Comidas', meals_diet:'Tu programa de dieta', meals_view_all:'Ver todo ›', meals_select:'Seleccioná un plan', meals_select_sub:'Elegí un programa de 14 o 30 días para seguir',
     meals_nutrition:'Nutrición de hoy', meals_protein:'Proteína', meals_carbs:'Carbohidratos', meals_fat:'Grasa', meals_log:'+ Registrar alimento', meals_explore:'Explorar',
     meals_today:'Comidas de hoy', meals_empty_title:'Todavía no registraste comidas hoy', meals_empty_body:'Tocá "Registrar alimento" para sumar tu primera comida', meals_logged:'kcal registradas hoy.',
@@ -307,6 +336,10 @@ var I18N = {
     prog_start:'Start training program', prog_today_btn:"Start today's workout ▶", prog_done:'✓ Workout completed', prog_circuit:'Training circuit',
     prog_start_session:'Start workout', prog_about:'About this session',
     prog_exercises:'exercises',
+    player_ready:'Get ready…', player_rest:'Rest', player_next:'Next', player_pause:'Pause', player_resume:'Resume', player_skip:'Skip ›',
+    player_exit:'Exit', player_exit_confirm:"Are you sure you want to exit? You'll lose progress on this workout.",
+    player_done_title:'Workout complete! 🎉', player_done_body:"Great job. This session was added to your progress.",
+    player_finish:'Finish', player_of:'of', player_exercise:'Exercise', player_up_next:'Up next',
     meals_title:'Meals', meals_diet:'Your diet plan', meals_view_all:'View all ›', meals_select:'Select a plan', meals_select_sub:'Choose a 14 or 30-day program to follow',
     meals_nutrition:"Today's nutrition", meals_protein:'Protein', meals_carbs:'Carbs', meals_fat:'Fat', meals_log:'+ Log food', meals_explore:'Explore',
     meals_today:"Today's meals", meals_empty_title:"You haven't logged any meals today", meals_empty_body:'Tap "Log food" to add your first meal', meals_logged:'kcal logged today.',
@@ -339,7 +372,7 @@ var DEFAULT_STATE = {
   session:{loggedIn:false},
   streak:0, lastCheckinDate:null,
   weightUnit:'kg', weight:null, weightLog:[],
-  activeProgram:null, programDay:{}, completedDays:{},
+  activeProgram:null, programDay:{}, completedDays:{}, catalogSessions:0,
   dailyLog:{},
   settings:{ units:'metric', reminders:false, lang:'es', theme:'light' }
 };
@@ -596,15 +629,17 @@ function render(){
   var hash = location.hash.replace('#','') || 'home';
   var parts = hash.split('/');
   var route = parts[0];
+  if(route!=='player' && playerTimer){ clearInterval(playerTimer); playerTimer=null; playerState=null; }
   window.scrollTo({top:0});
   tabs.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.dataset.r===route); });
-  tabs.style.display = (route==='program' || route==='settings' || route==='browse-diets' || route==='coach') ? 'none' : 'flex';
+  tabs.style.display = (route==='program' || route==='settings' || route==='browse-diets' || route==='coach' || route==='player') ? 'none' : 'flex';
   if(route==='home') return renderHome();
   if(route==='workouts') return renderWorkouts();
   if(route==='area') return renderAreaPrograms(parts[1]);
   if(route==='level') return renderLevelPrograms(parts[1]);
   if(route==='category') return renderCategoryPrograms(decodeURIComponent(parts[1]||''));
   if(route==='catalogprogram') return renderCatalogProgramDetail(parts[1]);
+  if(route==='player') return renderPlayer(parts[1], parts[2], parts[3]?parseInt(parts[3],10):null);
   if(route==='program') return renderProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
   if(route==='meals') return renderMeals();
   if(route==='browse-diets') return renderBrowseDiets();
@@ -769,7 +804,7 @@ function renderCatalogProgramDetail(id){
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(w.name))+'</h1></div>';
   if(w.img) html += '<div class="tv-hero"><img src="'+w.img+'" alt="" style="object-position:'+(w.pos||'top center')+'"><span class="tag">'+esc(t('wk_equip_none'))+'</span></div>';
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+esc(lvl)+' · '+minutes+' '+t('min')+'</p>';
-  html += '<button class="tv-btn">▶ '+t('prog_start_session')+'</button>';
+  html += '<button class="tv-btn" onclick="startPlayer(\'c\',\''+id+'\')">▶ '+t('prog_start_session')+'</button>';
   html += '<div class="tv-sec" style="margin-top:18px">'+t('prog_about')+'</div>';
   html += '<p style="color:var(--soft);font-size:13.5px;margin-bottom:16px">'+esc(tn(desc))+'</p>';
   html += '<div class="tv-sec">'+t('prog_circuit')+' ('+pool.length+' '+t('prog_exercises')+')</div>';
@@ -779,6 +814,131 @@ function renderCatalogProgramDetail(id){
   });
   stage.innerHTML = html;
   window.scrollTo({top:0});
+}
+
+/* ===================== WORKOUT PLAYER ===================== */
+var playerTimer = null, playerState = null;
+function catalogItemById(id){ for(var i=0;i<WORKOUT_CATALOG.length;i++){ if(WORKOUT_CATALOG[i].id===id) return WORKOUT_CATALOG[i]; } return null; }
+function buildPlayerSpec(kind, id, day){
+  if(kind==='c'){
+    var w = catalogItemById(id); if(!w) return null;
+    var pool = poolForCat(w.cat);
+    var exs = pool.map(function(ex,i){
+      var kcal = 3 + (i%4) + (w.level==='Advanced'?2:(w.level==='Intermediate'?1:0));
+      return { name:ex, seconds:60, kcal:kcal };
+    });
+    return {
+      title: tn(w.name), img: w.img, pos: w.pos, exercises: exs,
+      onFinish: function(){
+        var totalKcal = exs.reduce(function(s,e){ return s+e.kcal; },0);
+        var totalMin = Math.round(exs.length*75/60);
+        var tt = today(); tt.burned += totalKcal; tt.active += totalMin;
+        state.catalogSessions = (state.catalogSessions||0)+1;
+        save(); markCheckin();
+        return { kcal: totalKcal, min: totalMin };
+      },
+      exitRoute: 'catalogprogram/'+id
+    };
+  }
+  if(kind==='p'){
+    var p = progById(id); if(!p) return null;
+    day = Math.max(1, Math.min(p.days, day||1));
+    var d = genDay(p, day);
+    var exs = d.exercises.map(function(ex){ return { name:ex.name, seconds: parseInt(ex.dur,10)||40, reps:ex.reps, kcal:Math.round(d.kcal/d.exercises.length) }; });
+    return {
+      title: tn(p.name)+' · '+t('day_prefix')+' '+day, img: p.img, pos:null, exercises: exs,
+      onFinish: function(){
+        if(!state.completedDays[p.id]) state.completedDays[p.id]={};
+        var already = !!state.completedDays[p.id][day];
+        if(!already){
+          state.completedDays[p.id][day]=true;
+          state.activeProgram=p.id; state.programDay[p.id]=Math.min(p.days, day+1);
+          var tt=today(); tt.burned+=d.kcal; tt.active+=d.min; save(); markCheckin();
+        }
+        return { kcal: d.kcal, min: d.min };
+      },
+      exitRoute: 'program/'+id+'/'+day
+    };
+  }
+  return null;
+}
+window.startPlayer = function(kind, id, day){
+  location.hash = 'player/'+kind+'/'+id+(day?('/'+day):'');
+};
+function renderPlayer(kind, id, day){
+  var spec = buildPlayerSpec(kind, id, day);
+  if(!spec){ nav('workouts'); return; }
+  playerState = { spec:spec, idx:0, phase:'ready', secondsLeft:3, paused:false, result:null };
+  stage.innerHTML = '<div class="tv-player" id="playerStage"></div>';
+  paintPlayer();
+  if(playerTimer) clearInterval(playerTimer);
+  playerTimer = setInterval(tickPlayer, 1000);
+}
+function tickPlayer(){
+  if(!playerState || playerState.paused || playerState.phase==='done') return;
+  playerState.secondsLeft--;
+  if(playerState.secondsLeft <= 0){ advancePlayer(); }
+  paintPlayer();
+}
+function advancePlayer(){
+  var ps = playerState, spec = ps.spec;
+  if(ps.phase==='ready'){ ps.phase='work'; ps.secondsLeft = spec.exercises[ps.idx].seconds; return; }
+  if(ps.phase==='work'){
+    if(ps.idx >= spec.exercises.length-1){ finishPlayer(); return; }
+    ps.phase='rest'; ps.secondsLeft=10; return;
+  }
+  if(ps.phase==='rest'){ ps.idx++; ps.phase='work'; ps.secondsLeft = spec.exercises[ps.idx].seconds; return; }
+}
+function finishPlayer(){
+  var ps = playerState;
+  clearInterval(playerTimer); playerTimer=null;
+  ps.phase='done';
+  ps.result = ps.spec.onFinish();
+  paintPlayer();
+}
+window.tvPlayerPause = function(){ if(playerState){ playerState.paused = !playerState.paused; paintPlayer(); } };
+window.tvPlayerSkip = function(){ if(playerState && playerState.phase!=='done'){ advancePlayer(); paintPlayer(); } };
+window.tvPlayerExit = function(){
+  if(confirm(t('player_exit_confirm'))){
+    clearInterval(playerTimer); playerTimer=null;
+    var route = playerState ? playerState.spec.exitRoute : 'workouts';
+    playerState = null;
+    location.hash = route;
+  }
+};
+window.tvPlayerFinishExit = function(){
+  var route = playerState ? playerState.spec.exitRoute : 'workouts';
+  playerState = null;
+  location.hash = route;
+};
+function paintPlayer(){
+  var el = document.getElementById('playerStage'); if(!el || !playerState) return;
+  var ps = playerState, spec = ps.spec;
+  if(ps.phase==='done'){
+    el.innerHTML = '<div class="tv-player-done">'+
+      '<div class="ico">🎉</div><h2>'+t('player_done_title')+'</h2><p>'+t('player_done_body')+'</p>'+
+      '<div class="tv-player-stats"><div><b>'+ps.result.kcal+'</b><span>'+t('kcal')+'</span></div><div><b>'+ps.result.min+'</b><span>'+t('min')+'</span></div><div><b>'+spec.exercises.length+'</b><span>'+t('prog_exercises')+'</span></div></div>'+
+      '<button class="tv-btn" style="max-width:320px" onclick="tvPlayerFinishExit()">'+t('player_finish')+'</button>'+
+    '</div>';
+    return;
+  }
+  var ex = spec.exercises[ps.idx];
+  var isRest = ps.phase==='rest', isReady = ps.phase==='ready';
+  var next = spec.exercises[ps.idx+1];
+  var label = isReady ? tn(spec.exercises[0].name) : (isRest ? tn((next||ex).name) : tn(ex.name));
+  var caption = isReady ? t('player_ready') : (isRest ? t('player_rest') : t('player_exercise')+' '+(ps.idx+1));
+  var total = isReady ? 3 : (isRest ? 10 : ex.seconds);
+  var pct = Math.max(0, ps.secondsLeft/total);
+  var r = 96, circ = 2*Math.PI*r, off = circ*(1-pct);
+  var dots = spec.exercises.map(function(e,i){ return '<span class="'+(i<ps.idx?'done':(i===ps.idx?'on':''))+'"></span>'; }).join('');
+  var html = '<div class="tv-player-top"><button class="tv-player-exit" onclick="tvPlayerExit()">✕ '+t('player_exit')+'</button><span class="tv-player-count">'+(ps.idx+1)+' '+t('player_of')+' '+spec.exercises.length+'</span></div>';
+  html += '<div class="tv-player-dots">'+dots+'</div>';
+  html += '<div class="tv-player-phase">'+esc(caption)+'</div>';
+  html += '<div class="tv-player-name">'+esc(label)+'</div>';
+  html += '<div class="tv-ring-wrap"><svg viewBox="0 0 220 220"><circle cx="110" cy="110" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="12"/><circle cx="110" cy="110" r="'+r+'" fill="none" stroke="var(--bronze2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'"/></svg><div class="tv-ring-time">'+Math.max(0,ps.secondsLeft)+'</div></div>';
+  if(!isReady && !isRest && next) html += '<div class="tv-player-next">'+t('player_up_next')+': <b>'+esc(tn(next.name))+'</b></div>';
+  html += '<div class="tv-player-controls"><button class="tv-btn ghost" onclick="tvPlayerPause()">'+(ps.paused?t('player_resume'):t('player_pause'))+'</button><button class="tv-btn" onclick="tvPlayerSkip()">'+t('player_skip')+'</button></div>';
+  el.innerHTML = html;
 }
 
 function renderProgramDetail(id, day){
@@ -798,7 +958,7 @@ function renderProgramDetail(id, day){
   }
   html += '</div>';
   html += '<div class="tv-sec" style="margin-top:6px">'+t('day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+d.min+' '+t('min')+' · '+d.kcal+' '+t('kcal')+'</span></div>';
-  html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="tvCompleteDay(\''+p.id+'\','+day+','+p.min+','+d.kcal+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
+  html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="startPlayer(\'p\',\''+p.id+'\','+day+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
   html += '<div class="tv-sec">'+t('prog_circuit')+' ('+d.exercises.length+' '+t('prog_exercises')+')</div>';
   d.exercises.forEach(function(ex){
     html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>TaiChi Vital</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
@@ -866,7 +1026,7 @@ function sparkline(vals, color){
 function renderProgress(){
   var tt = today(), week = last7();
   var totalDays = Object.keys(state.dailyLog).filter(function(k){ var e=state.dailyLog[k]; return e.active>0 || e.burned>0; }).length;
-  var totalWorkouts = 0; Object.keys(state.completedDays).forEach(function(id){ totalWorkouts += Object.keys(state.completedDays[id]).length; });
+  var totalWorkouts = state.catalogSessions||0; Object.keys(state.completedDays).forEach(function(id){ totalWorkouts += Object.keys(state.completedDays[id]).length; });
   var moods=[{k:'low',e:'😔',l:t('mood_low')},{k:'steady',e:'😐',l:t('mood_steady')},{k:'great',e:'😊',l:t('mood_great')},{k:'peak',e:'🔥',l:t('mood_peak')}];
   var moodCounts={}; Object.keys(state.dailyLog).forEach(function(k){ var m=state.dailyLog[k].mood; if(m) moodCounts[m]=(moodCounts[m]||0)+1; });
   var topMood = Object.keys(moodCounts).sort(function(a,b){return moodCounts[b]-moodCounts[a];})[0];
