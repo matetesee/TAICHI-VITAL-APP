@@ -415,11 +415,11 @@ var AREAS = [
   {key:'legs', name:bi('Piernas','Legs'), img:'images/area-piernas.png'}
 ];
 var CATEGORIES = [
-  {name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg'},
+  {name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg', pos:'top center'},
   {name:bi('Micro Workouts','Micro Workouts'), badge:'NEW', img:'images/cat-micro.png'},
   {name:bi('Military Bootcamp','Military Bootcamp'), badge:'NEW', img:'images/cat-military.png'},
   {name:bi('Pilates','Pilates'), badge:'', img:'images/cat-pilates.png'},
-  {name:bi('Yoga','Yoga'), badge:'', img:'images/cat-yoga.png'},
+  {name:bi('Yoga','Yoga'), badge:'', img:'images/cat-yoga.png', pos:'top center'},
   {name:bi('Power Series','Power Series'), badge:'NEW', img:'images/cat-power.png'}
 ];
 var DIETS = [
@@ -668,7 +668,7 @@ function renderWorkouts(){
     [{k:'Advanced',l:t('wk_advanced')},{k:'Beginner',l:t('wk_beginner')},{k:'Intermediate',l:t('wk_intermediate')}].map(function(o){ return '<a href="#level/'+o.k+'" class="tv-pill">'+o.l+'</a>'; }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_categories')+'</div><div class="tv-catgrid">'+
-    CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'"><span class="lbl">'+esc(tn(c.name))+'</span></div>'; }).join('')+
+    CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'" style="object-position:'+(c.pos||'center')+'"><span class="lbl">'+esc(tn(c.name))+'</span></div>'; }).join('')+
   '</div>';
 
   html += '<div class="tv-sec">'+t('wk_programs')+'</div>';
