@@ -650,7 +650,7 @@ function renderMeals(){
 function renderBrowseDiets(){
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('diets_title')+'</h1></div>';
   html += '<div class="tv-sec">'+t('diets_cat')+'</div><div class="tv-pills">'+
-    ['Todos','Alta proteína','Antiinflamatoria','Diabetes','Mediterránea'].map(function(c,i){ return '<div class="tv-pill'+(i===0?' on':'')+'">'+c+'</div>'; }).join('')+'</div>';
+    [bi('Todos','All'),bi('Alta proteína','High Protein'),bi('Antiinflamatoria','Anti-Inflammatory'),bi('Diabetes','Diabetes'),bi('Mediterránea','Mediterranean')].map(function(c,i){ return '<div class="tv-pill'+(i===0?' on':'')+'">'+esc(tn(c))+'</div>'; }).join('')+'</div>';
   html += '<div class="tv-sec">'+t('diets_programs')+'</div>';
   DIETS.forEach(function(d){
     html += '<div class="tv-card" style="margin-bottom:10px"><b style="font-family:Poppins;font-size:14.5px;display:block;margin-bottom:6px">'+esc(tn(d.name))+'</b>'+
