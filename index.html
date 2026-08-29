@@ -95,6 +95,13 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-hscroll-visible::-webkit-scrollbar{display:block;height:6px}
 #tv .tv-hscroll-visible::-webkit-scrollbar-track{background:var(--card2);border-radius:10px}
 #tv .tv-hscroll-visible::-webkit-scrollbar-thumb{background:var(--bronze2);border-radius:10px}
+#tv .tv-wgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#tv .tv-wcard{position:relative;border-radius:14px;overflow:hidden;height:150px;background:linear-gradient(150deg,var(--bronze2),var(--bronze));box-shadow:var(--shadow)}
+#tv .tv-wcard img{width:100%;height:100%;object-fit:cover;display:block}
+#tv .tv-wcard.has-img::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.05) 55%)}
+#tv .tv-wcard .lvl{position:absolute;top:8px;left:8px;background:#fff;color:var(--crimson);font-size:9.5px;font-weight:800;padding:2px 8px;border-radius:20px;z-index:2}
+#tv .tv-wcard .ico{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;opacity:.4;color:#fff}
+#tv .tv-wcard .wlbl{position:absolute;left:9px;bottom:8px;right:9px;color:#fff;font-family:'Poppins';font-weight:700;font-size:12px;line-height:1.25;z-index:2}
 #tv .tv-pcard{flex:none;width:150px;border-radius:14px;overflow:hidden;position:relative;height:110px;background:var(--card2);box-shadow:var(--shadow)}
 #tv .tv-pcard img{width:100%;height:100%;object-fit:cover;display:block}
 #tv .tv-pcard::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.05) 55%)}
@@ -398,13 +405,13 @@ var PROGRAMS = [
   { id:'pilates-silla', name:bi('Pilates en Silla de 14 Días','14-Day Chair Pilates'), catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_chair', img:'images/prog-pilates.png', pool:PILATES_MOVES }
 ];
 var AREAS = [
-  {name:bi('Abs','Abs'), img:'images/area-abs.png'},
-  {name:bi('Brazos','Arms'), img:'images/area-brazos.png'},
-  {name:bi('Espalda','Back'), img:'images/area-espalda.png'},
-  {name:bi('Glúteos','Glutes'), img:'images/area-gluteos.png'},
-  {name:bi('Pecho','Chest'), img:'images/area-pecho.png'},
-  {name:bi('Cuerpo Completo','Full Body'), img:'images/area-cuerpocompleto.png'},
-  {name:bi('Piernas','Legs'), img:'images/area-piernas.png'}
+  {key:'abs', name:bi('Abs','Abs'), img:'images/area-abs.png'},
+  {key:'arms', name:bi('Brazos','Arms'), img:'images/area-brazos.png'},
+  {key:'back', name:bi('Espalda','Back'), img:'images/area-espalda.png'},
+  {key:'butt', name:bi('Glúteos','Glutes'), img:'images/area-gluteos.png'},
+  {key:'chest', name:bi('Pecho','Chest'), img:'images/area-pecho.png'},
+  {key:'fullbody', name:bi('Cuerpo Completo','Full Body'), img:'images/area-cuerpocompleto.png'},
+  {key:'legs', name:bi('Piernas','Legs'), img:'images/area-piernas.png'}
 ];
 var CATEGORIES = [
   {name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg'},
@@ -427,6 +434,74 @@ var PRINTABLES = [
   {name:bi('Diario de Hábitos Semanal','Weekly Habit Journal'), pages:8},
   {name:bi('Recetario Antiinflamatorio','Anti-Inflammatory Recipe Book'), pages:20},
   {name:bi('Rutina de Movilidad Matutina','Morning Mobility Routine'), pages:9}
+];
+function wc(name_es,name_en,level,areas,img){ return {name:bi(name_es,name_en), level:level, areas:areas, img:img||null}; }
+var WORKOUT_CATALOG = [
+  wc('Fundamentos de Peso Corporal','Bodyweight Fundamentals','Advanced',['abs','arms','chest','fullbody']),
+  wc('Pilates Esculpe Glúteos','Booty Sculpt Pilates','Intermediate',['abs','butt'],'images/prog-pilates.png'),
+  wc('Flujo de Calma y Liberación','Calm & Release Flow','Intermediate',['abs']),
+  wc('Ráfaga de Cardio','Cardio burst','Intermediate',['abs','arms']),
+  wc('Cardio Final','Cardio finale','Intermediate',['abs','arms']),
+  wc('Pilates Flujo Cardio','Cardio Flow Pilates','Intermediate',['abs','arms']),
+  wc('Core + Anti-rotación','Core + anti-rotation','Intermediate',['abs','arms']),
+  wc('Control de Core','Core control','Intermediate',['abs','arms']),
+  wc('Pilates Armonía de Core','Core Harmony Pilates','Advanced',['abs','fullbody']),
+  wc('Pico de Core','Core peak','Intermediate',['abs','arms']),
+  wc('Core y Estabilidad','Core & stability','Intermediate',['abs','arms']),
+  wc('Pilates de Fuerza Diaria','Daily Strength Pilates','Intermediate',['abs','fullbody']),
+  wc('Práctica Diaria de Tai Chi','Daily Tai Chi Practice','Beginner',['abs','fullbody'],'images/prog-taichi-full.jpg'),
+  wc('Impulso Diario','Daily Uplift','Intermediate',['abs','butt']),
+  wc('Pilates de Core Profundo','Deep Core Pilates','Advanced',['abs','fullbody']),
+  wc('Rutina Fácil en Colchoneta','Easy Mat Routine','Beginner',['abs','fullbody']),
+  wc('Restauración Nocturna','Evening Restore','Beginner',['abs','fullbody']),
+  wc('Piernas Explosivas','Explosive legs','Intermediate',['abs','legs']),
+  wc('Flujo de Yoga Base','Foundation Yoga Flow','Beginner',['abs','fullbody'],'images/prog-yoga-silla.jpg'),
+  wc('Cuerpo Completo','Full body','Intermediate',['abs','arms','chest','fullbody','legs']),
+  wc('Fundamentos de Cuerpo Completo','Full Body Basics','Advanced',['abs','chest','fullbody']),
+  wc('Quema de Cuerpo Completo','Full Body Burn','Advanced',['abs','chest','fullbody']),
+  wc('Final de Cuerpo Completo','Full body finale','Intermediate',['abs','chest','fullbody']),
+  wc('Cardio Total','Full cardio','Intermediate',['abs','legs']),
+  wc('Pilates de Glúteos y Core','Glutes & Core Pilates','Intermediate',['abs','butt']),
+  wc('Pilates Buenos Días','Good Morning Pilates','Beginner',['abs','fullbody']),
+  wc('Pilates Buenas Noches','Good Night Pilates','Beginner',['abs','fullbody']),
+  wc('Piernas Intensas','Heavy legs','Intermediate',['abs','legs']),
+  wc('Introducción al Pilates','Introduction to Pilates','Beginner',['abs','fullbody'],'images/prog-pilates.png'),
+  wc('Piernas y Glúteos','Legs & glutes','Intermediate',['abs','butt','legs']),
+  wc('Potencia de Tren Inferior','Lower body power','Intermediate',['abs','butt','legs']),
+  wc('Escultura de Tren Inferior','Lower Body Sculpt','Advanced',['abs','butt','legs']),
+  wc('Dominando el Tai Chi','Mastering Tai Chi','Intermediate',['abs','arms','legs'],'images/prog-taichi-light.jpg'),
+  wc('Cardio Metabólico','Metabolic cardio','Intermediate',['abs','arms','legs']),
+  wc('Pilates a Ritmo Consciente','Mindful Pace Pilates','Intermediate',['abs']),
+  wc('Pilates Espalda y Postura','Pilates Back & Posture','Intermediate',['abs','arms','back']),
+  wc('Pilates Pecho y Hombros','Pilates Chest & Shoulders','Intermediate',['arms','chest']),
+  wc('Pilates Carga de Core','Pilates Core Charge','Intermediate',['arms']),
+  wc('Pilates Serie de Planchas','Pilates Plank Series','Advanced',['arms']),
+  wc('Pilates Flujo Rápido de Cuerpo Completo','Pilates Quick Full Body Flow','Intermediate',['arms','fullbody']),
+  wc('Pilates Costado del Cuerpo','Pilates Side body','Intermediate',['arms']),
+  wc('Pilates Reinicio Postural','Posture Reset Pilates','Beginner',['arms','back']),
+  wc('Potencia de Empuje','Push power','Intermediate',['arms','chest','fullbody']),
+  wc('Tai Chi Sentado de Cuerpo Completo','Seated Full-Body Tai Chi','Beginner',['arms','fullbody'],'images/prog-yoga-silla.jpg'),
+  wc('Pilates Nutre tu Columna','Spinal Nourish Pilates','Intermediate',['arms','back']),
+  wc('Fuerza + Core','Strength + core','Intermediate',['arms','chest','fullbody']),
+  wc('Pilates Estira y Fortalece','Stretch & Strengthen Pilates','Beginner',['arms']),
+  wc('Fundamentos de Tai Chi','Tai Chi Basics','Beginner',['arms']),
+  wc('Pausa de Tai Chi en el Escritorio','Tai Chi Desk Break','Beginner',['arms']),
+  wc('Impulso de Energía con Tai Chi','Tai Chi Energy Boost','Beginner',['arms']),
+  wc('Tai Chi Quema Grasa','Tai Chi Fat Burn','Beginner',['arms']),
+  wc('Tai Chi para Movilidad Articular','Tai Chi for Joint Mobility','Beginner',['arms']),
+  wc('Tai Chi para Cintura Definida','Tai Chi for Slim Waist','Beginner',['arms']),
+  wc('Tai Chi para la Salud de la Columna','Tai Chi for Spinal Health','Beginner',['arms','back']),
+  wc('Tai Chi Poder Marcial','Tai Chi Martial Power','Beginner',['arms']),
+  wc('Tai Chi Matutino','Tai Chi Morning Workout','Beginner',['arms']),
+  wc('Yoga de Cuerpo Completo','Complete Body Yoga','Beginner',['butt','fullbody'],'images/prog-yoga-silla.jpg'),
+  wc('Fuerza y Liberación de Piernas','Leg Strength & Release','Advanced',['butt','legs']),
+  wc('Yoga de Piernas y Equilibrio','Legs & Balance Yoga','Intermediate',['butt','legs']),
+  wc('Cuerpo Total','Total body','Intermediate',['chest','fullbody']),
+  wc('Resistencia de Tren Superior','Upper body endurance','Intermediate',['chest','arms']),
+  wc('Máximo de Tren Superior','Upper body max','Intermediate',['chest','arms']),
+  wc('Fuerza de Tren Superior','Upper body strength','Intermediate',['chest','arms']),
+  wc('Yoga Abre Pecho y Hombros','Yoga Chest & Shoulder Openers','Beginner',['chest']),
+  wc('Yoga de Recuperación','Yoga recovery','Beginner',['chest','fullbody'])
 ];
 function progById(id){ for(var i=0;i<PROGRAMS.length;i++) if(PROGRAMS[i].id===id) return PROGRAMS[i]; return null; }
 function genDay(prog, day){
@@ -498,6 +573,7 @@ function render(){
   tabs.style.display = (route==='program' || route==='settings' || route==='browse-diets' || route==='coach') ? 'none' : 'flex';
   if(route==='home') return renderHome();
   if(route==='workouts') return renderWorkouts();
+  if(route==='area') return renderAreaPrograms(parts[1]);
   if(route==='program') return renderProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
   if(route==='meals') return renderMeals();
   if(route==='browse-diets') return renderBrowseDiets();
@@ -566,7 +642,7 @@ function renderWorkouts(){
   var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('wk_title')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
   html += '<div class="tv-sec">'+t('wk_areas')+'</div><div class="tv-hscroll tv-hscroll-visible">'+
     AREAS.map(function(a){
-      return '<div class="tv-pcard" style="width:96px;height:96px"><img src="'+a.img+'" alt=""><span class="lbl" style="font-size:11.5px;text-align:center">'+esc(tn(a.name))+'</span></div>';
+      return '<a href="#area/'+a.key+'" class="tv-pcard" style="width:96px;height:96px"><img src="'+a.img+'" alt=""><span class="lbl" style="font-size:11.5px;text-align:center">'+esc(tn(a.name))+'</span></a>';
     }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_level')+'</div><div class="tv-pills">'+
@@ -582,6 +658,23 @@ function renderWorkouts(){
       '<img src="'+p.img+'"><div class="info"><b>'+esc(tn(p.name))+'</b><div class="meta">'+(p.badge?'<span class="tag">'+esc(tn(p.badge))+'</span>':'')+'<span>'+p.days+' '+t('wk_days')+'</span><span>⏱ '+p.min+' '+t('wk_min_day')+'</span></div></div>'+
       '<div class="play">▶</div></a>';
   });
+  stage.innerHTML = html;
+}
+
+var LEVEL_KEY = {Advanced:'wk_advanced', Intermediate:'wk_intermediate', Beginner:'wk_beginner'};
+function renderAreaPrograms(key){
+  var area = null;
+  for(var i=0;i<AREAS.length;i++){ if(AREAS[i].key===key) area = AREAS[i]; }
+  var title = area ? tn(area.name) : '';
+  var items = WORKOUT_CATALOG.filter(function(w){ return w.areas.indexOf(key) !== -1; });
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(title)+'</h1></div>';
+  html += '<div class="tv-wgrid">'+
+    items.map(function(w){
+      var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
+      var media = w.img ? '<img src="'+w.img+'" alt="">' : '<div class="ico">🧘</div>';
+      return '<div class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></div>';
+    }).join('')+
+  '</div>';
   stage.innerHTML = html;
 }
 
