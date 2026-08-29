@@ -449,7 +449,7 @@ function slugify(s){ return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-
 function wc(name_es,name_en,level,areas,img,cat,pos){ return {id:slugify(name_en), name:bi(name_es,name_en), level:level, areas:areas, img:img||null, cat:cat||null, pos:pos||null}; }
 var POS_BOTTOM = 'bottom center';
 var WORKOUT_CATALOG = [
-  wc('Fundamentos de Peso Corporal','Bodyweight Fundamentals','Advanced',['abs','arms','chest','fullbody'],'images/w-bodyweight-fundamentals.png','Military Bootcamp'),
+  wc('Fundamentos de Peso Corporal','Bodyweight Fundamentals','Advanced',['abs','arms','chest','fullbody'],'images/w-bodyweight-fundamentals.png','Military Bootcamp',POS_BOTTOM),
   wc('Pilates Esculpe Glúteos','Booty Sculpt Pilates','Intermediate',['abs','butt'],'images/w-booty-sculpt.png','Pilates',POS_BOTTOM),
   wc('Flujo de Calma y Liberación','Calm & Release Flow','Intermediate',['abs'],'images/w-calm-release.png','Yoga'),
   wc('Ráfaga de Cardio','Cardio burst','Intermediate',['abs','arms']),
@@ -469,8 +469,8 @@ var WORKOUT_CATALOG = [
   wc('Piernas Explosivas','Explosive legs','Intermediate',['abs','legs']),
   wc('Flujo de Yoga Base','Foundation Yoga Flow','Beginner',['abs','fullbody'],'images/w-foundation-yogaflow.png','Yoga'),
   wc('Cuerpo Completo','Full body','Intermediate',['abs','arms','chest','fullbody','legs']),
-  wc('Fundamentos de Cuerpo Completo','Full Body Basics','Advanced',['abs','chest','fullbody'],'images/w-fullbody-basics.png','Military Bootcamp'),
-  wc('Quema de Cuerpo Completo','Full Body Burn','Advanced',['abs','chest','fullbody'],'images/w-fullbody-burn.png','Military Bootcamp'),
+  wc('Fundamentos de Cuerpo Completo','Full Body Basics','Advanced',['abs','chest','fullbody'],'images/w-fullbody-basics.png','Military Bootcamp',POS_BOTTOM),
+  wc('Quema de Cuerpo Completo','Full Body Burn','Advanced',['abs','chest','fullbody'],'images/w-fullbody-burn.png','Military Bootcamp',POS_BOTTOM),
   wc('Final de Cuerpo Completo','Full body finale','Intermediate',['abs','chest','fullbody']),
   wc('Cardio Total','Full cardio','Intermediate',['abs','legs']),
   wc('Pilates de Glúteos y Core','Glutes & Core Pilates','Intermediate',['abs','butt'],'images/w-glutes-core.png','Pilates',POS_BOTTOM),
@@ -515,7 +515,7 @@ var WORKOUT_CATALOG = [
   wc('Yoga Abre Pecho y Hombros','Yoga Chest & Shoulder Openers','Beginner',['chest'],'images/w-yoga-chest-shoulder.png','Micro Workouts'),
   wc('Yoga de Recuperación','Yoga recovery','Beginner',['chest','fullbody']),
   wc('Pilates Recupera y Fortalece','Rise & Strengthen Pilates','Intermediate',['chest'],'images/w-rise-strengthen.png','Pilates',POS_BOTTOM),
-  wc('Entrenamiento de Ignición Total','Total Ignition Workout','Advanced',['fullbody'],'images/w-total-ignition.png','Power Series'),
+  wc('Entrenamiento de Ignición Total','Total Ignition Workout','Advanced',['fullbody'],'images/w-total-ignition.png','Power Series',POS_BOTTOM),
   wc('Fuerza en la Quietud','Strength Within Stillness','Beginner',['fullbody'],'images/w-strength-stillness.png','Yoga'),
   wc('Tai Chi Fuerza y Equilibrio','Tai Chi Strength & Balance Workout','Beginner',['arms','legs'],'images/w-taichi-strength-balance.png','Micro Workouts'),
   wc('Flujo Total de Relajación','Total Unwind Flow','Beginner',['fullbody'],'images/w-total-unwind.png','Yoga'),
@@ -525,13 +525,13 @@ var WORKOUT_CATALOG = [
   wc('Yoga Alivio del Estrés','Yoga Stress Relief','Beginner',['fullbody'],'images/w-yoga-stress-relief.png','Micro Workouts'),
   wc('Pilates Enfoque de Core','Pilates Core Focus','Intermediate',['abs'],'images/w-pilates-core-focus.png','Micro Workouts',POS_BOTTOM),
   wc('Pilates Caderas y Piernas','Pilates Hips & Legs','Intermediate',['butt','legs'],'images/w-pilates-hips-legs.png','Micro Workouts',POS_BOTTOM),
-  wc('Potencia de Core y Piernas','Power Core and Legs','Intermediate',['abs','legs'],'images/w-power-core-legs.png','Yoga'),
+  wc('Potencia de Core y Piernas','Power Core and Legs','Intermediate',['abs','legs'],'images/w-power-core-legs.png','Yoga',POS_BOTTOM),
   wc('Pilates Libera Tensión','Tension Release Pilates','Intermediate',['back','fullbody'],'images/w-tension-release.png','Pilates',POS_BOTTOM),
   wc('Pilates Tonifica y Esculpe','Tone & Sculpt Pilates','Intermediate',['fullbody'],'images/w-tone-sculpt.png','Pilates',POS_BOTTOM),
   wc('Flujo de Yoga Erguido','Upright Yoga Flow','Intermediate',['back','fullbody'],'images/w-upright-yogaflow.png','Yoga'),
   wc('Pilates Flujo Vital','Vitality Flow Pilates','Intermediate',['fullbody'],'images/w-vitality-flow.png','Pilates',POS_BOTTOM),
   wc('Pilates de Cuerpo Completo','Whole Body Pilates','Intermediate',['fullbody'],'images/w-wholebody-pilates.png','Pilates',POS_BOTTOM),
-  wc('Espalda en Calma','Spinal Ease','Beginner',['back','fullbody'],'images/w-spinal-ease.png','Yoga')
+  wc('Espalda en Calma','Spinal Ease','Beginner',['back','fullbody'],'images/w-spinal-ease.png','Yoga',POS_BOTTOM)
 ];
 function progById(id){ for(var i=0;i<PROGRAMS.length;i++) if(PROGRAMS[i].id===id) return PROGRAMS[i]; return null; }
 function genDay(prog, day){
