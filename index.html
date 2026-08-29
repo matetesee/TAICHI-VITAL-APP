@@ -261,9 +261,13 @@ html,body{margin:0;padding:0;background:var(--bg)}
 
 /* ===== settings ===== */
 #tv .tv-prof{display:flex;flex-direction:column;align-items:center;padding:14px 0 22px}
-#tv .tv-prof .av{width:64px;height:64px;border-radius:50%;background:linear-gradient(140deg,var(--bronze2),var(--bronze));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-weight:800;font-size:24px;margin-bottom:10px}
+#tv .tv-prof .av{width:64px;height:64px;border-radius:50%;background:linear-gradient(140deg,var(--bronze2),var(--bronze));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-weight:800;font-size:24px;overflow:hidden}
+#tv .tv-prof .av img{width:100%;height:100%;object-fit:cover}
 #tv .tv-prof b{font-family:'Poppins';font-size:16px}
 #tv .tv-prof span{font-size:12.5px;color:var(--soft)}
+#tv .tv-avatar-wrap{position:relative;margin-bottom:10px}
+#tv .av-edit{position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:50%;background:var(--bronze);color:#fff;border:2px solid var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px}
+#tv .av-remove{border:none;background:none;color:var(--crimson);font-size:11.5px;font-weight:700;margin-top:6px}
 #tv .tv-setrow{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);gap:10px}
 #tv .tv-setrow:last-child{border-bottom:none}
 #tv .tv-toggle{width:44px;height:25px;border-radius:20px;background:var(--line);position:relative;border:none;flex:none}
@@ -356,6 +360,7 @@ var I18N = {
     prog_avg_mood:'Estado de ánimo promedio', prog_avg:'Promedio:',
     print_title:'Guías', print_sub:'Biblioteca de guías descargables', print_soon:'PDF descargable — próximamente',
     set_title:'Ajustes', set_local_account:'Cuenta local · sin sincronizar', set_account_cfg:'Configuración de cuenta', set_units:'Unidades', set_metric:'Métrico', set_imperial:'Imperial',
+    set_avatar_edit:'Cambiar foto de perfil', set_avatar_remove:'Eliminar foto', set_avatar_err:'No se pudo cargar la imagen. Probá con otra foto.',
     set_reminders:'Recordatorios para entrenar', set_lang:'Idioma', set_theme:'Tema', set_theme_light:'Claro', set_theme_dark:'Oscuro',
     set_contact:'Contactanos ›', set_privacy:'Política de privacidad ›', set_terms:'Términos de uso ›', set_logout:'Cerrar sesión', set_version:'Versión 1.0.0'
   },
@@ -405,6 +410,7 @@ var I18N = {
     prog_avg_mood:'Average mood', prog_avg:'Average:',
     print_title:'Guides', print_sub:'Downloadable guide library', print_soon:'Downloadable PDF — coming soon',
     set_title:'Settings', set_local_account:'Local account · not synced', set_account_cfg:'Account settings', set_units:'Units', set_metric:'Metric', set_imperial:'Imperial',
+    set_avatar_edit:'Change profile photo', set_avatar_remove:'Remove photo', set_avatar_err:"Couldn't load that image. Try a different photo.",
     set_reminders:'Workout reminders', set_lang:'Language', set_theme:'Theme', set_theme_light:'Light', set_theme_dark:'Dark',
     set_contact:'Contact us ›', set_privacy:'Privacy policy ›', set_terms:'Terms of use ›', set_logout:'Log out', set_version:'Version 1.0.0'
   }
@@ -1580,8 +1586,13 @@ function renderCoach(){
 function renderSettings(){
   var acc = state.account || {name:'',email:''};
   var initial = (acc.name||'?').charAt(0).toUpperCase();
+  var avInner = acc.photo ? '<img src="'+acc.photo+'" alt="">' : initial;
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('set_title')+'</h1></div>';
-  html += '<div class="tv-prof"><div class="av">'+initial+'</div><b>'+esc(acc.name||'')+'</b><span>'+esc(acc.email||'')+'</span><span>'+t('set_local_account')+'</span></div>';
+  html += '<div class="tv-prof"><div class="tv-avatar-wrap"><div class="av">'+avInner+'</div><button class="av-edit" onclick="document.getElementById(\'avatarFile\').click()" title="'+esc(t('set_avatar_edit'))+'">📷</button></div>'+
+    '<input type="file" id="avatarFile" accept="image/*" style="display:none" onchange="tvAvatarChange(this)">'+
+    '<b>'+esc(acc.name||'')+'</b><span>'+esc(acc.email||'')+'</span><span>'+t('set_local_account')+'</span>'+
+    (acc.photo ? '<button class="av-remove" onclick="tvRemoveAvatar()">'+t('set_avatar_remove')+'</button>' : '')+
+  '</div>';
   html += '<div class="tv-sec">'+t('set_account_cfg')+'</div><div class="tv-card">'+
     '<div class="tv-setrow"><span>'+t('set_units')+'</span><div class="tv-seg"><button data-u="metric" class="'+(state.settings.units==='metric'?'on':'')+'">'+t('set_metric')+'</button><button data-u="imperial" class="'+(state.settings.units==='imperial'?'on':'')+'">'+t('set_imperial')+'</button></div></div>'+
     '<div class="tv-setrow"><span>'+t('set_theme')+'</span><div class="tv-seg"><button data-th="light" class="'+(state.settings.theme==='light'?'on':'')+'">'+t('set_theme_light')+'</button><button data-th="dark" class="'+(state.settings.theme==='dark'?'on':'')+'">'+t('set_theme_dark')+'</button></div></div>'+
@@ -1597,6 +1608,37 @@ function renderSettings(){
   stage.querySelectorAll('[data-lg]').forEach(function(b){ b.onclick=function(){ state.settings.lang=b.dataset.lg; save(); renderSettings(); }; });
   $('remToggle').onclick=function(){ state.settings.reminders=!state.settings.reminders; save(); renderSettings(); };
 }
+window.tvAvatarChange = function(input){
+  var file = input.files && input.files[0];
+  if(!file || !state.account) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var img = new Image();
+    img.onload = function(){
+      var size = 320;
+      var canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      var ctx = canvas.getContext('2d');
+      var side = Math.min(img.width, img.height);
+      var sx = (img.width-side)/2, sy = (img.height-side)/2;
+      ctx.drawImage(img, sx, sy, side, side, 0, 0, size, size);
+      state.account.photo = canvas.toDataURL('image/jpeg', 0.85);
+      save();
+      renderSettings();
+    };
+    img.onerror = function(){ alert(t('set_avatar_err')); };
+    img.src = e.target.result;
+  };
+  reader.onerror = function(){ alert(t('set_avatar_err')); };
+  reader.readAsDataURL(file);
+  input.value = '';
+};
+window.tvRemoveAvatar = function(){
+  if(!state.account) return;
+  state.account.photo = null;
+  save();
+  renderSettings();
+};
 
 applyTheme();
 render();
