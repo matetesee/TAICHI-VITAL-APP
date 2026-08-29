@@ -420,12 +420,12 @@ var AREAS = [
   {key:'legs', name:bi('Piernas','Legs'), img:'images/area-piernas.png'}
 ];
 var CATEGORIES = [
-  {name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg', pos:'top center'},
-  {name:bi('Micro Workouts','Micro Workouts'), badge:'NEW', img:'images/cat-micro.png'},
-  {name:bi('Military Bootcamp','Military Bootcamp'), badge:'NEW', img:'images/cat-military.png'},
-  {name:bi('Pilates','Pilates'), badge:'', img:'images/cat-pilates.png'},
-  {name:bi('Yoga','Yoga'), badge:'', img:'images/cat-yoga.png', pos:'top center'},
-  {name:bi('Power Series','Power Series'), badge:'NEW', img:'images/cat-power.png'}
+  {key:'Tai Chi', name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg', pos:'top center'},
+  {key:'Micro Workouts', name:bi('Micro Workouts','Micro Workouts'), badge:'NEW', img:'images/cat-micro.png'},
+  {key:'Military Bootcamp', name:bi('Military Bootcamp','Military Bootcamp'), badge:'NEW', img:'images/cat-military.png'},
+  {key:'Pilates', name:bi('Pilates','Pilates'), badge:'', img:'images/cat-pilates.png'},
+  {key:'Yoga', name:bi('Yoga','Yoga'), badge:'', img:'images/cat-yoga.png', pos:'top center'},
+  {key:'Power Series', name:bi('Power Series','Power Series'), badge:'NEW', img:'images/cat-power.png'}
 ];
 var DIETS = [
   {id:'alta-proteina', name:bi('30 Días Alta en Proteína','30-Day High Protein'), kcal:1500, days:30, tag:bi('ALTA PROTEÍNA','HIGH PROTEIN')},
@@ -443,90 +443,91 @@ var PRINTABLES = [
   {name:bi('Recetario Antiinflamatorio','Anti-Inflammatory Recipe Book'), pages:20},
   {name:bi('Rutina de Movilidad Matutina','Morning Mobility Routine'), pages:9}
 ];
-function wc(name_es,name_en,level,areas,img){ return {name:bi(name_es,name_en), level:level, areas:areas, img:img||null}; }
+function wc(name_es,name_en,level,areas,img,cat){ return {name:bi(name_es,name_en), level:level, areas:areas, img:img||null, cat:cat||null}; }
 var WORKOUT_CATALOG = [
-  wc('Fundamentos de Peso Corporal','Bodyweight Fundamentals','Advanced',['abs','arms','chest','fullbody']),
-  wc('Pilates Esculpe Glúteos','Booty Sculpt Pilates','Intermediate',['abs','butt'],'images/prog-pilates.png'),
-  wc('Flujo de Calma y Liberación','Calm & Release Flow','Intermediate',['abs']),
+  wc('Fundamentos de Peso Corporal','Bodyweight Fundamentals','Advanced',['abs','arms','chest','fullbody'],'images/w-bodyweight-fundamentals.png','Military Bootcamp'),
+  wc('Pilates Esculpe Glúteos','Booty Sculpt Pilates','Intermediate',['abs','butt'],'images/w-booty-sculpt.png','Pilates'),
+  wc('Flujo de Calma y Liberación','Calm & Release Flow','Intermediate',['abs'],'images/w-calm-release.png','Yoga'),
   wc('Ráfaga de Cardio','Cardio burst','Intermediate',['abs','arms']),
   wc('Cardio Final','Cardio finale','Intermediate',['abs','arms']),
-  wc('Pilates Flujo Cardio','Cardio Flow Pilates','Intermediate',['abs','arms']),
+  wc('Pilates Flujo Cardio','Cardio Flow Pilates','Intermediate',['abs','arms'],'images/w-cardio-flow.png','Pilates'),
   wc('Core + Anti-rotación','Core + anti-rotation','Intermediate',['abs','arms']),
   wc('Control de Core','Core control','Intermediate',['abs','arms']),
-  wc('Pilates Armonía de Core','Core Harmony Pilates','Advanced',['abs','fullbody']),
+  wc('Pilates Armonía de Core','Core Harmony Pilates','Advanced',['abs','fullbody'],'images/w-core-harmony.png','Pilates'),
   wc('Pico de Core','Core peak','Intermediate',['abs','arms']),
   wc('Core y Estabilidad','Core & stability','Intermediate',['abs','arms']),
-  wc('Pilates de Fuerza Diaria','Daily Strength Pilates','Intermediate',['abs','fullbody']),
-  wc('Práctica Diaria de Tai Chi','Daily Tai Chi Practice','Beginner',['abs','fullbody'],'images/prog-taichi-full.jpg'),
-  wc('Impulso Diario','Daily Uplift','Intermediate',['abs','butt']),
-  wc('Pilates de Core Profundo','Deep Core Pilates','Advanced',['abs','fullbody']),
-  wc('Rutina Fácil en Colchoneta','Easy Mat Routine','Beginner',['abs','fullbody']),
-  wc('Restauración Nocturna','Evening Restore','Beginner',['abs','fullbody']),
+  wc('Pilates de Fuerza Diaria','Daily Strength Pilates','Intermediate',['abs','fullbody'],'images/w-daily-strength.png','Pilates'),
+  wc('Práctica Diaria de Tai Chi','Daily Tai Chi Practice','Beginner',['abs','fullbody'],'images/w-daily-taichi-practice.png','Tai Chi'),
+  wc('Impulso Diario','Daily Uplift','Intermediate',['abs','butt'],'images/w-daily-uplift.png','Yoga'),
+  wc('Pilates de Core Profundo','Deep Core Pilates','Advanced',['abs','fullbody'],'images/w-deep-core.png','Pilates'),
+  wc('Rutina Fácil en Colchoneta','Easy Mat Routine','Beginner',['abs','fullbody'],'images/w-easy-mat.png','Pilates'),
+  wc('Restauración Nocturna','Evening Restore','Beginner',['abs','fullbody'],'images/w-evening-restore.png','Pilates'),
   wc('Piernas Explosivas','Explosive legs','Intermediate',['abs','legs']),
-  wc('Flujo de Yoga Base','Foundation Yoga Flow','Beginner',['abs','fullbody'],'images/prog-yoga-silla.jpg'),
+  wc('Flujo de Yoga Base','Foundation Yoga Flow','Beginner',['abs','fullbody'],'images/w-foundation-yogaflow.png','Yoga'),
   wc('Cuerpo Completo','Full body','Intermediate',['abs','arms','chest','fullbody','legs']),
-  wc('Fundamentos de Cuerpo Completo','Full Body Basics','Advanced',['abs','chest','fullbody']),
-  wc('Quema de Cuerpo Completo','Full Body Burn','Advanced',['abs','chest','fullbody']),
+  wc('Fundamentos de Cuerpo Completo','Full Body Basics','Advanced',['abs','chest','fullbody'],'images/w-fullbody-basics.png','Military Bootcamp'),
+  wc('Quema de Cuerpo Completo','Full Body Burn','Advanced',['abs','chest','fullbody'],'images/w-fullbody-burn.png','Military Bootcamp'),
   wc('Final de Cuerpo Completo','Full body finale','Intermediate',['abs','chest','fullbody']),
   wc('Cardio Total','Full cardio','Intermediate',['abs','legs']),
-  wc('Pilates de Glúteos y Core','Glutes & Core Pilates','Intermediate',['abs','butt']),
-  wc('Pilates Buenos Días','Good Morning Pilates','Beginner',['abs','fullbody']),
-  wc('Pilates Buenas Noches','Good Night Pilates','Beginner',['abs','fullbody']),
+  wc('Pilates de Glúteos y Core','Glutes & Core Pilates','Intermediate',['abs','butt'],'images/w-glutes-core.png','Pilates'),
+  wc('Pilates Buenos Días','Good Morning Pilates','Beginner',['abs','fullbody'],'images/w-good-morning.png','Pilates'),
+  wc('Pilates Buenas Noches','Good Night Pilates','Beginner',['abs','fullbody'],'images/w-good-night.png','Pilates'),
   wc('Piernas Intensas','Heavy legs','Intermediate',['abs','legs']),
-  wc('Introducción al Pilates','Introduction to Pilates','Beginner',['abs','fullbody'],'images/prog-pilates.png'),
+  wc('Introducción al Pilates','Introduction to Pilates','Beginner',['abs','fullbody'],'images/w-intro-pilates.png','Pilates'),
   wc('Piernas y Glúteos','Legs & glutes','Intermediate',['abs','butt','legs']),
   wc('Potencia de Tren Inferior','Lower body power','Intermediate',['abs','butt','legs']),
-  wc('Escultura de Tren Inferior','Lower Body Sculpt','Advanced',['abs','butt','legs']),
-  wc('Dominando el Tai Chi','Mastering Tai Chi','Intermediate',['abs','arms','legs'],'images/prog-taichi-light.jpg'),
+  wc('Escultura de Tren Inferior','Lower Body Sculpt','Advanced',['abs','butt','legs'],'images/w-lowerbody-sculpt.png','Pilates'),
+  wc('Dominando el Tai Chi','Mastering Tai Chi','Intermediate',['abs','arms','legs'],'images/w-mastering-taichi.png','Tai Chi'),
   wc('Cardio Metabólico','Metabolic cardio','Intermediate',['abs','arms','legs']),
-  wc('Pilates a Ritmo Consciente','Mindful Pace Pilates','Intermediate',['abs']),
-  wc('Pilates Espalda y Postura','Pilates Back & Posture','Intermediate',['abs','arms','back']),
-  wc('Pilates Pecho y Hombros','Pilates Chest & Shoulders','Intermediate',['arms','chest']),
-  wc('Pilates Carga de Core','Pilates Core Charge','Intermediate',['arms']),
-  wc('Pilates Serie de Planchas','Pilates Plank Series','Advanced',['arms']),
-  wc('Pilates Flujo Rápido de Cuerpo Completo','Pilates Quick Full Body Flow','Intermediate',['arms','fullbody']),
-  wc('Pilates Costado del Cuerpo','Pilates Side body','Intermediate',['arms']),
-  wc('Pilates Reinicio Postural','Posture Reset Pilates','Beginner',['arms','back']),
+  wc('Pilates a Ritmo Consciente','Mindful Pace Pilates','Intermediate',['abs'],'images/w-mindful-pace.png','Pilates'),
+  wc('Pilates Espalda y Postura','Pilates Back & Posture','Intermediate',['abs','arms','back'],'images/w-pilates-back-posture.png','Micro Workouts'),
+  wc('Pilates Pecho y Hombros','Pilates Chest & Shoulders','Intermediate',['arms','chest'],'images/w-pilates-chest-shoulders.png','Micro Workouts'),
+  wc('Pilates Carga de Core','Pilates Core Charge','Intermediate',['arms'],'images/w-pilates-corecharge.png','Pilates'),
+  wc('Pilates Serie de Planchas','Pilates Plank Series','Advanced',['arms'],'images/w-pilates-plank.png','Pilates'),
+  wc('Pilates Flujo Rápido de Cuerpo Completo','Pilates Quick Full Body Flow','Intermediate',['arms','fullbody'],'images/w-pilates-quick-fullbody.png','Micro Workouts'),
+  wc('Pilates Costado del Cuerpo','Pilates Side body','Intermediate',['arms'],'images/w-pilates-sidebody.png','Micro Workouts'),
+  wc('Pilates Reinicio Postural','Posture Reset Pilates','Beginner',['arms','back'],'images/w-posture-reset.png','Pilates'),
   wc('Potencia de Empuje','Push power','Intermediate',['arms','chest','fullbody']),
-  wc('Tai Chi Sentado de Cuerpo Completo','Seated Full-Body Tai Chi','Beginner',['arms','fullbody'],'images/prog-yoga-silla.jpg'),
-  wc('Pilates Nutre tu Columna','Spinal Nourish Pilates','Intermediate',['arms','back']),
+  wc('Tai Chi Sentado de Cuerpo Completo','Seated Full-Body Tai Chi','Beginner',['arms','fullbody'],'images/w-seated-fullbody-taichi.png','Tai Chi'),
+  wc('Pilates Nutre tu Columna','Spinal Nourish Pilates','Intermediate',['arms','back'],'images/w-spinal-nourish.png','Pilates'),
   wc('Fuerza + Core','Strength + core','Intermediate',['arms','chest','fullbody']),
-  wc('Pilates Estira y Fortalece','Stretch & Strengthen Pilates','Beginner',['arms']),
-  wc('Fundamentos de Tai Chi','Tai Chi Basics','Beginner',['arms']),
-  wc('Pausa de Tai Chi en el Escritorio','Tai Chi Desk Break','Beginner',['arms']),
-  wc('Impulso de Energía con Tai Chi','Tai Chi Energy Boost','Beginner',['arms']),
-  wc('Tai Chi Quema Grasa','Tai Chi Fat Burn','Beginner',['arms']),
-  wc('Tai Chi para Movilidad Articular','Tai Chi for Joint Mobility','Beginner',['arms']),
-  wc('Tai Chi para Cintura Definida','Tai Chi for Slim Waist','Beginner',['arms']),
-  wc('Tai Chi para la Salud de la Columna','Tai Chi for Spinal Health','Beginner',['arms','back']),
-  wc('Tai Chi Poder Marcial','Tai Chi Martial Power','Beginner',['arms']),
-  wc('Tai Chi Matutino','Tai Chi Morning Workout','Beginner',['arms']),
-  wc('Yoga de Cuerpo Completo','Complete Body Yoga','Beginner',['butt','fullbody'],'images/prog-yoga-silla.jpg'),
-  wc('Fuerza y Liberación de Piernas','Leg Strength & Release','Advanced',['butt','legs']),
-  wc('Yoga de Piernas y Equilibrio','Legs & Balance Yoga','Intermediate',['butt','legs']),
+  wc('Pilates Estira y Fortalece','Stretch & Strengthen Pilates','Beginner',['arms'],'images/w-stretch-strengthen.png','Pilates'),
+  wc('Fundamentos de Tai Chi','Tai Chi Basics','Beginner',['arms'],'images/w-taichi-basics.png','Tai Chi'),
+  wc('Pausa de Tai Chi en el Escritorio','Tai Chi Desk Break','Beginner',['arms'],'images/w-taichi-deskbreak.png','Micro Workouts'),
+  wc('Impulso de Energía con Tai Chi','Tai Chi Energy Boost','Beginner',['arms'],'images/w-taichi-energyboost.png','Micro Workouts'),
+  wc('Tai Chi Quema Grasa','Tai Chi Fat Burn','Beginner',['arms'],'images/w-taichi-fatburn.png','Tai Chi'),
+  wc('Tai Chi para Movilidad Articular','Tai Chi for Joint Mobility','Beginner',['arms'],'images/w-taichi-joint.png','Tai Chi'),
+  wc('Tai Chi para Cintura Definida','Tai Chi for Slim Waist','Beginner',['arms'],'images/w-taichi-waist.png','Tai Chi'),
+  wc('Tai Chi para la Salud de la Columna','Tai Chi for Spinal Health','Beginner',['arms','back'],'images/w-taichi-spinal.png','Tai Chi'),
+  wc('Tai Chi Poder Marcial','Tai Chi Martial Power','Beginner',['arms'],'images/w-taichi-martial.png','Tai Chi'),
+  wc('Tai Chi Matutino','Tai Chi Morning Workout','Beginner',['arms'],'images/w-taichi-morning.png','Micro Workouts'),
+  wc('Yoga de Cuerpo Completo','Complete Body Yoga','Beginner',['butt','fullbody'],'images/w-complete-bodyyoga.png','Yoga'),
+  wc('Fuerza y Liberación de Piernas','Leg Strength & Release','Advanced',['butt','legs'],'images/w-legstrength-release.png','Yoga'),
+  wc('Yoga de Piernas y Equilibrio','Legs & Balance Yoga','Intermediate',['butt','legs'],'images/w-legs-balance-yoga.png','Yoga'),
   wc('Cuerpo Total','Total body','Intermediate',['chest','fullbody']),
   wc('Resistencia de Tren Superior','Upper body endurance','Intermediate',['chest','arms']),
   wc('Máximo de Tren Superior','Upper body max','Intermediate',['chest','arms']),
   wc('Fuerza de Tren Superior','Upper body strength','Intermediate',['chest','arms']),
-  wc('Yoga Abre Pecho y Hombros','Yoga Chest & Shoulder Openers','Beginner',['chest']),
+  wc('Yoga Abre Pecho y Hombros','Yoga Chest & Shoulder Openers','Beginner',['chest'],'images/w-yoga-chest-shoulder.png','Micro Workouts'),
   wc('Yoga de Recuperación','Yoga recovery','Beginner',['chest','fullbody']),
-  wc('Pilates Recupera y Fortalece','Rise & Strengthen Pilates','Intermediate',['chest'],'images/prog-pilates.png'),
-  wc('Entrenamiento de Ignición Total','Total Ignition Workout','Advanced',['fullbody']),
-  wc('Fuerza en la Quietud','Strength Within Stillness','Beginner',['fullbody']),
-  wc('Tai Chi Fuerza y Equilibrio','Tai Chi Strength & Balance Workout','Beginner',['arms','legs']),
-  wc('Flujo Total de Relajación','Total Unwind Flow','Beginner',['fullbody']),
-  wc('Pilates Pausa Laboral','Work Break Pilates','Beginner',['back','arms']),
-  wc('Yoga de Espalda y Columna','Yoga Back & Spine','Beginner',['back']),
-  wc('Yoga Abre Cadera y Piernas','Yoga Hip & Leg Openers','Beginner',['butt','legs']),
-  wc('Yoga Alivio del Estrés','Yoga Stress Relief','Beginner',['fullbody']),
-  wc('Pilates Enfoque de Core','Pilates Core Focus','Intermediate',['abs']),
-  wc('Pilates Caderas y Piernas','Pilates Hips & Legs','Intermediate',['butt','legs']),
-  wc('Potencia de Core y Piernas','Power Core and Legs','Intermediate',['abs','legs']),
-  wc('Pilates Libera Tensión','Tension Release Pilates','Intermediate',['back','fullbody']),
-  wc('Pilates Tonifica y Esculpe','Tone & Sculpt Pilates','Intermediate',['fullbody']),
-  wc('Flujo de Yoga Erguido','Upright Yoga Flow','Intermediate',['back','fullbody']),
-  wc('Pilates Flujo Vital','Vitality Flow Pilates','Intermediate',['fullbody']),
-  wc('Pilates de Cuerpo Completo','Whole Body Pilates','Intermediate',['fullbody'])
+  wc('Pilates Recupera y Fortalece','Rise & Strengthen Pilates','Intermediate',['chest'],'images/w-rise-strengthen.png','Pilates'),
+  wc('Entrenamiento de Ignición Total','Total Ignition Workout','Advanced',['fullbody'],'images/w-total-ignition.png','Power Series'),
+  wc('Fuerza en la Quietud','Strength Within Stillness','Beginner',['fullbody'],'images/w-strength-stillness.png','Yoga'),
+  wc('Tai Chi Fuerza y Equilibrio','Tai Chi Strength & Balance Workout','Beginner',['arms','legs'],'images/w-taichi-strength-balance.png','Micro Workouts'),
+  wc('Flujo Total de Relajación','Total Unwind Flow','Beginner',['fullbody'],'images/w-total-unwind.png','Yoga'),
+  wc('Pilates Pausa Laboral','Work Break Pilates','Beginner',['back','arms'],'images/w-workbreak-pilates.png','Pilates'),
+  wc('Yoga de Espalda y Columna','Yoga Back & Spine','Beginner',['back'],'images/w-yoga-back-spine.png','Micro Workouts'),
+  wc('Yoga Abre Cadera y Piernas','Yoga Hip & Leg Openers','Beginner',['butt','legs'],'images/w-yoga-hip-leg.png','Micro Workouts'),
+  wc('Yoga Alivio del Estrés','Yoga Stress Relief','Beginner',['fullbody'],'images/w-yoga-stress-relief.png','Micro Workouts'),
+  wc('Pilates Enfoque de Core','Pilates Core Focus','Intermediate',['abs'],'images/w-pilates-core-focus.png','Micro Workouts'),
+  wc('Pilates Caderas y Piernas','Pilates Hips & Legs','Intermediate',['butt','legs'],'images/w-pilates-hips-legs.png','Micro Workouts'),
+  wc('Potencia de Core y Piernas','Power Core and Legs','Intermediate',['abs','legs'],'images/w-power-core-legs.png','Yoga'),
+  wc('Pilates Libera Tensión','Tension Release Pilates','Intermediate',['back','fullbody'],'images/w-tension-release.png','Pilates'),
+  wc('Pilates Tonifica y Esculpe','Tone & Sculpt Pilates','Intermediate',['fullbody'],'images/w-tone-sculpt.png','Pilates'),
+  wc('Flujo de Yoga Erguido','Upright Yoga Flow','Intermediate',['back','fullbody'],'images/w-upright-yogaflow.png','Yoga'),
+  wc('Pilates Flujo Vital','Vitality Flow Pilates','Intermediate',['fullbody'],'images/w-vitality-flow.png','Pilates'),
+  wc('Pilates de Cuerpo Completo','Whole Body Pilates','Intermediate',['fullbody'],'images/w-wholebody-pilates.png','Pilates'),
+  wc('Espalda en Calma','Spinal Ease','Beginner',['back','fullbody'],'images/w-spinal-ease.png','Yoga')
 ];
 function progById(id){ for(var i=0;i<PROGRAMS.length;i++) if(PROGRAMS[i].id===id) return PROGRAMS[i]; return null; }
 function genDay(prog, day){
@@ -598,6 +599,7 @@ function render(){
   if(route==='workouts') return renderWorkouts();
   if(route==='area') return renderAreaPrograms(parts[1]);
   if(route==='level') return renderLevelPrograms(parts[1]);
+  if(route==='category') return renderCategoryPrograms(decodeURIComponent(parts[1]||''));
   if(route==='program') return renderProgramDetail(parts[1], parts[2]?parseInt(parts[2],10):1);
   if(route==='meals') return renderMeals();
   if(route==='browse-diets') return renderBrowseDiets();
@@ -673,7 +675,7 @@ function renderWorkouts(){
     [{k:'Advanced',l:t('wk_advanced')},{k:'Beginner',l:t('wk_beginner')},{k:'Intermediate',l:t('wk_intermediate')}].map(function(o){ return '<a href="#level/'+o.k+'" class="tv-pill">'+o.l+'</a>'; }).join('')+'</div>';
 
   html += '<div class="tv-sec">'+t('wk_categories')+'</div><div class="tv-catgrid">'+
-    CATEGORIES.map(function(c){ return '<div class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'" style="object-position:'+(c.pos||'center')+'"><span class="lbl">'+esc(tn(c.name))+'</span></div>'; }).join('')+
+    CATEGORIES.map(function(c){ return '<a href="#category/'+encodeURIComponent(c.key)+'" class="tv-cat">'+(c.badge?'<span class="badge">🔥 '+c.badge+'</span>':'')+'<img src="'+c.img+'" style="object-position:'+(c.pos||'center')+'"><span class="lbl">'+esc(tn(c.name))+'</span></a>'; }).join('')+
   '</div>';
 
   html += '<div class="tv-sec">'+t('wk_programs')+'</div>';
@@ -705,6 +707,22 @@ function renderAreaPrograms(key){
 function renderLevelPrograms(level){
   var items = WORKOUT_CATALOG.filter(function(w){ return w.level === level; });
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(t('wk_filtered'))+'</h1></div>';
+  html += '<div class="tv-wgrid">'+
+    items.map(function(w){
+      var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
+      var media = w.img ? '<img src="'+w.img+'" alt="">' : '<div class="ico">🧘</div>';
+      return '<div class="tv-wcard'+(w.img?' has-img':'')+'"><span class="lvl">🔥 '+esc(lvl)+'</span>'+media+'<span class="wlbl">'+esc(tn(w.name))+'</span></div>';
+    }).join('')+
+  '</div>';
+  stage.innerHTML = html;
+}
+
+function renderCategoryPrograms(catKey){
+  var cat = null;
+  for(var i=0;i<CATEGORIES.length;i++){ if(CATEGORIES[i].key===catKey) cat = CATEGORIES[i]; }
+  var title = cat ? tn(cat.name) : catKey;
+  var items = WORKOUT_CATALOG.filter(function(w){ return w.cat === catKey; });
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(title)+'</h1></div>';
   html += '<div class="tv-wgrid">'+
     items.map(function(w){
       var lvl = t(LEVEL_KEY[w.level]||'wk_beginner');
