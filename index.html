@@ -160,6 +160,13 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-tut-player video{width:100%;display:block;max-height:360px}
 #tv .tv-tut-placeholder{width:100%;aspect-ratio:16/9;border-radius:16px;background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;margin-bottom:14px;text-align:center;padding:0 20px}
 #tv .tv-tut-banner{background:var(--card2);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:700;color:var(--bronze2);margin-bottom:14px}
+#tv .tv-diploma-cta{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#123a2f,#0d241d);border:1px solid var(--bronze2);border-radius:14px;padding:14px 16px;margin-bottom:16px;text-decoration:none;font-size:24px}
+#tv .tv-diploma-cta div{flex:1}
+#tv .tv-diploma-cta b{display:block;font-family:'Poppins';font-size:14px;color:#fff;margin-bottom:2px}
+#tv .tv-diploma-cta span{font-size:12px;color:#9fd9c8}
+#tv .tv-diploma-cta .arrow{font-size:20px;color:#fff;flex:none}
+#tv .tv-diploma-wrap{width:100%;margin-bottom:16px}
+#tv .tv-diploma-wrap canvas{width:100%;height:auto;display:block;border-radius:14px;box-shadow:var(--shadow)}
 
 /* ===== bottom nav ===== */
 #tv .tv-tabs{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:10}
@@ -372,6 +379,8 @@ var I18N = {
     tour_meals_t:'Comidas', tour_meals_b:'Elegí un plan de alimentación, registrá lo que comés y explorá recetas.',
     tour_progress_t:'Progreso', tour_progress_b:'Mirá tu racha, calorías, peso y estado de ánimo a lo largo del tiempo.',
     tour_printables_t:'Tutoriales', tour_printables_b:'Los videos de Tai Chi que se van desbloqueando a medida que los completás.',
+    diploma_cta_title:'¡Completaste el recorrido!', diploma_cta_sub:'Reclamá tu diploma con tu nombre',
+    diploma_title:'Tu Diploma', diploma_awarded_to:'Otorgado a', diploma_download:'Descargar mi diploma',
     home_streak_day:'día', home_streak_days:'días', home_streak_suffix:'de racha',
     home_current_program:'Tu programa de entrenamiento actual', home_no_program:'Sin programa activo', home_explore:'Explorá los programas para comenzar', home_explore_link:'Explorar programas ›',
     home_explore_title:'Explorá programas de entrenamiento',
@@ -434,6 +443,8 @@ var I18N = {
     tour_meals_t:'Meals', tour_meals_b:'Choose a meal plan, log what you eat, and explore recipes.',
     tour_progress_t:'Progress', tour_progress_b:'Track your streak, calories, weight, and mood over time.',
     tour_printables_t:'Tutorials', tour_printables_b:'The Tai Chi videos that unlock one by one as you complete them.',
+    diploma_cta_title:'You completed the whole journey!', diploma_cta_sub:'Claim your diploma with your name on it',
+    diploma_title:'Your Diploma', diploma_awarded_to:'Awarded to', diploma_download:'Download my diploma',
     home_streak_day:'day', home_streak_days:'days', home_streak_suffix:'streak',
     home_current_program:'Your current training program', home_no_program:'No active program', home_explore:'Explore programs to get started', home_explore_link:'Explore programs ›',
     home_explore_title:'Explore training programs',
@@ -1124,6 +1135,7 @@ function render(){
   if(route==='progress') return renderProgress();
   if(route==='printables') return renderPrintables();
   if(route==='tutorial') return renderTutorialDetail(parts[1]);
+  if(route==='diploma') return renderDiploma();
   if(route==='settings') return renderSettings();
   if(route==='coach') return renderCoach();
   renderHome();
@@ -1702,6 +1714,9 @@ function renderPrintables(){
   var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('nav_printables')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+t('tut_sub')+'</p>';
   html += '<div class="tv-tut-progress"><div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700"><span>'+done+' '+t('tut_of')+' '+total+'</span><span style="color:var(--bronze2)">'+pct+'%</span></div><div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+  if(done===total){
+    html += '<a href="#diploma" class="tv-diploma-cta">🎓 <div><b>'+t('diploma_cta_title')+'</b><span>'+t('diploma_cta_sub')+'</span></div><span class="arrow">›</span></a>';
+  }
   TUTORIALS.forEach(function(tu,i){
     var unlocked = tutorialUnlocked(i);
     var watched = !!state.watchedTutorials[tu.id];
@@ -1713,6 +1728,68 @@ function renderPrintables(){
     }
   });
   stage.innerHTML = html;
+}
+function allTutorialsWatched(){
+  return TUTORIALS.every(function(tu){ return !!state.watchedTutorials[tu.id]; });
+}
+function renderDiploma(){
+  if(!allTutorialsWatched()){ nav('printables'); return; }
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('diploma_title')+'</h1></div>';
+  html += '<div class="tv-diploma-wrap"><canvas id="diplomaCanvas"></canvas></div>';
+  html += '<button class="tv-btn" id="diplomaDownload">⬇ '+t('diploma_download')+'</button>';
+  stage.innerHTML = html;
+  drawDiploma();
+}
+function drawSpacedText(ctx, text, cx, y, spacing){
+  var chars = text.split('');
+  var totalWidth = chars.reduce(function(w,c){ return w + ctx.measureText(c).width + spacing; }, -spacing);
+  var x = cx - totalWidth/2;
+  var prevAlign = ctx.textAlign;
+  ctx.textAlign = 'left';
+  chars.forEach(function(c){ ctx.fillText(c, x, y); x += ctx.measureText(c).width + spacing; });
+  ctx.textAlign = prevAlign;
+}
+function drawDiploma(){
+  var canvas = $('diplomaCanvas'); if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var img = new Image();
+  img.onload = function(){
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    ctx.drawImage(img, 0, 0);
+    var name = (state.account && state.account.name) ? state.account.name : '';
+    var finish = function(){
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#2dd4a8';
+      ctx.font = "700 " + Math.round(canvas.width*0.017) + "px 'Poppins', sans-serif";
+      drawSpacedText(ctx, t('diploma_awarded_to').toUpperCase(), canvas.width/2, canvas.height*0.675, 4);
+      var maxWidth = canvas.width * 0.8;
+      var fontSize = Math.round(canvas.width*0.048);
+      ctx.fillStyle = '#ffffff';
+      do {
+        ctx.font = "800 " + fontSize + "px 'Poppins', sans-serif";
+        fontSize -= 4;
+      } while (ctx.measureText(name).width > maxWidth && fontSize > 28);
+      var nameY = canvas.height*0.74;
+      ctx.fillText(name, canvas.width/2, nameY);
+      var w = Math.min(maxWidth, ctx.measureText(name).width);
+      ctx.strokeStyle = '#2dd4a8';
+      ctx.lineWidth = Math.max(2, canvas.width*0.0017);
+      ctx.beginPath();
+      ctx.moveTo(canvas.width/2 - w/2 - 24, nameY + canvas.height*0.018);
+      ctx.lineTo(canvas.width/2 + w/2 + 24, nameY + canvas.height*0.018);
+      ctx.stroke();
+      var dl = $('diplomaDownload');
+      if(dl) dl.onclick = function(){
+        var a = document.createElement('a');
+        a.download = 'diploma-tai-chi-vital.png';
+        a.href = canvas.toDataURL('image/png');
+        document.body.appendChild(a); a.click(); a.remove();
+      };
+    };
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(finish); } else { finish(); }
+  };
+  img.src = 'images/diploma-template.png';
 }
 function renderTutorialDetail(id){
   var i = tutorialIndex(id);
