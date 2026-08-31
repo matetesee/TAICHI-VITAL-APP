@@ -299,6 +299,7 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-auth-tabs{display:flex;background:var(--card2);border-radius:12px;padding:4px;margin-bottom:20px}
 #tv .tv-auth-tabs button{flex:1;background:none;border:none;padding:11px;font-weight:700;font-size:13.5px;color:var(--soft);border-radius:9px}
 #tv .tv-auth-tabs button.on{background:var(--bronze);color:#fff}
+#tv .tv-auth-title{text-align:center;font-family:'Poppins';font-weight:800;font-size:17px;margin-bottom:20px}
 #tv .tv-field{margin-bottom:12px}
 #tv .tv-field label{display:block;font-size:12px;font-weight:700;color:var(--soft);margin-bottom:5px}
 #tv .tv-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:13px 14px;font-size:14.5px;font-family:inherit;color:var(--ink);background:var(--bg2)}
@@ -920,40 +921,30 @@ function genDay(prog, day){
 }
 
 /* ===================== AUTH ===================== */
-function renderAuth(mode){
-  mode = mode || 'login';
+function renderAuth(){
   var html = '<div class="tv-auth"><div class="brand"><div class="logo">TaiChi <em>Vital</em></div><p>'+t('auth_sub')+'</p></div>';
-  html += '<div class="tv-auth-tabs"><button data-m="login" class="'+(mode==='login'?'on':'')+'">'+t('auth_login')+'</button><button data-m="register" class="'+(mode==='register'?'on':'')+'">'+t('auth_register')+'</button></div>';
+  html += '<h2 class="tv-auth-title">'+t('auth_login')+'</h2>';
   html += '<div id="authForm">';
-  if(mode==='register'){
-    html += '<div class="tv-field"><label>'+t('auth_name')+'</label><input id="fName" type="text" autocomplete="name"></div>';
-  }
-  html += '<div class="tv-field"><label>'+t('auth_email')+'</label><input id="fEmail" type="email" autocomplete="email"></div>';
+  html += '<div class="tv-field"><label>'+t('auth_name')+'</label><input id="fName" type="text" autocomplete="name" value="'+esc((state.account&&state.account.name)||'')+'"></div>';
+  html += '<div class="tv-field"><label>'+t('auth_email')+'</label><input id="fEmail" type="email" autocomplete="email" value="'+esc((state.account&&state.account.email)||'')+'"></div>';
   html += '<div class="tv-err" id="authErr" style="display:none"></div>';
-  html += '<button class="tv-btn" id="authSubmit">'+(mode==='register'?t('auth_register'):t('auth_login'))+'</button>';
+  html += '<button class="tv-btn" id="authSubmit">'+t('auth_login')+'</button>';
   html += '</div>';
   html += '<p class="tv-authnote">'+t('auth_note')+'</p>';
   stage.innerHTML = html;
   tabs.style.display='none';
-  stage.querySelectorAll('[data-m]').forEach(function(b){ b.onclick=function(){ renderAuth(b.dataset.m); }; });
-  $('authSubmit').onclick=function(){ mode==='register' ? doRegister() : doLogin(); };
+  $('authSubmit').onclick=doEnter;
   stage.querySelectorAll('#authForm input').forEach(function(inp){
-    inp.onkeydown=function(e){ if(e.key==='Enter'){ mode==='register' ? doRegister() : doLogin(); } };
+    inp.onkeydown=function(e){ if(e.key==='Enter'){ doEnter(); } };
   });
 }
 function authErr(msg){ var e=$('authErr'); e.textContent=msg; e.style.display='block'; }
-function doRegister(){
+function doEnter(){
   var name=($('fName').value||'').trim(), email=($('fEmail').value||'').trim().toLowerCase();
   if(!name){ return authErr(t('auth_err_name')); }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ return authErr(t('auth_err_email')); }
-  if(state.account && state.account.email===email){ return authErr(t('auth_err_exists')); }
-  state.account = { name:name, email:email };
-  state.session.loggedIn = true; save();
-  render();
-}
-function doLogin(){
-  var email=($('fEmail').value||'').trim().toLowerCase();
-  if(!state.account || state.account.email!==email){ return authErr(t('auth_err_nomatch')); }
+  var photo = (state.account && state.account.email===email) ? state.account.photo : null;
+  state.account = { name:name, email:email, photo:photo||null };
   state.session.loggedIn = true; save();
   render();
 }
@@ -967,7 +958,7 @@ tabs.querySelectorAll('button').forEach(function(b){ b.onclick=function(){ nav(b
 
 function render(){
   applyTheme();
-  if(!state.session.loggedIn){ return renderAuth(state.account ? 'login' : 'register'); }
+  if(!state.session.loggedIn){ return renderAuth(); }
   var hash = location.hash.replace('#','') || 'home';
   var parts = hash.split('/');
   var route = parts[0];
