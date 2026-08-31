@@ -17,6 +17,9 @@ const MIME = {
   '.jpeg': 'image/jpeg',
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.mov': 'video/quicktime',
 };
 
 const server = http.createServer((req, res) => {
@@ -30,8 +33,8 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
+  fs.stat(filePath, (err, stat) => {
+    if (err || !stat.isFile()) {
       fs.readFile(path.join(ROOT, 'index.html'), (err2, data2) => {
         if (err2) { res.writeHead(404); res.end('Not found'); return; }
         res.writeHead(200, { 'Content-Type': MIME['.html'] });
@@ -39,9 +42,35 @@ const server = http.createServer((req, res) => {
       });
       return;
     }
+
     const ext = path.extname(filePath);
-    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
-    res.end(data);
+    const contentType = MIME[ext] || 'application/octet-stream';
+    const range = req.headers.range;
+
+    if (range) {
+      const match = /bytes=(\d*)-(\d*)/.exec(range);
+      const start = match && match[1] ? parseInt(match[1], 10) : 0;
+      const end = match && match[2] ? parseInt(match[2], 10) : stat.size - 1;
+      if (isNaN(start) || isNaN(end) || start > end || end >= stat.size) {
+        res.writeHead(416, { 'Content-Range': `bytes */${stat.size}` });
+        res.end();
+        return;
+      }
+      res.writeHead(206, {
+        'Content-Type': contentType,
+        'Content-Length': end - start + 1,
+        'Content-Range': `bytes ${start}-${end}/${stat.size}`,
+        'Accept-Ranges': 'bytes',
+      });
+      fs.createReadStream(filePath, { start, end }).pipe(res);
+    } else {
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Content-Length': stat.size,
+        'Accept-Ranges': 'bytes',
+      });
+      fs.createReadStream(filePath).pipe(res);
+    }
   });
 });
 
