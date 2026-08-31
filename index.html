@@ -316,7 +316,8 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-auth-tabs button.on{background:var(--bronze);color:#fff}
 #tv .tv-auth-title{text-align:center;font-family:'Poppins';font-weight:800;font-size:17px;margin-bottom:20px}
 #tv .tv-pers{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;box-sizing:border-box}
-#tv .tv-pers-spin{width:52px;height:52px;border-radius:50%;border:4px solid var(--card2);border-top-color:var(--bronze2);animation:tvspin 1s linear infinite;margin-bottom:22px;flex:none}
+#tv .tv-pers-spin{width:52px;height:52px;border-radius:50%;border:4px solid var(--card2);border-top-color:var(--bronze2);animation:tvspin 1s linear infinite;margin-bottom:22px;flex:none;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff}
+#tv .tv-pers-spin.done{animation:none;border-color:var(--bronze2);background:var(--bronze2)}
 @keyframes tvspin{to{transform:rotate(360deg)}}
 #tv .tv-pers h2{font-family:'Poppins';font-weight:800;font-size:19px;margin-bottom:8px}
 #tv .tv-pers p{color:var(--soft);font-size:13.5px;margin-bottom:24px;max-width:300px}
@@ -326,6 +327,14 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-pers-step .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;transition:all .3s}
 #tv .tv-pers-step.done .dot{background:var(--bronze2);border-color:var(--bronze2)}
 #tv .tv-pers #persEnter{max-width:300px;width:100%}
+#tv .tv-tour-spot{position:fixed;border-radius:16px;box-shadow:0 0 0 9999px rgba(10,15,13,.72);transition:all .25s ease;pointer-events:none;z-index:1001}
+#tv .tv-tour-card{position:fixed;left:50%;transform:translateX(-50%);max-width:320px;width:calc(100% - 40px);background:var(--card);border-radius:16px;padding:16px 18px;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:1002;box-sizing:border-box}
+#tv .tv-tour-card .step{font-size:11px;font-weight:800;color:var(--bronze2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+#tv .tv-tour-card b{display:block;font-family:'Poppins';font-size:14.5px;margin-bottom:6px;color:var(--ink)}
+#tv .tv-tour-card p{font-size:13px;color:var(--soft);margin-bottom:14px}
+#tv .tv-tour-actions{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#tv .tv-tour-skip{background:none;border:none;color:var(--soft);font-size:12.5px;font-weight:600;padding:6px 0}
+#tv .tv-tour-next{background:var(--bronze);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-weight:700;font-size:13px}
 #tv .tv-field{margin-bottom:12px}
 #tv .tv-field label{display:block;font-size:12px;font-weight:700;color:var(--soft);margin-bottom:5px}
 #tv .tv-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:13px 14px;font-size:14.5px;font-family:inherit;color:var(--ink);background:var(--bg2)}
@@ -350,7 +359,13 @@ var I18N = {
     auth_note:'Tu cuenta se guarda solo en este dispositivo (todavía no hay servidor).',
     pers_title:'Un momento…', pers_body:'Estamos creando tu app personalizada según lo que elegiste en el quiz.',
     pers_step1:'Analizando tus respuestas', pers_step2:'Armando tu plan de Tai Chi', pers_step3:'Preparando tu progreso personalizado',
-    pers_enter:'Acceder a la App',
+    pers_step4:'Sumando regalos y bonos por tu cupón', pers_enter:'Acceder a la App',
+    tour_skip:'Saltar tour', tour_next:'Siguiente ›', tour_finish:'¡Entendido!',
+    tour_home_t:'Mi Camino', tour_home_b:'Tu pantalla principal: tu racha, tu programa activo y accesos rápidos a todo lo demás.',
+    tour_workouts_t:'Entrenamientos', tour_workouts_b:'Acá está tu programa de entrenamiento y el catálogo completo por categoría.',
+    tour_meals_t:'Comidas', tour_meals_b:'Elegí un plan de alimentación, registrá lo que comés y explorá recetas.',
+    tour_progress_t:'Progreso', tour_progress_b:'Mirá tu racha, calorías, peso y estado de ánimo a lo largo del tiempo.',
+    tour_printables_t:'Tutoriales', tour_printables_b:'Los videos de Tai Chi que se van desbloqueando a medida que los completás.',
     home_streak_day:'día', home_streak_days:'días', home_streak_suffix:'de racha',
     home_current_program:'Tu programa de entrenamiento actual', home_no_program:'Sin programa activo', home_explore:'Explorá los programas para comenzar', home_explore_link:'Explorar programas ›',
     home_explore_title:'Explorá programas de entrenamiento',
@@ -406,7 +421,13 @@ var I18N = {
     auth_note:'Your account is stored only on this device (no server yet).',
     pers_title:'One moment…', pers_body:"We're creating your personalized app based on what you chose in the quiz.",
     pers_step1:'Analyzing your answers', pers_step2:'Building your Tai Chi plan', pers_step3:'Preparing your personalized progress',
-    pers_enter:'Enter the App',
+    pers_step4:'Adding gifts and bonuses for your coupon', pers_enter:'Enter the App',
+    tour_skip:'Skip tour', tour_next:'Next ›', tour_finish:'Got it!',
+    tour_home_t:'My Path', tour_home_b:'Your home screen: your streak, active program, and quick access to everything else.',
+    tour_workouts_t:'Workouts', tour_workouts_b:"Here you'll find your training program and the full catalog by category.",
+    tour_meals_t:'Meals', tour_meals_b:'Choose a meal plan, log what you eat, and explore recipes.',
+    tour_progress_t:'Progress', tour_progress_b:'Track your streak, calories, weight, and mood over time.',
+    tour_printables_t:'Tutorials', tour_printables_b:'The Tai Chi videos that unlock one by one as you complete them.',
     home_streak_day:'day', home_streak_days:'days', home_streak_suffix:'streak',
     home_current_program:'Your current training program', home_no_program:'No active program', home_explore:'Explore programs to get started', home_explore_link:'Explore programs ›',
     home_explore_title:'Explore training programs',
@@ -469,7 +490,7 @@ function simpleHash(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.char
 /* ===================== state ===================== */
 var DEFAULT_STATE = {
   account:null, // {name, email, passHash}
-  session:{loggedIn:false}, personalized:false,
+  session:{loggedIn:false}, personalized:false, tourSeen:false,
   streak:0, lastCheckinDate:null,
   weightUnit:'kg', weight:null, weightLog:[],
   activeProgram:null, programDay:{}, completedDays:{}, catalogSessions:0,
@@ -997,9 +1018,9 @@ function doEnter(){
   if(!state.personalized){ renderPersonalizing(); } else { render(); }
 }
 function renderPersonalizing(){
-  var steps = [t('pers_step1'), t('pers_step2'), t('pers_step3')];
+  var steps = [t('pers_step1'), t('pers_step2'), t('pers_step3'), t('pers_step4')];
   var html = '<div class="tv-pers">'+
-    '<div class="tv-pers-spin"></div>'+
+    '<div class="tv-pers-spin" id="persSpin"></div>'+
     '<h2>'+t('pers_title')+'</h2>'+
     '<p>'+t('pers_body')+'</p>'+
     '<div class="tv-pers-steps">'+
@@ -1009,18 +1030,60 @@ function renderPersonalizing(){
   '</div>';
   stage.innerHTML = html;
   tabs.style.display = 'none';
-  $('persEnter').onclick = function(){ state.personalized = true; save(); render(); };
+  $('persEnter').onclick = function(){
+    state.personalized = true; save();
+    render();
+    if(!state.tourSeen && typeof startAppTour==='function'){ startAppTour(); }
+  };
   var i = 0;
   function tick(){
     var el = $('persStep'+i);
     if(el){ el.classList.add('done'); el.querySelector('.dot').textContent = '✓'; }
     i++;
-    if(i < steps.length){ setTimeout(tick, 950); }
-    else { setTimeout(function(){ $('persEnter').style.display = 'block'; }, 650); }
+    if(i < steps.length){ setTimeout(tick, 850); }
+    else { setTimeout(function(){
+      var spin = $('persSpin');
+      if(spin){ spin.classList.add('done'); spin.textContent = '✓'; }
+      setTimeout(function(){ $('persEnter').style.display = 'block'; }, 450);
+    }, 650); }
   }
   setTimeout(tick, 500);
 }
 window.tvLogout=function(){ state.session.loggedIn=false; save(); location.hash=''; render(); };
+
+var TOUR_STEPS = [
+  {target:'home', title:'tour_home_t', body:'tour_home_b'},
+  {target:'workouts', title:'tour_workouts_t', body:'tour_workouts_b'},
+  {target:'meals', title:'tour_meals_t', body:'tour_meals_b'},
+  {target:'progress', title:'tour_progress_t', body:'tour_progress_b'},
+  {target:'printables', title:'tour_printables_t', body:'tour_printables_b'}
+];
+var tourIdx = 0;
+window.startAppTour = function(){ tourIdx = 0; paintTour(); };
+function paintTour(){
+  var old = document.getElementById('tvTourOverlay');
+  if(old) old.remove();
+  if(tourIdx >= TOUR_STEPS.length){ state.tourSeen = true; save(); return; }
+  var step = TOUR_STEPS[tourIdx];
+  var btn = tabs.querySelector('button[data-r="'+step.target+'"]');
+  if(!btn){ tourIdx++; return paintTour(); }
+  var r = btn.getBoundingClientRect();
+  var pad = 8;
+  var overlay = document.createElement('div');
+  overlay.id = 'tvTourOverlay';
+  var spotStyle = 'left:'+(r.left-pad)+'px;top:'+(r.top-pad)+'px;width:'+(r.width+pad*2)+'px;height:'+(r.height+pad*2)+'px;';
+  var cardTop = Math.max(16, r.top - 148);
+  overlay.innerHTML =
+    '<div class="tv-tour-spot" style="'+spotStyle+'"></div>'+
+    '<div class="tv-tour-card" style="top:'+cardTop+'px">'+
+      '<div class="step">'+(tourIdx+1)+' '+t('tut_of')+' '+TOUR_STEPS.length+'</div>'+
+      '<b>'+esc(t(step.title))+'</b><p>'+esc(t(step.body))+'</p>'+
+      '<div class="tv-tour-actions"><button class="tv-tour-skip" id="tourSkip">'+t('tour_skip')+'</button><button class="tv-tour-next" id="tourNext">'+(tourIdx===TOUR_STEPS.length-1?t('tour_finish'):t('tour_next'))+'</button></div>'+
+    '</div>';
+  $('tv').appendChild(overlay);
+  $('tourNext').onclick = function(){ tourIdx++; paintTour(); };
+  $('tourSkip').onclick = function(){ tourIdx = TOUR_STEPS.length; paintTour(); };
+}
 
 /* ===================== router ===================== */
 var stage=$('tvStage'), tabs=$('tvTabs');
