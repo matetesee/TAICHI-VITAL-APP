@@ -345,7 +345,7 @@ var I18N = {
     perf_title:'Rendimiento de hoy', perf_hydration:'Hidratación', perf_cal:'Calorías', perf_register:'+ Registrar',
     weight_title:'Registro de peso', weight_btn:'+ Registrar peso',
     printables_title:'Tutoriales de Tai Chi', printables_lib:'en la biblioteca',
-    tut_sub:'Mirá el video completo para desbloquear el siguiente tutorial.', tut_of:'de', tut_locked:'Bloqueado',
+    tut_sub:'Es un curso progresivo: al entrar vas a ver solo el primer video disponible. Cada video se desbloquea automáticamente cuando termines de ver por completo el anterior.', tut_of:'de', tut_locked:'Bloqueado',
     tut_coming_soon:'Video próximamente', tut_about:'Acerca de este tutorial', tut_completed_banner:'¡Video completado! Se desbloqueó el siguiente tutorial 🔓',
     tut_next:'Ver siguiente tutorial ›', tut_completed:'Completado',
     day_prefix:'Día', min:'min', kcal:'kcal',
@@ -398,7 +398,7 @@ var I18N = {
     perf_title:"Today's performance", perf_hydration:'Hydration', perf_cal:'Calories', perf_register:'+ Log',
     weight_title:'Weight log', weight_btn:'+ Log weight',
     printables_title:'Tai Chi Tutorials', printables_lib:'in the library',
-    tut_sub:'Watch the full video to unlock the next tutorial.', tut_of:'of', tut_locked:'Locked',
+    tut_sub:"This is a progressive course: at first you'll only see the first video unlocked. Each video unlocks automatically once you finish watching the one before it.", tut_of:'of', tut_locked:'Locked',
     tut_coming_soon:'Video coming soon', tut_about:'About this tutorial', tut_completed_banner:'Video complete! The next tutorial is unlocked 🔓',
     tut_next:'Watch next tutorial ›', tut_completed:'Completed',
     day_prefix:'Day', min:'min', kcal:'kcal',
@@ -844,11 +844,11 @@ var PRINTABLES = [
   {name:bi('Rutina de Movilidad Matutina','Morning Mobility Routine'), pages:9}
 ];
 var TUTORIALS = [
-  {id:'tc-fundamentos', name:bi('Fundamentos del Tai Chi','Tai Chi Fundamentals'), desc:bi('Los principios básicos: postura, respiración y la mentalidad del Tai Chi.','The basics: posture, breathing, and the Tai Chi mindset.'), video:'videos/tc-fundamentos.mp4', min:31},
-  {id:'tc-respiracion', name:bi('Respiración y Enraizamiento','Breathing & Grounding'), desc:bi('Aprendé a coordinar la respiración con el movimiento y a mantenerte estable.','Learn to coordinate your breath with movement and stay grounded.'), video:'videos/tc-respiracion.mp4', min:32},
-  {id:'tc-forma-8', name:bi('La Forma de las 8 Piezas','The 8-Piece Form'), desc:bi('Los ocho movimientos clásicos que forman la base de la práctica.','The eight classic movements that form the foundation of the practice.'), video:'videos/tc-forma-8.mp4', min:47},
-  {id:'tc-equilibrio', name:bi('Equilibrio y Transiciones','Balance & Transitions'), desc:bi('Cómo pasar de un movimiento a otro sin perder el equilibrio.','How to move from one posture to the next without losing your balance.'), video:'videos/tc-equilibrio.mp4', min:45},
-  {id:'tc-flujo-completo', name:bi('Flujo Completo','Full Flow'), desc:bi('Unís todo lo aprendido en una secuencia completa y fluida.','Bring everything you learned together into one complete, flowing sequence.'), video:'videos/tc-flujo-completo.mp4', min:41}
+  {id:'tc-fundamentos', name:bi('Sección 1: Brazos, Piernas y Primera Forma','Section 1: Arms, Legs & First Form'), desc:bi('Aprendé los movimientos base de brazos (Apertura, Acariciar la Crin del Caballo, Grulla Blanca Extiende las Alas, Cepillar la Rodilla, Tocar el Laúd) y de piernas (cambios de peso en postura de caballo y de arco), y practicá la primera sección de la forma vista de frente, de lado y de espaldas.','Learn the base arm movements (Opening, Parting the Wild Horse\'s Mane, White Crane Spreads Its Wings, Brush Knee, Play the Guitar) and leg work (weight shifts in horse and bow stance), then practice the first section of the form from the front, side, and back.'), video:'videos/tc-fundamentos.mp4', min:31},
+  {id:'tc-respiracion', name:bi('Sección 2: Retroceso de Mono y Cola del Gorrión','Section 2: Repulse Monkey & Grasp the Sparrow\'s Tail'), desc:bi('Practicá el Retroceso de Mono (brazos, piernas y forma integrada) y las cuatro técnicas de la Cola del Gorrión: Peng (rechazar), Lu (desviar), Ji (comprimir) y An (empujar), hasta completar la secuencia y verla desde todos los ángulos.','Practice Repulse Monkey (arms, legs, and the integrated form) and the four techniques of Grasp the Sparrow\'s Tail: Peng (ward off), Lu (roll back), Ji (press), and An (push), building up to the full sequence from every angle.'), video:'videos/tc-respiracion.mp4', min:32},
+  {id:'tc-forma-8', name:bi('Sección 3: Manos como Nubes y Látigo Simple','Section 3: Cloud Hands & Single Whip'), desc:bi('Sumá Manos como Nubes (eje, un brazo, dos brazos y pasos), el Látigo Simple completo, la Palmada Alta al Caballo y Dos Vientos Perforan los Oídos, con repasos de brazos y forma completa antes de cada movimiento nuevo.','Add Cloud Hands (waist axis, one arm, two arms, and stepping), the full Single Whip, High Pat on Horse, and Two Winds Buffet the Ears — with a review of the arms and full form before each new movement.'), video:'videos/tc-forma-8.mp4', min:47},
+  {id:'tc-equilibrio', name:bi('Sección 4: Patada de Talón, El Gallo y La Aguja','Section 4: Heel Kick, Golden Rooster & Needle at Sea Bottom'), desc:bi('Aprendé la Patada de Talón, El Gallo de Oro sobre una pata, Bella Dama Teje la Lanzadera, La Aguja en el Fondo del Mar y Abanicar por la Espalda, con repasos progresivos de todo lo aprendido hasta acá.','Learn the Heel Kick, Golden Rooster Stands on One Leg, Fair Lady Works the Shuttles, Needle at Sea Bottom, and Fan Through the Back — with progressive reviews of everything learned so far.'), video:'videos/tc-equilibrio.mp4', min:45},
+  {id:'tc-flujo-completo', name:bi('Sección 5: Cierre de la Forma','Section 5: Closing the Form'), desc:bi('Cerrá la forma completa con Desviar-Parar-Golpear (Ban Lan Chui), Cierre Aparente, Manos Cruzadas y el Cierre final, más un repaso general de las cinco secciones y recomendaciones finales para seguir practicando.','Complete the full form with Deflect, Parry, and Punch (Ban Lan Chui), Apparent Close-Up, Cross Hands, and the final Closing, plus a full review of all five sections and closing recommendations to keep practicing.'), video:'videos/tc-flujo-completo.mp4', min:41}
 ];
 function tutorialUnlocked(i){ return i===0 || !!state.watchedTutorials[TUTORIALS[i-1].id]; }
 function tutorialIndex(id){ for(var i=0;i<TUTORIALS.length;i++){ if(TUTORIALS[i].id===id) return i; } return -1; }
