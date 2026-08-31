@@ -844,11 +844,11 @@ var PRINTABLES = [
   {name:bi('Rutina de Movilidad Matutina','Morning Mobility Routine'), pages:9}
 ];
 var TUTORIALS = [
-  {id:'tc-fundamentos', name:bi('Fundamentos del Tai Chi','Tai Chi Fundamentals'), desc:bi('Los principios básicos: postura, respiración y la mentalidad del Tai Chi.','The basics: posture, breathing, and the Tai Chi mindset.'), video:null, min:8},
-  {id:'tc-respiracion', name:bi('Respiración y Enraizamiento','Breathing & Grounding'), desc:bi('Aprendé a coordinar la respiración con el movimiento y a mantenerte estable.','Learn to coordinate your breath with movement and stay grounded.'), video:null, min:10},
-  {id:'tc-forma-8', name:bi('La Forma de las 8 Piezas','The 8-Piece Form'), desc:bi('Los ocho movimientos clásicos que forman la base de la práctica.','The eight classic movements that form the foundation of the practice.'), video:null, min:15},
-  {id:'tc-equilibrio', name:bi('Equilibrio y Transiciones','Balance & Transitions'), desc:bi('Cómo pasar de un movimiento a otro sin perder el equilibrio.','How to move from one posture to the next without losing your balance.'), video:null, min:12},
-  {id:'tc-flujo-completo', name:bi('Flujo Completo','Full Flow'), desc:bi('Unís todo lo aprendido en una secuencia completa y fluida.','Bring everything you learned together into one complete, flowing sequence.'), video:null, min:20}
+  {id:'tc-fundamentos', name:bi('Fundamentos del Tai Chi','Tai Chi Fundamentals'), desc:bi('Los principios básicos: postura, respiración y la mentalidad del Tai Chi.','The basics: posture, breathing, and the Tai Chi mindset.'), video:'videos/tc-fundamentos.mp4', min:31},
+  {id:'tc-respiracion', name:bi('Respiración y Enraizamiento','Breathing & Grounding'), desc:bi('Aprendé a coordinar la respiración con el movimiento y a mantenerte estable.','Learn to coordinate your breath with movement and stay grounded.'), video:'videos/tc-respiracion.mp4', min:32},
+  {id:'tc-forma-8', name:bi('La Forma de las 8 Piezas','The 8-Piece Form'), desc:bi('Los ocho movimientos clásicos que forman la base de la práctica.','The eight classic movements that form the foundation of the practice.'), video:'videos/tc-forma-8.mp4', min:47},
+  {id:'tc-equilibrio', name:bi('Equilibrio y Transiciones','Balance & Transitions'), desc:bi('Cómo pasar de un movimiento a otro sin perder el equilibrio.','How to move from one posture to the next without losing your balance.'), video:'videos/tc-equilibrio.mp4', min:45},
+  {id:'tc-flujo-completo', name:bi('Flujo Completo','Full Flow'), desc:bi('Unís todo lo aprendido en una secuencia completa y fluida.','Bring everything you learned together into one complete, flowing sequence.'), video:'videos/tc-flujo-completo.mp4', min:41}
 ];
 function tutorialUnlocked(i){ return i===0 || !!state.watchedTutorials[TUTORIALS[i-1].id]; }
 function tutorialIndex(id){ for(var i=0;i<TUTORIALS.length;i++){ if(TUTORIALS[i].id===id) return i; } return -1; }
