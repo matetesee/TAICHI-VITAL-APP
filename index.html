@@ -315,6 +315,17 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-auth-tabs button{flex:1;background:none;border:none;padding:11px;font-weight:700;font-size:13.5px;color:var(--soft);border-radius:9px}
 #tv .tv-auth-tabs button.on{background:var(--bronze);color:#fff}
 #tv .tv-auth-title{text-align:center;font-family:'Poppins';font-weight:800;font-size:17px;margin-bottom:20px}
+#tv .tv-pers{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;box-sizing:border-box}
+#tv .tv-pers-spin{width:52px;height:52px;border-radius:50%;border:4px solid var(--card2);border-top-color:var(--bronze2);animation:tvspin 1s linear infinite;margin-bottom:22px;flex:none}
+@keyframes tvspin{to{transform:rotate(360deg)}}
+#tv .tv-pers h2{font-family:'Poppins';font-weight:800;font-size:19px;margin-bottom:8px}
+#tv .tv-pers p{color:var(--soft);font-size:13.5px;margin-bottom:24px;max-width:300px}
+#tv .tv-pers-steps{width:100%;max-width:300px;margin-bottom:26px}
+#tv .tv-pers-step{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:13px;color:var(--soft);text-align:left;opacity:.4;transition:opacity .3s}
+#tv .tv-pers-step.done{opacity:1;color:var(--ink);font-weight:600}
+#tv .tv-pers-step .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;transition:all .3s}
+#tv .tv-pers-step.done .dot{background:var(--bronze2);border-color:var(--bronze2)}
+#tv .tv-pers #persEnter{max-width:300px;width:100%}
 #tv .tv-field{margin-bottom:12px}
 #tv .tv-field label{display:block;font-size:12px;font-weight:700;color:var(--soft);margin-bottom:5px}
 #tv .tv-field input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:13px 14px;font-size:14.5px;font-family:inherit;color:var(--ink);background:var(--bg2)}
@@ -337,6 +348,9 @@ var I18N = {
     auth_switch_register:'Registrate', auth_switch_login:'Iniciá sesión', auth_err_email:'Ingresá un email válido.', auth_err_pass:'La contraseña debe tener al menos 6 caracteres.',
     auth_err_name:'Ingresá tu nombre.', auth_err_nomatch:'No encontramos una cuenta con ese email.', auth_err_exists:'Ya existe una cuenta local con ese email — iniciá sesión.',
     auth_note:'Tu cuenta se guarda solo en este dispositivo (todavía no hay servidor).',
+    pers_title:'Un momento…', pers_body:'Estamos creando tu app personalizada según lo que elegiste en el quiz.',
+    pers_step1:'Analizando tus respuestas', pers_step2:'Armando tu plan de Tai Chi', pers_step3:'Preparando tu progreso personalizado',
+    pers_enter:'Acceder a la App',
     home_streak_day:'día', home_streak_days:'días', home_streak_suffix:'de racha',
     home_current_program:'Tu programa de entrenamiento actual', home_no_program:'Sin programa activo', home_explore:'Explorá los programas para comenzar', home_explore_link:'Explorar programas ›',
     home_explore_title:'Explorá programas de entrenamiento',
@@ -390,6 +404,9 @@ var I18N = {
     auth_switch_register:'Sign up', auth_switch_login:'Log in', auth_err_email:'Enter a valid email.', auth_err_pass:'Password must be at least 6 characters.',
     auth_err_name:'Enter your name.', auth_err_nomatch:'We couldn\'t find an account with that email.', auth_err_exists:'A local account with that email already exists — log in instead.',
     auth_note:'Your account is stored only on this device (no server yet).',
+    pers_title:'One moment…', pers_body:"We're creating your personalized app based on what you chose in the quiz.",
+    pers_step1:'Analyzing your answers', pers_step2:'Building your Tai Chi plan', pers_step3:'Preparing your personalized progress',
+    pers_enter:'Enter the App',
     home_streak_day:'day', home_streak_days:'days', home_streak_suffix:'streak',
     home_current_program:'Your current training program', home_no_program:'No active program', home_explore:'Explore programs to get started', home_explore_link:'Explore programs ›',
     home_explore_title:'Explore training programs',
@@ -452,7 +469,7 @@ function simpleHash(s){ var h=0; for(var i=0;i<s.length;i++){ h=((h<<5)-h+s.char
 /* ===================== state ===================== */
 var DEFAULT_STATE = {
   account:null, // {name, email, passHash}
-  session:{loggedIn:false},
+  session:{loggedIn:false}, personalized:false,
   streak:0, lastCheckinDate:null,
   weightUnit:'kg', weight:null, weightLog:[],
   activeProgram:null, programDay:{}, completedDays:{}, catalogSessions:0,
@@ -977,7 +994,31 @@ function doEnter(){
   var photo = (state.account && state.account.email===email) ? state.account.photo : null;
   state.account = { name:name, email:email, photo:photo||null };
   state.session.loggedIn = true; save();
-  render();
+  if(!state.personalized){ renderPersonalizing(); } else { render(); }
+}
+function renderPersonalizing(){
+  var steps = [t('pers_step1'), t('pers_step2'), t('pers_step3')];
+  var html = '<div class="tv-pers">'+
+    '<div class="tv-pers-spin"></div>'+
+    '<h2>'+t('pers_title')+'</h2>'+
+    '<p>'+t('pers_body')+'</p>'+
+    '<div class="tv-pers-steps">'+
+      steps.map(function(s,i){ return '<div class="tv-pers-step" id="persStep'+i+'"><span class="dot"></span><span>'+esc(s)+'</span></div>'; }).join('')+
+    '</div>'+
+    '<button class="tv-btn" id="persEnter" style="display:none">'+t('pers_enter')+'</button>'+
+  '</div>';
+  stage.innerHTML = html;
+  tabs.style.display = 'none';
+  $('persEnter').onclick = function(){ state.personalized = true; save(); render(); };
+  var i = 0;
+  function tick(){
+    var el = $('persStep'+i);
+    if(el){ el.classList.add('done'); el.querySelector('.dot').textContent = '✓'; }
+    i++;
+    if(i < steps.length){ setTimeout(tick, 950); }
+    else { setTimeout(function(){ $('persEnter').style.display = 'block'; }, 650); }
+  }
+  setTimeout(tick, 500);
 }
 window.tvLogout=function(){ state.session.loggedIn=false; save(); location.hash=''; render(); };
 
