@@ -31,7 +31,7 @@
     <button data-r="workouts"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="18" x2="6" y2="10"/><line x1="12" y1="18" x2="12" y2="6"/><line x1="18" y1="18" x2="18" y2="13"/></svg></span><span data-t="nav_workouts">Entrenam.</span></button>
     <button data-r="meals"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v6a2 2 0 0 0 4 0V3"/><line x1="9" y1="3" x2="9" y2="21"/><path d="M16 3c1.5 2.5 1.5 6.5 0 8-.4.5-.8.6-.8.6V21"/></svg></span><span data-t="nav_meals">Comidas</span></button>
     <button data-r="progress"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><line x1="8" y1="15" x2="8" y2="17"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="16" y1="8" x2="16" y2="17"/></svg></span><span data-t="nav_progress">Progreso</span></button>
-    <button data-r="printables"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4.5h12v15l-6-4-6 4z"/></svg></span><span data-t="nav_printables">Guías</span></button>
+    <button data-r="printables"><span class="ic"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4.5h12v15l-6-4-6 4z"/></svg></span><span data-t="nav_printables">Tutoriales</span></button>
   </nav>
 </div>
 
@@ -145,6 +145,21 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-pdfcard .cov{width:108px;height:140px;border-radius:10px;background:linear-gradient(150deg,var(--bronze),var(--bronze2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px}
 #tv .tv-pdfcard .t{font-size:11.5px;font-weight:700;margin-top:6px;line-height:1.3}
 #tv .tv-pdfcard .m{font-size:10.5px;color:var(--soft)}
+#tv .tv-tut-progress{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:16px}
+#tv .tv-tut-progress .bar{height:8px;background:var(--card2);border-radius:20px;overflow:hidden;margin-top:8px}
+#tv .tv-tut-progress .bar i{display:block;height:100%;background:var(--bronze2);border-radius:20px}
+#tv .tv-tutrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px;margin-bottom:10px;text-decoration:none}
+#tv .tv-tutrow.locked{opacity:.55}
+#tv .tv-tutrow .cov{width:52px;height:52px;border-radius:12px;background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex:none}
+#tv .tv-tutrow .cov.locked{background:var(--card2);color:var(--soft)}
+#tv .tv-tutrow .info{flex:1;min-width:0}
+#tv .tv-tutrow .info b{display:block;font-family:'Poppins';font-size:13.5px;margin-bottom:2px;color:var(--ink)}
+#tv .tv-tutrow .info span{font-size:11.5px;color:var(--soft)}
+#tv .tv-tutrow .status{font-size:17px;flex:none}
+#tv .tv-tut-player{width:100%;border-radius:16px;overflow:hidden;margin-bottom:14px;background:#000}
+#tv .tv-tut-player video{width:100%;display:block;max-height:360px}
+#tv .tv-tut-placeholder{width:100%;aspect-ratio:16/9;border-radius:16px;background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;margin-bottom:14px;text-align:center;padding:0 20px}
+#tv .tv-tut-banner{background:var(--card2);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:700;color:var(--bronze2);margin-bottom:14px}
 
 /* ===== bottom nav ===== */
 #tv .tv-tabs{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;background:var(--card);border-top:1px solid var(--line);display:flex;z-index:10}
@@ -316,7 +331,7 @@ html,body{margin:0;padding:0;background:var(--bg)}
 /* ===================== i18n ===================== */
 var I18N = {
   es: {
-    nav_home:'Mi Camino', nav_workouts:'Entrenam.', nav_meals:'Comidas', nav_progress:'Progreso', nav_printables:'Guías',
+    nav_home:'Mi Camino', nav_workouts:'Entrenam.', nav_meals:'Comidas', nav_progress:'Progreso', nav_printables:'Tutoriales',
     auth_welcome:'Bienvenido a TaiChi Vital', auth_sub:'Tu plan de Tai Chi y Yoga en Silla', auth_login:'Iniciar sesión', auth_register:'Registrarme',
     auth_name:'Nombre', auth_email:'Correo electrónico', auth_password:'Contraseña', auth_no_account:'¿No tenés cuenta? ', auth_has_account:'¿Ya tenés cuenta? ',
     auth_switch_register:'Registrate', auth_switch_login:'Iniciá sesión', auth_err_email:'Ingresá un email válido.', auth_err_pass:'La contraseña debe tener al menos 6 caracteres.',
@@ -329,7 +344,10 @@ var I18N = {
     checkin_title:'Check-in diario', checkin_q:'¿Cómo te sentís hoy?', mood_low:'BAJO', mood_steady:'ESTABLE', mood_great:'BIEN', mood_peak:'PICO',
     perf_title:'Rendimiento de hoy', perf_hydration:'Hidratación', perf_cal:'Calorías', perf_register:'+ Registrar',
     weight_title:'Registro de peso', weight_btn:'+ Registrar peso',
-    printables_title:'Guías para vos', printables_lib:'en la biblioteca',
+    printables_title:'Tutoriales de Tai Chi', printables_lib:'en la biblioteca',
+    tut_sub:'Mirá el video completo para desbloquear el siguiente tutorial.', tut_of:'de', tut_locked:'Bloqueado',
+    tut_coming_soon:'Video próximamente', tut_about:'Acerca de este tutorial', tut_completed_banner:'¡Video completado! Se desbloqueó el siguiente tutorial 🔓',
+    tut_next:'Ver siguiente tutorial ›', tut_completed:'Completado',
     day_prefix:'Día', min:'min', kcal:'kcal',
     wk_title:'Entrenamientos', wk_areas:'Áreas objetivo', wk_level:'Nivel', wk_beginner:'Principiante', wk_intermediate:'Intermedio', wk_advanced:'Avanzado',
     wk_categories:'Explorar categorías', wk_programs:'Programas de entrenamiento', wk_challenge:'Reto de', wk_days:'días', wk_min_day:'min/día', wk_filtered:'Entrenamientos Filtrados',
@@ -366,7 +384,7 @@ var I18N = {
     set_contact:'Contactanos ›', set_privacy:'Política de privacidad ›', set_terms:'Términos de uso ›', set_logout:'Cerrar sesión', set_version:'Versión 1.0.0'
   },
   en: {
-    nav_home:'My Path', nav_workouts:'Workouts', nav_meals:'Meals', nav_progress:'Progress', nav_printables:'Guides',
+    nav_home:'My Path', nav_workouts:'Workouts', nav_meals:'Meals', nav_progress:'Progress', nav_printables:'Tutorials',
     auth_welcome:'Welcome to TaiChi Vital', auth_sub:'Your Tai Chi & Chair Yoga plan', auth_login:'Log in', auth_register:'Sign up',
     auth_name:'Name', auth_email:'Email', auth_password:'Password', auth_no_account:"Don't have an account? ", auth_has_account:'Already have an account? ',
     auth_switch_register:'Sign up', auth_switch_login:'Log in', auth_err_email:'Enter a valid email.', auth_err_pass:'Password must be at least 6 characters.',
@@ -379,7 +397,10 @@ var I18N = {
     checkin_title:'Daily check-in', checkin_q:'How are you feeling today?', mood_low:'LOW', mood_steady:'STEADY', mood_great:'GREAT', mood_peak:'PEAK',
     perf_title:"Today's performance", perf_hydration:'Hydration', perf_cal:'Calories', perf_register:'+ Log',
     weight_title:'Weight log', weight_btn:'+ Log weight',
-    printables_title:'Guides for you', printables_lib:'in the library',
+    printables_title:'Tai Chi Tutorials', printables_lib:'in the library',
+    tut_sub:'Watch the full video to unlock the next tutorial.', tut_of:'of', tut_locked:'Locked',
+    tut_coming_soon:'Video coming soon', tut_about:'About this tutorial', tut_completed_banner:'Video complete! The next tutorial is unlocked 🔓',
+    tut_next:'Watch next tutorial ›', tut_completed:'Completed',
     day_prefix:'Day', min:'min', kcal:'kcal',
     wk_title:'Workouts', wk_areas:'Target areas', wk_level:'Level', wk_beginner:'Beginner', wk_intermediate:'Intermediate', wk_advanced:'Advanced',
     wk_categories:'Explore categories', wk_programs:'Training programs', wk_challenge:'', wk_days:'day challenge', wk_min_day:'min/day', wk_filtered:'Filtered Workouts',
@@ -436,6 +457,7 @@ var DEFAULT_STATE = {
   weightUnit:'kg', weight:null, weightLog:[],
   activeProgram:null, programDay:{}, completedDays:{}, catalogSessions:0,
   activeDiet:null, dietDay:{},
+  watchedTutorials:{},
   dailyLog:{},
   settings:{ units:'metric', reminders:false, lang:'es', theme:'light' }
 };
@@ -821,6 +843,15 @@ var PRINTABLES = [
   {name:bi('Recetario Antiinflamatorio','Anti-Inflammatory Recipe Book'), pages:20},
   {name:bi('Rutina de Movilidad Matutina','Morning Mobility Routine'), pages:9}
 ];
+var TUTORIALS = [
+  {id:'tc-fundamentos', name:bi('Fundamentos del Tai Chi','Tai Chi Fundamentals'), desc:bi('Los principios básicos: postura, respiración y la mentalidad del Tai Chi.','The basics: posture, breathing, and the Tai Chi mindset.'), video:null, min:8},
+  {id:'tc-respiracion', name:bi('Respiración y Enraizamiento','Breathing & Grounding'), desc:bi('Aprendé a coordinar la respiración con el movimiento y a mantenerte estable.','Learn to coordinate your breath with movement and stay grounded.'), video:null, min:10},
+  {id:'tc-forma-8', name:bi('La Forma de las 8 Piezas','The 8-Piece Form'), desc:bi('Los ocho movimientos clásicos que forman la base de la práctica.','The eight classic movements that form the foundation of the practice.'), video:null, min:15},
+  {id:'tc-equilibrio', name:bi('Equilibrio y Transiciones','Balance & Transitions'), desc:bi('Cómo pasar de un movimiento a otro sin perder el equilibrio.','How to move from one posture to the next without losing your balance.'), video:null, min:12},
+  {id:'tc-flujo-completo', name:bi('Flujo Completo','Full Flow'), desc:bi('Unís todo lo aprendido en una secuencia completa y fluida.','Bring everything you learned together into one complete, flowing sequence.'), video:null, min:20}
+];
+function tutorialUnlocked(i){ return i===0 || !!state.watchedTutorials[TUTORIALS[i-1].id]; }
+function tutorialIndex(id){ for(var i=0;i<TUTORIALS.length;i++){ if(TUTORIALS[i].id===id) return i; } return -1; }
 function slugify(s){ return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
 function wc(name_es,name_en,level,areas,img,cat,pos){ return {id:slugify(name_en), name:bi(name_es,name_en), level:level, areas:areas, img:img||null, cat:cat||null, pos:pos||null}; }
 var POS_BOTTOM = 'bottom center';
@@ -982,6 +1013,7 @@ function render(){
   if(route==='meals-log') return renderLogMeal(parts[1], parts[2]);
   if(route==='progress') return renderProgress();
   if(route==='printables') return renderPrintables();
+  if(route==='tutorial') return renderTutorialDetail(parts[1]);
   if(route==='settings') return renderSettings();
   if(route==='coach') return renderCoach();
   renderHome();
@@ -1024,8 +1056,8 @@ function renderHome(){
 
   html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('weight_title')+'</div><div class="tv-weight-row"><input id="weightInput" type="number" placeholder="'+(state.weight||'— ')+' '+state.weightUnit+'"></div><button class="tv-btn" onclick="tvLogWeight()">'+t('weight_btn')+'</button></div>';
 
-  html += '<div class="tv-sec">'+t('nav_printables')+'</div><div class="tv-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span>📖</span><b style="font-family:Poppins;font-size:14px">'+t('printables_title')+'</b><span style="margin-left:auto;font-size:11.5px;color:var(--soft)">'+PRINTABLES.length+' '+t('printables_lib')+'</span></div><div class="tv-pdf">'+
-    PRINTABLES.slice(0,3).map(function(p){ return '<div class="tv-pdfcard"><div class="cov">📄</div><div class="t">'+esc(tn(p.name))+'</div><div class="m">'+p.pages+'p</div></div>'; }).join('')+
+  html += '<div class="tv-sec">'+t('nav_printables')+'</div><div class="tv-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span>🎬</span><b style="font-family:Poppins;font-size:14px">'+t('printables_title')+'</b><span style="margin-left:auto;font-size:11.5px;color:var(--soft)">'+TUTORIALS.length+' '+t('printables_lib')+'</span></div><div class="tv-pdf">'+
+    TUTORIALS.slice(0,3).map(function(tu,i){ var unlocked=tutorialUnlocked(i); var watched=!!state.watchedTutorials[tu.id]; var badge=watched?'✅':(unlocked?'🎬':'🔒'); return '<div class="tv-pdfcard"'+(unlocked?' style="cursor:pointer" onclick="location.hash=\'tutorial/'+tu.id+'\'"':'')+'><div class="cov">'+badge+'</div><div class="t">'+esc(tn(tu.name))+'</div><div class="m">'+tu.min+' '+t('min')+'</div></div>'; }).join('')+
   '</div></div>';
 
   stage.innerHTML = html;
@@ -1552,17 +1584,54 @@ function renderProgress(){
   stage.innerHTML = html;
 }
 
-/* ===================== PRINTABLES ===================== */
+/* ===================== TUTORIALS ===================== */
 function renderPrintables(){
+  var total = TUTORIALS.length;
+  var done = TUTORIALS.filter(function(x){ return state.watchedTutorials[x.id]; }).length;
+  var pct = total ? Math.round(done/total*100) : 0;
   var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('nav_printables')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
-  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:16px">'+t('print_sub')+'</p>';
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">';
-  PRINTABLES.forEach(function(p){
-    html += '<div><div class="tv-pdfcard" style="width:100%"><div class="cov" style="width:100%">📄</div><div class="t">'+esc(tn(p.name))+'</div><div class="m">'+p.pages+'p · '+t('print_soon')+'</div></div></div>';
+  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+t('tut_sub')+'</p>';
+  html += '<div class="tv-tut-progress"><div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700"><span>'+done+' '+t('tut_of')+' '+total+'</span><span style="color:var(--bronze2)">'+pct+'%</span></div><div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+  TUTORIALS.forEach(function(tu,i){
+    var unlocked = tutorialUnlocked(i);
+    var watched = !!state.watchedTutorials[tu.id];
+    var status = watched ? '✅' : (unlocked ? '▶️' : '🔒');
+    if(unlocked){
+      html += '<a href="#tutorial/'+tu.id+'" class="tv-tutrow"><div class="cov">🎬</div><div class="info"><b>'+esc(tn(tu.name))+'</b><span>'+tu.min+' '+t('min')+'</span></div><div class="status">'+status+'</div></a>';
+    } else {
+      html += '<div class="tv-tutrow locked"><div class="cov locked">🎬</div><div class="info"><b>'+esc(tn(tu.name))+'</b><span>'+t('tut_locked')+'</span></div><div class="status">'+status+'</div></div>';
+    }
   });
-  html += '</div>';
   stage.innerHTML = html;
 }
+function renderTutorialDetail(id){
+  var i = tutorialIndex(id);
+  if(i===-1 || !tutorialUnlocked(i)){ nav('printables'); return; }
+  var tu = TUTORIALS[i];
+  var watched = !!state.watchedTutorials[tu.id];
+  var next = TUTORIALS[i+1];
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(tu.name))+'</h1></div>';
+  if(tu.video){
+    html += '<div class="tv-tut-player"><video id="tutVideo" controls preload="metadata" src="'+esc(tu.video)+'"></video></div>';
+  } else {
+    html += '<div class="tv-tut-placeholder">🎬 '+t('tut_coming_soon')+'</div>';
+  }
+  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+tu.min+' '+t('min')+(watched?' · '+t('tut_completed')+' ✅':'')+'</p>';
+  html += '<div class="tv-sec">'+t('tut_about')+'</div><p style="color:var(--soft);font-size:13.5px;margin-bottom:16px">'+esc(tn(tu.desc))+'</p>';
+  if(watched && next){
+    html += '<div class="tv-tut-banner">🔓 '+t('tut_completed_banner')+'</div>';
+    html += '<a href="#tutorial/'+next.id+'" class="tv-btn" style="display:block;text-align:center;text-decoration:none;box-sizing:border-box">'+t('tut_next')+'</a>';
+  }
+  stage.innerHTML = html;
+  var v = $('tutVideo');
+  if(v){ v.onended = function(){ tvMarkTutorialWatched(tu.id); }; }
+}
+window.tvMarkTutorialWatched = function(id){
+  if(state.watchedTutorials[id]) return;
+  state.watchedTutorials[id] = true;
+  save();
+  renderTutorialDetail(id);
+};
 
 /* ===================== COACH (placeholder) ===================== */
 function renderCoach(){
