@@ -877,6 +877,187 @@ var RECIPES = [
     [bi('Sirve las aceitunas y almendras juntas en un bowl pequeño.','Serve olives and almonds together in a small bowl.')],
     [bi('Mediterránea','Mediterranean'),bi('Rápido','Quick')], 'mediterranean')
 ];
+function ce(es,en,mt,kcal,min,slug){ return { id:slug, name:bi(es,en), mealType:mt, kcal:kcal, min:min, diff:'Medium', img:'images/rc-'+slug+'.png' }; }
+var CATALOG_EXTRA = [
+  ce('Pollo al Horno con Balsámico y Albahaca','Basil Infused Balsamic Oven Baked Chicken','Dinner',544,45,'basil-infused-balsamic-oven-baked-chicken'),
+  ce('Bowl de Pollo BBQ con Coliflor y Cuscús','Barbecue Chicken Cauliflower Couscous Bowls','Lunch',381,45,'barbecue-chicken-cauliflower-couscous-bowls'),
+  ce('Sopa de Tortilla de Pollo a Fuego Lento','Slow Cooker Chicken Tortilla Soup','Lunch',283,370,'slow-cooker-chicken-tortilla-soup'),
+  ce('Omelette de Zapallito y Pollo','Zucchini Chicken Omelette','Breakfast',210,45,'zucchini-chicken-omelette'),
+  ce('Frittata de Zapallito y Albahaca','Zucchini & Basil Frittata','Breakfast',209,45,'zucchini-and-basil-frittata'),
+  ce('Brochetas de Cordero Marinadas en Yogur','Yogurt Marinated Lamb Skewers','Dinner',385,45,'yogurt-marinated-lamb-skewers'),
+  ce('Ensalada Fattoush de Invierno','Winter Fattoush Salad','Lunch',345,45,'winter-fattoush-salad'),
+  ce('Arrollados Primavera Vietnamitas','Vietnamese Spring Rolls','Snack',220,45,'vietnamese-spring-rolls'),
+  ce('Estofado de Venado','Venison Stew','Dinner',316,45,'venison-stew'),
+  ce('Sopa Minestrone de Vegetales','Vegetable Minestrone Soup','Lunch',310,30,'vegetable-minestrone-soup-2'),
+  ce('Mejillones al Estilo Tailandés','Thai-Style Mussels','Dinner',208,45,'thai-style-mussels'),
+  ce('Cóctel de Langosta con Estragón','Tarragon Lobster Cocktails','Snack',196,45,'tarragon-lobster-cocktails'),
+  ce('Quiche de Tomate Seco y Puerro','Sun-Dried Tomato and Leek Quiche','Breakfast',681,45,'sun-dried-tomato-and-leek-quiche'),
+  ce('Huevos Horneados con Tomate Seco y Hierbas','Sun Dried Tomato and Herb Baked Eggs','Breakfast',179,25,'sun-dried-tomato-and-herb-baked-eggs'),
+  ce('Salteado de Cerdo con Jengibre y Cebolla de Verdeo','Stir Fry Sliced Pork With Young Ginger and Spring Onion','Dinner',149,45,'stir-fry-sliced-pork-with-young-ginger'),
+  ce('Huevos Rellenos Cuadrados','Square Deviled Eggs','Snack',212,45,'square-deviled-eggs'),
+  ce('Ensalada de Espinaca con Vinagreta de Frutilla','Spinach Salad with Strawberry Vinaigrette','Lunch',322,45,'spinach-salad-with-strawberry-vinaigrette'),
+  ce('Vieiras Glaseadas con Soja y Jengibre','Soy Ginger Glazed Sea Scallops With Stir Fry Vegetables','Dinner',350,45,'soy-ginger-glazed-sea-scallops'),
+  ce('Sopa Ahumada de Porotos Negros con Batata y Kale','Smoky Black Bean Soup With Sweet Potato & Kale','Lunch',475,630,'smoky-black-bean-soup'),
+  ce('Huevos Benedictinos con Salmón Ahumado','Smoked Salmon Eggs Benedict With Lemon Dill Hollandaise','Breakfast',540,45,'smoked-salmon-eggs-benedict-2'),
+  ce('Lasaña en Sartén con Ricota','Skillet Lasagna Topped with Ricotta','Dinner',680,45,'skillet-lasagna-topped-with-ricotta'),
+  ce('Cioppino Estilo San Francisco','San Francisco Cioppino','Dinner',492,45,'san-francisco-cioppino'),
+  ce('Confit de Salmón con Salsa de Citronela','Salmon Confit with Lemongrass Sauce','Dinner',640,45,'salmon-confit-with-lemongrass-sauce'),
+  ce('Ratatouille con Queso Brie','Ratatouille With Brie','Dinner',490,45,'ratatouille-with-brie'),
+  ce('Lasaña de Calabaza y Salchicha','Pumpkin and Sausage Lasagna','Dinner',600,45,'pumpkin-and-sausage-lasagna'),
+  ce('Pasta con Pesto y Yogur','Pesto & Yogurt Pasta','Dinner',373,45,'pesto-and-yogurt-pasta'),
+  ce('Mini Sándwiches de Queso de Cabra con Pimienta','Peppered Goat Cheese Log Sliders','Snack',202,45,'peppered-goat-cheese-log-sliders'),
+  ce('Salmón a la Plancha','Pan Seared Salmon','Dinner',380,25,'pan-seared-salmon-2'),
+  ce('Dip de Queso Feta al Horno','Oven-Baked Feta Cheese Dip','Snack',200,45,'oven-baked-feta-cheese-dip'),
+  ce('Mejillones en Caldo de Jengibre y Citronela','Mussels In Ginger and Lemongrass Broth','Dinner',182,45,'mussels-in-ginger-and-lemongrass-broth'),
+  ce('Murgh Tandoori','Murgh Tandoori','Dinner',586,45,'murgh-tandoori'),
+  ce('Estofado Marroquí de Kofte y Salchicha','Moroccan kofte and sausage stew','Dinner',372,45,'moroccan-kofte-and-sausage-stew'),
+  ce('Hamburguesa de Brunch Baja en Carbohidratos','Low Carb Brunch Burger','Breakfast',648,30,'low-carb-brunch-burger'),
+  ce('Omelette Cargado de Vegetales','Loaded Veggie Omelet','Breakfast',399,45,'loaded-veggie-omelet'),
+  ce('Ensalada de Lentejas y Mango','Lentil Mango Salad','Lunch',253,45,'lentil-mango-salad'),
+  ce('Fettuccine Alfredo con Limón y Pimienta','Lemon-Pepper Fettucine Alfredo','Dinner',895,45,'lemon-pepper-fettucine-alfredo'),
+  ce('Pollo Asado Lento con Limón y Ajo','Lemon and Garlic Slow Roasted Chicken','Dinner',347,45,'lemon-and-garlic-slow-roasted-chicken'),
+  ce('Sopa Libanesa de Lentejas','Lebanese Lentil Soup','Lunch',748,45,'lebanese-lentil-soup'),
+  ce('Rollitos de Lasaña','Lasagne Roll Ups','Dinner',570,45,'lasagne-roll-ups'),
+  ce('Estofado de Cordero Tagine','Lamb Tagine Stew','Dinner',664,45,'lamb-tagine-stew'),
+  ce('Rogan Josh de Cachemira','Kashmiri Rogan Josh','Dinner',568,45,'kashmiri-rogan-josh'),
+  ce('Sushi Japonés','Japanese Sushi','Lunch',409,45,'japanese-sushi'),
+  ce('Huevos Rellenos con Jalapeño','Jalapeno Deviled Eggs','Snack',127,45,'jalapeno-deviled-eggs'),
+  ce('Tartar de Salmón','Salmon Tartare','Snack',382,45,'salmon-tartare'),
+  ce('Ensalada de Pasta Italiana con Rúcula','Italian Pasta Salad with Arugula','Lunch',612,45,'italian-pasta-salad-with-arugula'),
+  ce('Mini Sándwiches Caprese Italianos','Italian Caprese Sliders','Snack',252,45,'italian-caprese-sliders'),
+  ce('Ravioles de Espinaca','Spinach Ravioli','Dinner',528,45,'spinach-ravioli'),
+  ce('Ensalada de Salmón a la Parrilla con Naranja Sanguina','Grilled Salmon Salad With Blood Orange Cilantro','Lunch',252,45,'grilled-salmon-salad-blood-orange'),
+  ce('Tacos de Pescado con Tequila y Lima Picante','Grilled Fish Tacos with Spicy Tequila-Lime','Lunch',583,45,'grilled-fish-tacos-tequila-lime'),
+  ce('Salmón con Jengibre, Ajo y Chile','Ginger Garlic Chili Salmon','Dinner',308,45,'ginger-garlic-chili-salmon'),
+  ce('Omelette de Hierbas Frescas','Fresh Herb Omelette','Breakfast',317,45,'fresh-herb-omelette'),
+  ce('Ensalada de Pollo al Curry Aromático','Fragrant Curried Chicken Salad','Lunch',452,60,'fragrant-curried-chicken-salad'),
+  ce('Vacío con Salsa Chimichurri','Flank Steak With Chimichurri Sauce','Dinner',299,75,'flank-steak-with-chimichurri-sauce'),
+  ce('Pato a las Cinco Especias con Naranja','Five Spice & Orange Duck','Dinner',426,45,'five-spice-and-orange-duck'),
+  ce('Salmón Cubierto de Queso Feta','Feta Encrusted Salmon','Dinner',388,25,'feta-encrusted-salmon-2'),
+  ce('Rollitos de Berenjena a la Parmesana','Eggplant Parmesan Roll-Ups','Dinner',480,45,'eggplant-parmesan-roll-ups'),
+  ce('Suflé de Huevo con Panceta y Espárragos','Egg Souffle With Bacon and Asparagus','Breakfast',528,60,'egg-souffle-with-bacon-and-asparagus'),
+  ce('Lasaña de Vegetales en Sartén','Easy Skillet Garden Lasagna','Dinner',405,45,'easy-skillet-garden-lasagna'),
+  ce('Huevos Revueltos con Queso','Easy Cheesy Scrambled Eggs','Breakfast',246,45,'easy-cheesy-scrambled-eggs'),
+  ce('Omelette de Huevo de Pato con Caviar y Crema Ácida','Duck Egg Omelette With Caviar and Sour Cream','Breakfast',337,45,'duck-egg-omelette-with-caviar'),
+  ce('Huevos Rellenos con Cangrejo','Deviled Eggs With Crab','Snack',120,45,'deviled-eggs-with-crab'),
+  ce('Mejillones al Curry','Curry Mussels','Dinner',565,45,'curry-mussels'),
+  ce('Vacío Cubano con Ensalada de Palta y Tomate','Cuban Flank Steak With Avocado and Tomato Salad','Dinner',816,45,'cuban-flank-steak-avocado-tomato'),
+  ce('Alcachofa Rellena','Stuffed Artichoke','Snack',500,60,'stuffed-artichoke'),
+  ce('Salmón Crocante en Panko y Hierbas','Crispy Panko and Herb Crusted Salmon','Dinner',390,45,'crispy-panko-and-herb-crusted-salmon'),
+  ce('Pollo Tikka Masala Cremoso','Creamy Chicken Tikka Masala','Dinner',567,45,'creamy-chicken-tikka-masala'),
+  ce('Huevos Benedictinos con Croquetas de Cangrejo','Crab Cakes Eggs Benedict','Breakfast',588,30,'crab-cakes-eggs-benedict'),
+  ce('Gallina Cornish con Salsa de Whisky y Crema','Cornish Game Hen with Whisky and Cream Pan Sauce','Dinner',536,45,'cornish-game-hen-whisky-cream'),
+  ce('Mejillones Clásicos Franceses','Classic French Mussels','Dinner',420,45,'classic-french-mussels'),
+  ce('Chiquetaille: Ensalada de Bacalao','Chiquetaille: Cod Fish Salad','Lunch',247,45,'chiquetaille-cod-fish-salad'),
+  ce('Ensalada China de Pollo con Aderezo de Soja','Chinese Chicken Salad With Creamy Soy Dressing','Lunch',316,30,'chinese-chicken-salad-soy-dressing'),
+  ce('Sopa Fría de Palta y Pepino','Chilled Avocado and Cucumber Soup','Lunch',601,45,'chilled-avocado-and-cucumber-soup'),
+  ce('Pollo a la Parmesana con Pasta','Chicken Parmesan With Pasta','Dinner',557,45,'chicken-parmesan-with-pasta'),
+  ce('Lo Mein de Pollo','Chicken Lo Mein','Dinner',401,45,'chicken-lo-mein'),
+  ce('Pollo en Olla','Chicken In A Pot','Dinner',595,45,'chicken-in-a-pot'),
+  ce('Farfalle de Pollo con Alfredo Bajo en Grasa','Chicken Farfalle with Low-Fat Alfredo Sauce','Dinner',674,45,'chicken-farfalle-low-fat-alfredo'),
+  ce('Pollo 65','Chicken 65','Snack',121,45,'chicken-65'),
+  ce('Quinoa de Pollo y Vegetales con Queso','Cheesy Chicken and Vegetable Quinoa','Lunch',330,45,'cheesy-chicken-and-vegetable-quinoa'),
+  ce('Estofado de Coliflor y Garbanzos','Cauliflower Chickpea Stew','Dinner',455,45,'cauliflower-chickpea-stew'),
+  ce('Caldo Verde - Sopa Portuguesa de Kale','Caldo Verde - Portuguese Kale Soup','Lunch',493,45,'caldo-verde-portuguese-kale-soup'),
+  ce('Ensalada de Calabaza y Tofu con Avellanas Tostadas','Butternut Squash Tofu Salad With Toasted Hazelnuts','Lunch',261,45,'butternut-squash-tofu-salad'),
+  ce('Frittata de Calabaza','Butternut Squash Frittata','Breakfast',352,45,'butternut-squash-frittata'),
+  ce('Fettuccine Carbonara con Repollitos de Bruselas','Brussels Sprout Carbonara with Fettuccini','Dinner',549,45,'brussels-sprout-carbonara-fettuccini'),
+  ce('Salteado de Carne y Brócoli','Broccoli Beef Stir-Fry','Dinner',420,45,'broccoli-beef-stir-fry'),
+  ce('Chuletas de Cordero Braseadas','Braised Lamb Chops','Dinner',346,45,'braised-lamb-chops'),
+  ce('Boudin','Boudin','Dinner',568,45,'boudin'),
+  ce('Salmón con Sésamo y Naranja Sanguina','Blood Orange Sesame Salmon','Dinner',344,45,'blood-orange-sesame-salmon'),
+  ce('Pimientos Rellenos Mexicanos','Mexican Stuffed Bell Peppers','Dinner',445,45,'mexican-stuffed-bell-peppers'),
+  ce('Revuelto de Camarones con Porotos Negros y Ajo','Black Bean Garlic Shrimp Scramble','Breakfast',376,45,'black-bean-garlic-shrimp-scramble'),
+  ce('Calabaza Amarga Hervida con Costillas de Cerdo','Bitter Gourd Boiled With Pork Ribs','Dinner',428,45,'bitter-gourd-boiled-pork-ribs'),
+  ce('El Mejor Pollo a la Parmesana','Best Chicken Parmesan','Dinner',636,45,'best-chicken-parmesan'),
+  ce('Tamales de Carne, Poblano y Queso','Beef, Poblano & Cheese Tamales','Dinner',372,45,'beef-poblano-and-cheese-tamales'),
+  ce('Carne con Naranjas y Especias','Beef With Oranges and Spices','Dinner',411,45,'beef-with-oranges-and-spices'),
+  ce('Tataki de Carne','Beef Tataki','Snack',259,45,'beef-tataki'),
+  ce('Bolitas de Espinaca','Spinach Balls','Snack',117,45,'spinach-balls'),
+  ce('Salmón Glaseado con Balsámico y Miel','Balsamic & Honey Glazed Salmon','Dinner',301,60,'balsamic-and-honey-glazed-salmon'),
+  ce('Costillas al Horno con Lías de Vino Tinto','Baked Spare Ribs With Red Wine Lees','Dinner',434,45,'baked-spare-ribs-red-wine-lees'),
+  ce('Vieiras al Horno con Jamón de Parma','Baked Scallops With Parma Ham','Snack',168,45,'baked-scallops-with-parma-ham'),
+  ce('Salmón al Horno con Lima','Baked Salmon With Lime','Dinner',296,45,'baked-salmon-with-lime'),
+  ce('Rigatoni al Horno','Baked Rigatoni','Dinner',481,45,'baked-rigatoni'),
+  ce('Ratatouille al Horno','Baked Ratatouille','Dinner',816,45,'baked-ratatouille'),
+  ce('Pollo Frito al Horno con Puré de Coliflor','Baked Fried Chicken With Cauliflower Mash','Dinner',662,45,'baked-fried-chicken-cauliflower-mash'),
+  ce('Lomo de Cerdo Envuelto en Panceta','Bacon Wrapped Pork Tenderloin','Dinner',410,45,'bacon-wrapped-pork-tenderloin'),
+  ce('Ensalada de Pollo y Palta','Avocado Chicken Salad','Lunch',665,45,'avocado-chicken-salad'),
+  ce('Pollo al Curry Jamaiquino','Jamaican Curry Chicken','Dinner',587,45,'jamaican-curry-chicken'),
+  ce('Frittata de Espárragos y Queso Asiago','Asparagus and Asiago Frittata','Breakfast',261,45,'asparagus-and-asiago-frittata'),
+  ce('Muslos de Pollo Marinados al Estilo Asiático','Asian Marinated Chicken Thighs','Dinner',502,45,'asian-marinated-chicken-thighs'),
+  ce('Wraps de Lechuga al Estilo Asiático','Asian Lettuce Wraps','Lunch',158,45,'asian-lettuce-wraps'),
+  ce('Estofado Armenio','Armenian Stew','Dinner',328,45,'armenian-stew'),
+  ce('Berenjenas a la Parmesana Ligera','Light Eggplant Parmigiana','Dinner',305,45,'light-eggplant-parmigiana'),
+  ce('Vacío con Salsa de Hongos','Flank Steak with Mushroom Sauce','Dinner',215,45,'flank-steak-with-mushroom-sauce'),
+  ce('Tacos de Pavo y Kale','Turkey Kale Tacos','Lunch',196,45,'turkey-kale-tacos'),
+  ce('Huevos Revueltos Perfectos','Perfect Scrambled Eggs','Breakfast',167,10,'perfect-scrambled-eggs'),
+  ce('Dip de Pollo Buffalo','Buffalo Chicken Dip','Snack',385,35,'buffalo-chicken-dip'),
+  ce('Huevos al Horno en Cocotte','Shirred Eggs','Breakfast',142,20,'shirred-eggs'),
+  ce('Risotto de Calabaza y Hongos en Una Sola Sartén','One-Pan Butternut Squash Risotto with Mushrooms','Dinner',482,70,'one-pan-butternut-squash-risotto'),
+  ce('Omelette de Espinaca, Hongos y Parmesano','Spinach Mushroom Omelette with Parmesan','Breakfast',237,20,'spinach-mushroom-omelette-parmesan'),
+  ce('Salmón Glaseado con Miel y Verduras de Hoja','Pan-Seared Honey Glazed Salmon with Collard Greens','Dinner',457,30,'pan-seared-honey-glazed-salmon'),
+  ce('Albóndigas Italianas','Italian Meatballs','Dinner',238,45,'italian-meatballs'),
+  ce('Fideos de Zapallito con Camarones Scampi','Shrimp Scampi Zoodles','Dinner',223,15,'shrimp-scampi-zoodles'),
+  ce('Sopa Griega Ligera de Pollo, Limón y Orzo','Light Greek Lemon Chicken Orzo Soup','Lunch',281,30,'light-greek-lemon-chicken-orzo-soup'),
+  ce('Pollo Griego al Horno con Chauchas','Greek Chicken Sheet Pan Dinner with Green Beans','Dinner',361,55,'greek-chicken-sheet-pan-dinner'),
+  ce('Muslos de Pollo al Horno Estilo Italiano','Italian Style Baked Chicken Thighs','Dinner',508,60,'italian-style-baked-chicken-thighs'),
+  ce('Pizza de Masa de Coliflor con Mozzarella y Pepperoni','Cauliflower Crust Buffalo Mozzarella & Pepperoni Pizza','Dinner',611,45,'cauliflower-crust-buffalo-pepperoni'),
+  ce('Risotto de Tomate Fresco con Vegetales Verdes a la Parrilla','Fresh Tomato Risotto with Grilled Green Vegetables','Dinner',296,60,'fresh-tomato-risotto-grilled-vegetables'),
+  ce('Risotto de Limón y Edamame con Nueces Pecan','Lemon and Edamame Risotto with Pecans','Dinner',366,50,'lemon-and-edamame-risotto-with-pecans'),
+  ce('Crostini de Hummus de Hongos','Mushroom Hummus Crostini','Snack',354,30,'mushroom-hummus-crostini'),
+  ce('Pollo Entero a Fuego Lento con Romero','Easy Slow Cooker Whole Chicken With Rosemary','Dinner',426,430,'easy-slow-cooker-whole-chicken-rosemary'),
+  ce('Estofado de Cordero en Olla a Presión','Instant Pot Lamb Stew','Dinner',354,40,'instant-pot-lamb-stew'),
+  ce('Asado a Fuego Lento','Crock Pot Roast','Dinner',255,490,'crock-pot-roast'),
+  ce('Lasaña Keto de Zapallito Infalible','Excellent No Fail and Easy Keto Zucchini Lasagna','Dinner',523,60,'excellent-keto-zucchini-lasagna'),
+  ce('Batatas Rellenas con Carne Desmenuzada','Shredded Roast Beef Stuffed Sweet Potatoes','Dinner',486,490,'shredded-roast-beef-stuffed-sweet-potatoes'),
+  ce('Ensalada Panzanella','Panzanella Salad','Lunch',657,45,'panzanella-salad'),
+  ce('Puntas de Carne con Arroz en Olla a Presión','Instant Pot Beef Tips and Rice','Dinner',371,30,'instant-pot-beef-tips-and-rice'),
+  ce('Sopa de Tacos de Pollo en Olla a Presión','Instant Pot Chicken Taco Soup','Lunch',346,25,'instant-pot-chicken-taco-soup'),
+  ce('Asado en Olla a Presión','Instant Pot Pressure Cooker Pot Roast','Dinner',484,75,'instant-pot-pressure-cooker-pot-roast'),
+  ce('Bowl de Quinoa en Olla a Presión','Instant Pot Quinoa Grain Bowl','Lunch',407,13,'instant-pot-quinoa-grain-bowl'),
+  ce('Nachos Italianos al Horno','Baked Italian Nachos','Snack',448,45,'baked-italian-nachos'),
+  ce('Jambalaya de Porotos Colorados','Red Kidney Bean Jambalaya','Dinner',393,45,'red-kidney-bean-jambalaya'),
+  ce('Samosa','Samosa','Snack',425,45,'samosa'),
+  ce('Ensalada con Bife','Steak Salad','Lunch',586,20,'steak-salad'),
+  ce('Obwarzanek Polaco','Polish Obwarzanek','Snack',290,60,'polish-obwarzanek'),
+  ce('Tostada de Palta con Huevos Poché','Avocado Toast with Poached Eggs','Breakfast',541,10,'avocado-toast-with-poached-eggs'),
+  ce('Sambusa Etíope','Ethiopian Sambusa','Snack',470,35,'ethiopian-sambusa'),
+  ce('Kanelbullar Escandinavos (Rollos de Canela)','Scandinavian Kanelbullar (Cinnamon Rolls)','Snack',232,120,'scandinavian-kanelbullar'),
+  ce('Manti Turco','Turkish Manti','Dinner',674,75,'turkish-manti'),
+  ce('Bocaditos Escandinavos de Salmón Ahumado','Scandinavian Smoked Salmon Bites','Snack',152,10,'scandinavian-smoked-salmon-bites'),
+  ce('Nasi Goreng Indonesio','Indonesian Nasi Goreng','Dinner',486,15,'indonesian-nasi-goreng'),
+  ce('Golabki Polacos (Repollitos Rellenos)','Polish Golabki (Stuffed Cabbage Rolls)','Dinner',467,60,'polish-golabki'),
+  ce('Peras Asadas con Canela y Miel de Maple','Maple Cinnamon Roasted Pears','Snack',103,25,'maple-cinnamon-roasted-pears'),
+  ce('Huevos Rancheros','Huevos Rancheros','Breakfast',570,20,'huevos-rancheros'),
+  ce('Sinigang Filipino','Filipino Sinigang','Lunch',423,45,'filipino-sinigang'),
+  ce('Pierogi Polaco','Polish Pierogi','Dinner',682,60,'polish-pierogi'),
+  ce('Brik Tunecino','Tunisian Brik','Snack',270,15,'tunisian-brik'),
+  ce('Knäckebröd Sueco con Pescado Ahumado','Swedish Knackebrod with Smoked Fish','Snack',380,5,'swedish-knackebrod-smoked-fish'),
+  ce('Bocaditos de Tempura de Camarones','Shrimp Tempura Bites','Snack',413,20,'shrimp-tempura-bites'),
+  ce('Sándwich Escandinavo de Camarones','Scandinavian Shrimp Sandwich','Lunch',640,10,'scandinavian-shrimp-sandwich'),
+  ce('Salchichas Envueltas en Masa','Pigs in a Blanket','Snack',218,25,'pigs-in-a-blanket'),
+  ce('Bocaditos de Corn Dog','Corn Dog Bites','Snack',413,25,'corn-dog-bites'),
+  ce('Galbi Coreano (Costillas Cortas)','Korean Galbi (Short Ribs)','Dinner',806,30,'korean-galbi'),
+  ce('Ramen de Panceta de Cerdo','Pork Belly Ramen','Dinner',648,45,'pork-belly-ramen'),
+  ce('Mochi Japonés','Japanese Mochi','Snack',165,25,'japanese-mochi'),
+  ce('Stroganoff de Carne','Beef Stroganoff','Dinner',645,30,'beef-stroganoff'),
+  ce('Pastitsio Griego','Greek Pastitsio','Dinner',593,60,'greek-pastitsio'),
+  ce('Burrito de Pollo','Chicken Burrito','Lunch',692,20,'chicken-burrito'),
+  ce('Dabo Kolo Etíope','Ethiopian Dabo Kolo','Snack',288,30,'ethiopian-dabo-kolo'),
+  ce('Chilaquiles Verdes','Chilaquiles Verdes','Breakfast',579,20,'chilaquiles-verdes'),
+  ce('Wrap de Pollo con Harissa Marroquí','Moroccan Harissa Chicken Wrap','Lunch',452,20,'moroccan-harissa-chicken-wrap'),
+  ce('Tostada Francesa Rellena','Stuffed French Toast','Breakfast',523,20,'stuffed-french-toast'),
+  ce('Bagel de Trucha Ahumada y Queso Crema','Smoked Trout & Cream Cheese Bagel','Breakfast',516,10,'smoked-trout-cream-cheese-bagel'),
+  ce('Crepe de Nutella y Banana','Nutella Banana Crepe','Breakfast',487,15,'nutella-banana-crepe'),
+  ce('Wrap de Pavo Ahumado y Claras','Smoked Turkey & Egg White Wrap','Lunch',325,10,'smoked-turkey-egg-white-wrap-2'),
+  ce('Koshari Egipcio','Egyptian Koshari','Dinner',354,45,'egyptian-koshari'),
+  ce('Tacos de Camarones','Shrimp Tacos','Lunch',372,20,'shrimp-tacos-2'),
+  ce('Bocaditos de Focaccia con Romero','Rosemary Focaccia Bites','Snack',262,120,'rosemary-focaccia-bites'),
+  ce('Chips de Plátano Frito','Fried Plantain Chips','Snack',450,15,'fried-plantain-chips'),
+  ce('Vaso de Fiambres y Quesos','Charcuterie Cup','Snack',480,10,'charcuterie-cup')
+];
+function catalogExtraById(id){ for(var i=0;i<CATALOG_EXTRA.length;i++){ if(CATALOG_EXTRA[i].id===id) return CATALOG_EXTRA[i]; } return null; }
 function recipeById(id){ for(var i=0;i<RECIPES.length;i++){ if(RECIPES[i].id===id) return RECIPES[i]; } return null; }
 function recipesForDiet(dietId, mealType){ return RECIPES.filter(function(r){ return r.dietId===dietId && r.mealType===mealType; }); }
 function genMealDay(diet, day){
@@ -1546,8 +1727,30 @@ function renderDietProgramDetail(id, day){
 }
 window.tvStartDiet = function(id, day){ state.activeDiet=id; state.dietDay[id]=day; save(); renderDietProgramDetail(id, day); };
 
+function estimateMacros(kcal){
+  return { p: Math.round(kcal*0.20/4), c: Math.round(kcal*0.45/4), f: Math.round(kcal*0.35/9) };
+}
+function renderCatalogExtraDetail(r){
+  var already = hasEatenToday(r.id);
+  var m = estimateMacros(r.kcal);
+  var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(r.name))+'</h1></div>';
+  html += '<div class="tv-hero"><img src="'+r.img+'" alt="">'+
+    '<div style="position:absolute;left:10px;bottom:10px;display:flex;gap:6px"><span class="tag" style="background:var(--bronze);color:#fff">'+esc(t(MEALTYPE_KEY[r.mealType]))+'</span><span class="tag">🔥 '+esc(r.diff)+'</span><span class="tag">'+r.min+' '+t('min')+'</span></div></div>';
+  html += '<h2 style="font-family:Poppins;font-size:19px;margin-bottom:10px">'+esc(tn(r.name))+'</h2>';
+  html += '<div class="tv-mstats"><div class="tv-mstat kcal"><b>'+r.kcal+'</b><span>'+t('kcal')+'</span></div><div class="tv-mstat p"><b>~'+m.p+'g</b><span>'+t('meals_protein')+'</span></div><div class="tv-mstat c"><b>~'+m.c+'g</b><span>'+t('meals_carbs')+'</span></div><div class="tv-mstat f"><b>~'+m.f+'g</b><span>'+t('meals_fat')+'</span></div></div>';
+  html += '<button class="tv-btn'+(already?' ghost':'')+'" id="eatBtn" onclick="tvMarkEatenExtra(\''+r.id+'\')">'+(already?t('recipe_already_eaten'):'✓ '+t('recipe_mark_eaten'))+'</button>';
+  stage.innerHTML = html;
+}
+window.tvMarkEatenExtra = function(id){
+  if(hasEatenToday(id)) return;
+  var r = catalogExtraById(id); if(!r) return;
+  var m = estimateMacros(r.kcal);
+  logMeal(r.mealType, tn(r.name), r.kcal, m.p, m.c, m.f, r.id);
+  renderCatalogExtraDetail(r);
+};
 function renderRecipeDetail(id){
-  var r = recipeById(id); if(!r){ nav('meals'); return; }
+  var r = recipeById(id);
+  if(!r){ var ce = catalogExtraById(id); if(ce) return renderCatalogExtraDetail(ce); nav('meals'); return; }
   var already = hasEatenToday(r.id);
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(r.name))+'</h1></div>';
   html += '<div class="tv-hero" style="background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:center;justify-content:center"><span style="font-size:52px;opacity:.5">'+(MEALTYPE_ICON[r.mealType]||'🍽️')+'</span>'+
@@ -1584,15 +1787,18 @@ function renderBrowseRecipes(mt, q){
   html += '<input class="tv-search" id="recipeSearch" placeholder="'+esc(t('browse_search'))+'" value="'+esc(q)+'">';
   html += '<div class="tv-mealpills">'+types.map(function(ty){ var lbl = ty==='all'?t('mt_all'):t(MEALTYPE_KEY[ty]); return '<button data-mt="'+ty+'" class="'+(ty===mt?'on':'')+'">'+typeIcon[ty]+' '+esc(lbl)+'</button>'; }).join('')+'</div>';
   var uniq = {}, list = [];
+  CATALOG_EXTRA.forEach(function(r){ if(!uniq[r.id]){ uniq[r.id]=1; list.push(r); } });
   RECIPES.forEach(function(r){ if(!uniq[r.id]){ uniq[r.id]=1; list.push(r); } });
   if(mt!=='all') list = list.filter(function(r){ return r.mealType===mt; });
   if(q) list = list.filter(function(r){ return tn(r.name).toLowerCase().indexOf(q.toLowerCase())!==-1; });
-  html += '<div class="tv-sec">'+t('browse_all')+'</div>';
+  html += '<div class="tv-sec">'+t('browse_all')+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+list.length+'</span></div>';
   if(!list.length){
     html += '<div class="tv-empty">🔍<p>'+t('browse_empty')+'</p></div>';
   } else {
     html += '<div class="tv-wgrid">'+list.map(function(r){
-      return '<a href="#recipe/'+r.id+'" class="tv-wcard has-img" style="background:linear-gradient(150deg,var(--bronze2),var(--bronze))"><span class="lvl">🔥 '+esc(r.diff)+'</span><div class="ico" style="opacity:.35">'+(MEALTYPE_ICON[r.mealType]||'🍽️')+'</div><span class="wlbl">'+esc(tn(r.name))+'<br><span style="font-weight:500;font-size:11px;opacity:.85">'+r.kcal+' '+t('kcal')+' · ⏱ '+r.min+' '+t('min')+'</span></span></a>';
+      var media = r.img ? '<img src="'+r.img+'" alt="">' : '<div class="ico" style="opacity:.35">'+(MEALTYPE_ICON[r.mealType]||'🍽️')+'</div>';
+      var bg = r.img ? '' : ' style="background:linear-gradient(150deg,var(--bronze2),var(--bronze))"';
+      return '<a href="#recipe/'+r.id+'" class="tv-wcard'+(r.img?' has-img':'')+'"'+bg+'><span class="lvl">🔥 '+esc(r.diff)+'</span>'+media+'<span class="wlbl">'+esc(tn(r.name))+'<br><span style="font-weight:500;font-size:11px;opacity:.85">'+r.kcal+' '+t('kcal')+' · ⏱ '+r.min+' '+t('min')+'</span></span></a>';
     }).join('')+'</div>';
   }
   stage.innerHTML = html;
