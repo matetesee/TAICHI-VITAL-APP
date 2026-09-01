@@ -242,7 +242,12 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-hero{width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;position:relative;margin-bottom:12px}
 #tv .tv-hero img{width:100%;height:100%;object-fit:cover}
 #tv .tv-hero .tag{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);color:#1C2A24;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
-#tv .tv-days{display:flex;gap:8px;overflow-x:auto;padding:10px 0 14px}
+#tv .tv-days-wrap{position:relative}
+#tv .tv-days-wrap .tv-days-hint{position:absolute;top:0;right:2px;font-size:10.5px;font-weight:700;color:var(--soft);background:var(--bg);padding:2px 0 2px 6px}
+#tv .tv-days-fade-l,#tv .tv-days-fade-r{position:absolute;top:10px;bottom:14px;width:30px;pointer-events:none;z-index:1;opacity:0;transition:opacity .15s}
+#tv .tv-days-fade-l{left:0;background:linear-gradient(to right,var(--bg),rgba(0,0,0,0))}
+#tv .tv-days-fade-r{right:0;background:linear-gradient(to left,var(--bg),rgba(0,0,0,0))}
+#tv .tv-days{display:flex;gap:8px;overflow-x:auto;padding:18px 0 14px}
 #tv .tv-days::-webkit-scrollbar{display:none}
 #tv .tv-day{flex:none;width:36px;height:36px;border-radius:50%;background:var(--card2);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--soft)}
 #tv .tv-day.on{background:var(--bronze);border-color:var(--bronze);color:#fff}
@@ -258,7 +263,8 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-player-exit{background:none;border:none;color:var(--soft);font-size:13px;font-weight:600}
 #tv .tv-player-count{font-size:12px;font-weight:700;color:var(--soft)}
 #tv .tv-player-phase{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--bronze2);margin-top:18px}
-#tv .tv-player-name{font-family:'Poppins';font-weight:800;font-size:22px;text-align:center;margin:8px 0 22px;max-width:320px}
+#tv .tv-player-name{font-family:'Poppins';font-weight:800;font-size:22px;text-align:center;margin:8px 0 6px;max-width:320px}
+#tv .tv-player-desc{color:var(--soft);font-size:13px;line-height:1.4;text-align:center;margin:0 0 20px;max-width:300px}
 #tv .tv-ring-wrap{position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
 #tv .tv-ring-wrap svg{width:220px;height:220px;transform:rotate(-90deg)}
 #tv .tv-ring-time{position:absolute;font-family:'Poppins';font-weight:800;font-size:44px}
@@ -561,37 +567,77 @@ function markCheckin(){
 
 /* ===================== data: programs ===================== */
 function bi(es,en){ return {es:es, en:en}; }
+function mv(es,en,descEs,descEn){ return { name:bi(es,en), desc:bi(descEs,descEn) }; }
 var TAICHI_MOVES = [
-  bi("Respiración de Enraizamiento","Grounding Breath"), bi("Abrir el Corazón","Opening the Heart"), bi("Círculos Externos","Outer Circles"),
-  bi("Empujar las Nubes","Push the Clouds"), bi("El Tigre se Lava la Cara","Tiger Washes Its Face"), bi("El Ganso Salvaje Vuela","Wild Goose Flies"),
-  bi("Separar el Cielo y la Tierra","Separate Heaven and Earth"), bi("Contemplar la Luna","Gazing at the Moon"), bi("Pintar el Arcoíris","Painting the Rainbow"),
-  bi("Extender las Alas","Spreading the Wings"), bi("El Oso Gira de Lado a Lado","Bear Turns Side to Side"), bi("Estiramiento Lateral Derecho","Right Side Stretch"),
-  bi("Estiramiento Lateral Izquierdo","Left Side Stretch"), bi("Mirar Hacia el Horizonte","Gazing at the Horizon"), bi("Círculos Yin","Yin Circles"),
-  bi("Abrazar el Árbol","Embracing the Tree"), bi("Acariciar la Cola del Ave","Stroking the Bird's Tail"), bi("Manos como Nubes","Hands Like Clouds"),
-  bi("Elevar y Descender","Rise and Fall"), bi("Respiración de Cierre","Closing Breath")
+  mv("Respiración de Enraizamiento","Grounding Breath","De pie, pies separados al ancho de las caderas: inhalá llevando los brazos hacia arriba y exhalá bajándolos despacio, sintiendo el peso hacia el piso.","Standing with feet hip-width apart: inhale raising the arms up, then exhale lowering them slowly, feeling your weight sink into the floor."),
+  mv("Abrir el Corazón","Opening the Heart","Llevá los brazos hacia atrás abriendo el pecho mientras inhalás, y volvé al centro exhalando.","Sweep the arms back opening the chest as you inhale, then return to center as you exhale."),
+  mv("Círculos Externos","Outer Circles","Con los brazos extendidos al frente, dibujá círculos amplios hacia afuera con movimientos suaves y continuos.","With arms extended in front, draw wide circles outward with slow, continuous movements."),
+  mv("Empujar las Nubes","Push the Clouds","Desplazá el peso de una pierna a la otra mientras empujás las manos hacia adelante, como apartando nubes.","Shift your weight from one leg to the other while pushing your hands forward, as if parting clouds."),
+  mv("El Tigre se Lava la Cara","Tiger Washes Its Face","Llevá las manos cerca de la cara en un movimiento circular suave, como si te lavaras la cara con las palmas.","Bring your hands near your face in a soft circular motion, as if washing your face with your palms."),
+  mv("El Ganso Salvaje Vuela","Wild Goose Flies","Extendé los brazos hacia los costados como alas y elevalos suavemente mientras te parás apoyado en una pierna.","Extend your arms out to the sides like wings and raise them gently while balancing on one leg."),
+  mv("Separar el Cielo y la Tierra","Separate Heaven and Earth","Una mano sube empujando hacia el cielo y la otra baja empujando hacia el piso; alterná de lado.","One hand pushes up toward the sky while the other pushes down toward the floor; alternate sides."),
+  mv("Contemplar la Luna","Gazing at the Moon","Girá el torso hacia un costado mirando por encima del hombro, con un brazo elevado en arco.","Turn your torso to one side, gazing over your shoulder, with one arm raised in an arc."),
+  mv("Pintar el Arcoíris","Painting the Rainbow","Trazá un arco amplio con ambos brazos de un lado al otro, como pintando un arcoíris en el aire.","Sweep both arms in a wide arc from one side to the other, as if painting a rainbow in the air."),
+  mv("Extender las Alas","Spreading the Wings","Abrí los brazos hacia los costados a la altura de los hombros, como desplegando alas, e inhalá profundo.","Open your arms out to the sides at shoulder height, like spreading wings, and breathe in deeply."),
+  mv("El Oso Gira de Lado a Lado","Bear Turns Side to Side","Con las piernas firmes, girá el torso de un lado a otro balanceando los brazos relajados.","With your legs steady, turn your torso from side to side, swinging your arms loosely."),
+  mv("Estiramiento Lateral Derecho","Right Side Stretch","Elevá el brazo derecho por encima de la cabeza e inclinate hacia la izquierda, estirando el costado derecho.","Raise your right arm overhead and lean to the left, stretching your right side."),
+  mv("Estiramiento Lateral Izquierdo","Left Side Stretch","Elevá el brazo izquierdo por encima de la cabeza e inclinate hacia la derecha, estirando el costado izquierdo.","Raise your left arm overhead and lean to the right, stretching your left side."),
+  mv("Mirar Hacia el Horizonte","Gazing at the Horizon","Girá la cabeza y el torso suavemente hacia un lado, como mirando a lo lejos, y volvé al centro.","Turn your head and torso gently to one side, as if looking into the distance, then return to center."),
+  mv("Círculos Yin","Yin Circles","Dibujá círculos lentos y pequeños con las manos o las caderas, con un movimiento suave y fluido.","Draw small, slow circles with your hands or hips, keeping the movement soft and fluid."),
+  mv("Abrazar el Árbol","Embracing the Tree","Parate con las rodillas ligeramente flexionadas y los brazos redondeados al frente, como abrazando un tronco.","Stand with knees slightly bent and arms rounded in front, as if embracing a tree trunk."),
+  mv("Acariciar la Cola del Ave","Stroking the Bird's Tail","Movimiento clásico: desplazá el peso hacia adelante y atrás mientras las manos se deslizan en arco frente al cuerpo.","A classic move: shift your weight forward and back while your hands glide in an arc in front of your body."),
+  mv("Manos como Nubes","Hands Like Clouds","Movimiento lateral desplazando el peso de un pie al otro, mientras las manos se cruzan suavemente frente al cuerpo como nubes flotando.","Step side to side shifting your weight, while your hands cross gently in front of your body like drifting clouds."),
+  mv("Elevar y Descender","Rise and Fall","Subí lentamente sobre las puntas de los pies inhalando, y bajá con las rodillas flexionadas exhalando.","Slowly rise onto the balls of your feet while inhaling, then lower with bent knees as you exhale."),
+  mv("Respiración de Cierre","Closing Breath","De pie y quieto/a, llevá las manos al centro del pecho e inhalá y exhalá profundo para cerrar la práctica.","Standing still, bring your hands to the center of your chest and breathe deeply in and out to close the practice.")
 ];
 var CHAIR_MOVES = [
-  bi("Estiramiento de Cuello Sentado","Seated Neck Stretch"), bi("Rotación de Hombros","Shoulder Rolls"), bi("Elevación de Rodillas","Knee Lifts"),
-  bi("Torsión Suave de Torso","Gentle Torso Twist"), bi("Extensión de Piernas Sentado","Seated Leg Extension"), bi("Respiración Profunda Guiada","Guided Deep Breathing"),
-  bi("Círculos de Tobillo","Ankle Circles"), bi("Elevación de Brazos","Arm Raises"), bi("Inclinación Pélvica Sentada","Seated Pelvic Tilt"),
-  bi("Gato-Vaca Sentado","Seated Cat-Cow"), bi("Flexión Lateral Sentada","Seated Side Bend"), bi("Marcha Sentada","Seated March"),
-  bi("Apertura de Pecho","Chest Opener"), bi("Estiramiento de Pantorrilla Sentado","Seated Calf Stretch"), bi("Relajación Final","Final Relaxation")
+  mv("Estiramiento de Cuello Sentado","Seated Neck Stretch","Sentado/a, inclinná suavemente la cabeza hacia un hombro y mantené unos segundos; después cambiá de lado.","While seated, gently tilt your head toward one shoulder and hold for a few seconds; then switch sides."),
+  mv("Rotación de Hombros","Shoulder Rolls","Sentado/a con la espalda recta, girá los hombros hacia atrás en círculos lentos.","Sitting tall, roll your shoulders backward in slow circles."),
+  mv("Elevación de Rodillas","Knee Lifts","Sentado/a, elevá una rodilla hacia el pecho y bajala; alterná de pierna.","While seated, lift one knee toward your chest and lower it; alternate legs."),
+  mv("Torsión Suave de Torso","Gentle Torso Twist","Sentado/a, girá el torso hacia un lado sosteniéndote del respaldo, y volvé al centro.","While seated, twist your torso to one side holding the backrest, then return to center."),
+  mv("Extensión de Piernas Sentado","Seated Leg Extension","Sentado/a, estirá una pierna hacia adelante hasta quedar recta y bajala despacio.","While seated, extend one leg forward until straight, then lower it slowly."),
+  mv("Respiración Profunda Guiada","Guided Deep Breathing","Sentado/a con las manos sobre el abdomen, inhalá profundo por la nariz y exhalá lento por la boca.","Seated with hands on your belly, breathe in deeply through the nose and out slowly through the mouth."),
+  mv("Círculos de Tobillo","Ankle Circles","Sentado/a, levantá un pie del piso y girá el tobillo en círculos; después cambiá de pie.","While seated, lift one foot off the floor and circle the ankle; then switch feet."),
+  mv("Elevación de Brazos","Arm Raises","Sentado/a, elevá ambos brazos por encima de la cabeza al inhalar y bajalos al exhalar.","While seated, raise both arms overhead as you inhale and lower them as you exhale."),
+  mv("Inclinación Pélvica Sentada","Seated Pelvic Tilt","Sentado/a, inclinná la pelvis hacia adelante y atrás suavemente, moviendo la zona lumbar.","While seated, gently tilt your pelvis forward and back, moving through your lower back."),
+  mv("Gato-Vaca Sentado","Seated Cat-Cow","Sentado/a, arqueá la espalda hacia atrás mirando hacia arriba, y después redondeala mirando hacia el ombligo.","While seated, arch your back looking up, then round it looking toward your belly button."),
+  mv("Flexión Lateral Sentada","Seated Side Bend","Sentado/a, elevá un brazo e inclinate hacia el lado contrario, estirando el costado.","While seated, raise one arm and lean toward the opposite side, stretching your torso."),
+  mv("Marcha Sentada","Seated March","Sentado/a, levantá las rodillas alternadamente como si estuvieras marchando en el lugar.","While seated, lift your knees alternately as if marching in place."),
+  mv("Apertura de Pecho","Chest Opener","Sentado/a, llevá los brazos hacia atrás entrelazando las manos detrás de la espalda y abrí el pecho.","While seated, bring your arms back, clasp your hands behind you, and open your chest."),
+  mv("Estiramiento de Pantorrilla Sentado","Seated Calf Stretch","Sentado/a, estirá una pierna y flexioná el pie hacia vos, sintiendo el estiramiento en la pantorrilla.","While seated, extend one leg and flex your foot toward you, feeling the stretch in your calf."),
+  mv("Relajación Final","Final Relaxation","Sentado/a con los ojos cerrados, respirá tranquilo/a y soltá toda la tensión del cuerpo.","Seated with eyes closed, breathe calmly and release all tension from your body.")
 ];
 var PILATES_MOVES = [
-  bi("Activación del Core Sentado","Seated Core Activation"), bi("Elevación de Talón","Heel Raises"), bi("Puente de Cadera","Hip Bridge"),
-  bi("Círculos de Cintura","Waist Circles"), bi("Respiración Diafragmática","Diaphragmatic Breathing"), bi("Extensión de Columna Sentado","Seated Spine Extension"),
-  bi("Elevación Lateral de Pierna","Side Leg Raise"), bi("Contracción Abdominal Suave","Gentle Abdominal Contraction"), bi("Estiramiento de Isquiotibiales","Hamstring Stretch"),
-  bi("Rotación de Cadera Sentado","Seated Hip Rotation")
+  mv("Activación del Core Sentado","Seated Core Activation","Sentado/a, contraé el abdomen hacia la columna sosteniendo unos segundos y soltá.","While seated, draw your belly in toward your spine, hold for a few seconds, then release."),
+  mv("Elevación de Talón","Heel Raises","De pie o sentado/a, elevá los talones despegándolos del piso y bajalos con control.","Standing or seated, lift your heels off the floor and lower them with control."),
+  mv("Puente de Cadera","Hip Bridge","Acostado/a boca arriba con las rodillas flexionadas, elevá la cadera apretando los glúteos y bajá despacio.","Lying on your back with knees bent, lift your hips squeezing your glutes, then lower slowly."),
+  mv("Círculos de Cintura","Waist Circles","De pie con las manos en la cintura, girá las caderas dibujando círculos amplios.","Standing with hands on your hips, circle your hips in wide loops."),
+  mv("Respiración Diafragmática","Diaphragmatic Breathing","Acostado/a o sentado/a, inhalá expandiendo el abdomen y exhalá contrayéndolo lentamente.","Lying or seated, inhale expanding your belly, then exhale contracting it slowly."),
+  mv("Extensión de Columna Sentado","Seated Spine Extension","Sentado/a con la espalda recta, elevá los brazos y extendé suavemente la columna hacia arriba.","Sitting tall, raise your arms and gently lengthen your spine upward."),
+  mv("Elevación Lateral de Pierna","Side Leg Raise","Parado/a o acostado/a de costado, elevá una pierna hacia el lado manteniendo el torso estable.","Standing or lying on your side, lift one leg out to the side keeping your torso steady."),
+  mv("Contracción Abdominal Suave","Gentle Abdominal Contraction","Acostado/a con las rodillas flexionadas, contraé el abdomen elevando ligeramente los hombros del piso.","Lying with knees bent, contract your abs lifting your shoulders slightly off the floor."),
+  mv("Estiramiento de Isquiotibiales","Hamstring Stretch","Sentado/a o parado/a, estirá una pierna e inclinate hacia adelante desde la cadera.","Seated or standing, extend one leg and hinge forward from your hip."),
+  mv("Rotación de Cadera Sentado","Seated Hip Rotation","Sentado/a, cruzá un tobillo sobre la rodilla contraria y presioná suavemente hacia abajo para abrir la cadera.","While seated, cross one ankle over the opposite knee and gently press down to open the hip.")
 ];
 var MICRO_MOVES = [
-  bi("Sentadilla Asistida en Silla","Chair-Assisted Squat"), bi("Marcha en el Lugar","Marching in Place"), bi("Elevación de Talones","Heel Raises"),
-  bi("Rotación de Muñecas","Wrist Circles"), bi("Estiramiento de Espalda Alta","Upper Back Stretch"), bi("Respiración Energizante","Energizing Breath"),
-  bi("Balanceo de Brazos","Arm Swings"), bi("Paso Lateral Suave","Gentle Side Step")
+  mv("Sentadilla Asistida en Silla","Chair-Assisted Squat","Parate frente a la silla, bajá como si te fueras a sentar y volvé a subir sin llegar a apoyarte del todo.","Stand in front of a chair, lower as if sitting down, then rise back up without fully sitting."),
+  mv("Marcha en el Lugar","Marching in Place","De pie, levantá las rodillas alternadamente como si marcharas sin desplazarte.","Standing, lift your knees alternately as if marching without moving forward."),
+  mv("Elevación de Talones","Heel Raises","De pie, elevá los talones del piso apoyándote en las puntas y bajá con control.","Standing, raise your heels off the floor onto your toes and lower with control."),
+  mv("Rotación de Muñecas","Wrist Circles","Con los brazos extendidos, girá las muñecas en círculos hacia un lado y después hacia el otro.","With arms extended, circle your wrists one way, then the other."),
+  mv("Estiramiento de Espalda Alta","Upper Back Stretch","Entrelazá las manos al frente, redondeá la espalda alta y estirá hacia adelante.","Clasp your hands in front, round your upper back, and stretch forward."),
+  mv("Respiración Energizante","Energizing Breath","Inhalá profundo elevando los brazos y exhalá con fuerza bajándolos rápido, para activarte.","Inhale deeply raising your arms, then exhale forcefully lowering them quickly to energize."),
+  mv("Balanceo de Brazos","Arm Swings","De pie, balanceá los brazos hacia adelante y atrás con soltura, aflojando los hombros.","Standing, swing your arms loosely forward and back, releasing tension in your shoulders."),
+  mv("Paso Lateral Suave","Gentle Side Step","Dá un paso hacia el costado y juntá el otro pie, alternando de lado.","Step out to the side and bring the other foot in to meet it, alternating sides.")
 ];
 var MILITARY_MOVES = [
-  bi("Flexiones de Brazos","Push-Ups"), bi("Sentadillas con Salto","Jump Squats"), bi("Plancha Lateral","Side Plank"),
-  bi("Burpees","Burpees"), bi("Escaladores","Mountain Climbers"), bi("Zancadas","Lunges"),
-  bi("Plancha Alta","High Plank"), bi("Saltos de Tijera","Jumping Jacks")
+  mv("Flexiones de Brazos","Push-Ups","Apoyado/a en manos y pies (o rodillas), bajá el pecho hacia el piso flexionando los codos y volvé a subir.","Supported on hands and feet (or knees), lower your chest toward the floor bending your elbows, then push back up."),
+  mv("Sentadillas con Salto","Jump Squats","Bajá en sentadilla y explotá hacia arriba saltando, aterrizando suave con las rodillas flexionadas.","Lower into a squat, then explode upward into a jump, landing softly with bent knees."),
+  mv("Plancha Lateral","Side Plank","Apoyado/a sobre un antebrazo y el costado de un pie, mantené el cuerpo alineado en línea recta.","Supported on one forearm and the side of one foot, keep your body in a straight line."),
+  mv("Burpees","Burpees","Desde parado/a, bajá a plancha, hacé una flexión, saltá los pies hacia las manos y saltá hacia arriba.","From standing, drop into a plank, do a push-up, jump your feet to your hands, then jump up."),
+  mv("Escaladores","Mountain Climbers","En posición de plancha, llevá las rodillas al pecho alternando rápido, como si escalaras.","In a plank position, drive your knees to your chest alternately at a quick pace, as if climbing."),
+  mv("Zancadas","Lunges","Dá un paso largo hacia adelante flexionando ambas rodillas a 90°, y volvé a la posición inicial.","Take a long step forward bending both knees to 90°, then return to standing."),
+  mv("Plancha Alta","High Plank","Apoyado/a en manos y pies con el cuerpo en línea recta, sostené la posición activando el core.","Supported on hands and feet with your body in a straight line, hold the position engaging your core."),
+  mv("Saltos de Tijera","Jumping Jacks","Saltá abriendo piernas y brazos a la vez, y volvé a juntarlos al aterrizar.","Jump opening your legs and arms at the same time, then bring them back together as you land.")
 ];
 
 var PROGRAMS = [
@@ -1724,8 +1770,8 @@ function genDay(prog, day){
   var start=(day*2)%pool.length, list=[];
   for(var i=0;i<n;i++){ list.push(pool[(start+i)%pool.length]); }
   var kcal = Math.round(prog.min*3.6 + (day%5)*4);
-  return { min:prog.min, kcal:kcal, exercises:list.map(function(name,i){
-    return { name:name, dur: (30+((i*7)%4)*10)+'s', reps: 3+((i+day)%4) };
+  return { min:prog.min, kcal:kcal, exercises:list.map(function(mv,i){
+    return { name:mv.name, desc:mv.desc, dur: (30+((i*7)%4)*10)+'s', reps: 3+((i+day)%4) };
   })};
 }
 
@@ -2024,7 +2070,7 @@ function renderCatalogProgramDetail(id){
   html += '<div class="tv-sec">'+t('prog_circuit')+' ('+pool.length+' '+t('prog_exercises')+')</div>';
   pool.forEach(function(ex,i){
     var kcal = 3 + (i%4) + (w.level==='Advanced'?2:(w.level==='Intermediate'?1:0));
-    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex))+'</b><span>TaiChi Vital</span></div><div class="dur">60s<br><span style="font-weight:400;color:var(--soft)">'+kcal+' kcal</span></div></div>';
+    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>'+esc(tn(ex.desc))+'</span></div><div class="dur">60s<br><span style="font-weight:400;color:var(--soft)">'+kcal+' kcal</span></div></div>';
   });
   stage.innerHTML = html;
   window.scrollTo({top:0});
@@ -2039,7 +2085,7 @@ function buildPlayerSpec(kind, id, day){
     var pool = poolForCat(w.cat);
     var exs = pool.map(function(ex,i){
       var kcal = 3 + (i%4) + (w.level==='Advanced'?2:(w.level==='Intermediate'?1:0));
-      return { name:ex, seconds:60, kcal:kcal };
+      return { name:ex.name, desc:ex.desc, seconds:60, kcal:kcal };
     });
     return {
       title: tn(w.name), img: w.img, pos: w.pos, exercises: exs,
@@ -2058,7 +2104,7 @@ function buildPlayerSpec(kind, id, day){
     var p = progById(id); if(!p) return null;
     day = Math.max(1, Math.min(p.days, day||1));
     var d = genDay(p, day);
-    var exs = d.exercises.map(function(ex){ return { name:ex.name, seconds: parseInt(ex.dur,10)||40, reps:ex.reps, kcal:Math.round(d.kcal/d.exercises.length) }; });
+    var exs = d.exercises.map(function(ex){ return { name:ex.name, desc:ex.desc, seconds: parseInt(ex.dur,10)||40, reps:ex.reps, kcal:Math.round(d.kcal/d.exercises.length) }; });
     return {
       title: tn(p.name)+' · '+t('day_prefix')+' '+day, img: p.img, pos:null, exercises: exs,
       onFinish: function(){
@@ -2139,7 +2185,9 @@ function paintPlayer(){
   var ex = spec.exercises[ps.idx];
   var isRest = ps.phase==='rest', isReady = ps.phase==='ready';
   var next = spec.exercises[ps.idx+1];
-  var label = isReady ? tn(spec.exercises[0].name) : (isRest ? tn((next||ex).name) : tn(ex.name));
+  var labelEx = isReady ? spec.exercises[0] : (isRest ? (next||ex) : ex);
+  var label = tn(labelEx.name);
+  var descLabel = labelEx.desc ? tn(labelEx.desc) : '';
   var caption = isReady ? t('player_ready') : (isRest ? t('player_rest') : t('player_exercise')+' '+(ps.idx+1));
   var total = isReady ? 3 : (isRest ? 10 : ex.seconds);
   var pct = Math.max(0, ps.secondsLeft/total);
@@ -2149,10 +2197,32 @@ function paintPlayer(){
   html += '<div class="tv-player-dots">'+dots+'</div>';
   html += '<div class="tv-player-phase">'+esc(caption)+'</div>';
   html += '<div class="tv-player-name">'+esc(label)+'</div>';
+  if(descLabel) html += '<div class="tv-player-desc">'+esc(descLabel)+'</div>';
   html += '<div class="tv-ring-wrap"><svg viewBox="0 0 220 220"><circle cx="110" cy="110" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="12"/><circle cx="110" cy="110" r="'+r+'" fill="none" stroke="var(--bronze2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'"/></svg><div class="tv-ring-time">'+Math.max(0,ps.secondsLeft)+'</div></div>';
   if(!isReady && !isRest && next) html += '<div class="tv-player-next">'+t('player_up_next')+': <b>'+esc(tn(next.name))+'</b></div>';
   html += '<div class="tv-player-controls"><button class="tv-btn ghost" onclick="tvPlayerPause()">'+(ps.paused?t('player_resume'):t('player_pause'))+'</button><button class="tv-btn" onclick="tvPlayerSkip()">'+t('player_skip')+'</button></div>';
   el.innerHTML = html;
+}
+
+function setupDaysScroll(){
+  var wrap = stage.querySelector('.tv-days-wrap');
+  if(!wrap) return;
+  var days = wrap.querySelector('.tv-days');
+  var fadeL = wrap.querySelector('.tv-days-fade-l');
+  var fadeR = wrap.querySelector('.tv-days-fade-r');
+  if(!days) return;
+  function update(){
+    var max = days.scrollWidth - days.clientWidth;
+    if(fadeL) fadeL.style.opacity = days.scrollLeft > 4 ? '1' : '0';
+    if(fadeR) fadeR.style.opacity = (max - days.scrollLeft > 4) ? '1' : '0';
+  }
+  var on = days.querySelector('.tv-day.on');
+  if(on){
+    var target = on.offsetLeft - (days.clientWidth/2) + (on.offsetWidth/2);
+    days.scrollLeft = Math.max(0, Math.min(target, days.scrollWidth - days.clientWidth));
+  }
+  update();
+  days.addEventListener('scroll', update);
 }
 
 function renderProgramDetail(id, day){
@@ -2165,19 +2235,20 @@ function renderProgramDetail(id, day){
   html += '<div class="tv-hero"><img src="'+p.img+'"><span class="tag">'+esc(equip)+'</span></div>';
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+p.days+' '+t('wk_days')+' · '+p.min+' '+t('min')+'</p>';
   html += '<button class="tv-btn" onclick="tvSetActive(\''+p.id+'\','+day+')">▶ '+t('prog_start')+'</button>';
-  html += '<div class="tv-days">';
+  html += '<div class="tv-days-wrap"><span class="tv-days-hint">'+t('day_prefix')+' '+day+' / '+p.days+'</span><div class="tv-days-fade-l"></div><div class="tv-days-fade-r"></div><div class="tv-days">';
   for(var i=1;i<=p.days;i++){
     var cls = i===day?'on':(state.completedDays[p.id]&&state.completedDays[p.id][i]?'done':'');
     html += '<a href="#program/'+p.id+'/'+i+'" class="tv-day '+cls+'">'+i+'</a>';
   }
-  html += '</div>';
+  html += '</div></div>';
   html += '<div class="tv-sec" style="margin-top:6px">'+t('day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+d.min+' '+t('min')+' · '+d.kcal+' '+t('kcal')+'</span></div>';
   html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="startPlayer(\'p\',\''+p.id+'\','+day+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
   html += '<div class="tv-sec">'+t('prog_circuit')+' ('+d.exercises.length+' '+t('prog_exercises')+')</div>';
   d.exercises.forEach(function(ex){
-    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>TaiChi Vital</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
+    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>'+esc(tn(ex.desc))+'</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
   });
   stage.innerHTML = html;
+  setupDaysScroll();
 }
 window.tvSetActive=function(id,day){ state.activeProgram=id; state.programDay[id]=day; save(); };
 window.tvCompleteDay=function(id,day,min,kcal){
@@ -2261,17 +2332,18 @@ function renderDietProgramDetail(id, day){
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+d.days+' '+t('wk_days')+' · '+d.kcal+' '+t('diets_kcal_day')+'</p>';
   html += '<div class="tv-mstats"><div class="tv-mstat p"><b>'+d.macros.p+'g</b><span>'+t('meals_protein')+'</span></div><div class="tv-mstat c"><b>'+d.macros.c+'g</b><span>'+t('meals_carbs')+'</span></div><div class="tv-mstat f"><b>'+d.macros.f+'g</b><span>'+t('meals_fat')+'</span></div></div>';
   html += '<button class="tv-btn'+(isActive?' ghost':'')+'" onclick="tvStartDiet(\''+d.id+'\','+day+')">'+(isActive?t('diets_active'):t('diets_start'))+'</button>';
-  html += '<div class="tv-sec" style="margin-top:16px">'+t('diets_days')+'</div><div class="tv-days">';
+  html += '<div class="tv-sec" style="margin-top:16px">'+t('diets_days')+'</div><div class="tv-days-wrap"><span class="tv-days-hint">'+t('diets_day_prefix')+' '+day+' / '+d.days+'</span><div class="tv-days-fade-l"></div><div class="tv-days-fade-r"></div><div class="tv-days">';
   for(var i=1;i<=d.days;i++){
     var cls = i===day?'on':'';
     html += '<a href="#dietprogram/'+d.id+'/'+i+'" class="tv-day '+cls+'">'+i+'</a>';
   }
-  html += '</div>';
+  html += '</div></div>';
   html += '<div class="tv-sec" style="margin-top:6px">'+t('diets_day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+meal.kcal+' '+t('kcal')+' · '+meal.p+'P · '+meal.c+'C · '+meal.f+'F</span></div>';
   meal.meals.forEach(function(m){
     html += '<a href="#recipe/'+m.id+'" class="tv-prow"><div class="icon">'+(MEALTYPE_ICON[m.mealType]||'🍽️')+'</div><div class="info"><div class="tv-mealtype">'+esc(t(MEALTYPE_KEY[m.mealType]))+'</div><b>'+esc(tn(m.name))+'</b><div class="meta"><span>'+m.kcal+' '+t('kcal')+' · '+m.p+'P · '+m.c+'C · '+m.f+'F</span><span>⏱ '+m.min+' '+t('min')+'</span></div></div></a>';
   });
   stage.innerHTML = html;
+  setupDaysScroll();
 }
 window.tvStartDiet = function(id, day){ state.activeDiet=id; state.dietDay[id]=day; save(); renderDietProgramDetail(id, day); };
 
