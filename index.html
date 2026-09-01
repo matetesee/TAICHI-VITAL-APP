@@ -620,12 +620,12 @@ var CATEGORIES = [
   {key:'Power Series', name:bi('Power Series','Power Series'), badge:'NEW', img:'images/cat-power.png'}
 ];
 var DIETS = [
-  {id:'high-protein', name:bi('Dieta Alta en Proteína de 30 Días','30-Day High Protein Diet'), kcal:1400, days:30, cat:'highprotein', tag:bi('ALTA PROTEÍNA','HIGHPROTEIN'), macros:{p:150,c:82,f:50}, badge:bi('Nuevo','New')},
-  {id:'glp1', name:bi('Dieta Complementaria GLP-1 de 30 Días','30-Day GLP-1 Companion Diet'), kcal:1500, days:30, cat:'glp1', tag:bi('GLP-1','GLP-1'), macros:{p:120,c:150,f:45}, badge:bi('Nuevo','New')},
-  {id:'diabetes-friendly', name:bi('Dieta Amigable para Diabéticos de 30 Días','30-Day Diabetes-Friendly Diet'), kcal:1700, days:30, cat:'diabetes', tag:bi('DIABETES','DIABETES'), macros:{p:110,c:180,f:60}, badge:bi('Nuevo','New')},
-  {id:'fatty-liver', name:bi('Dieta Amigable con el Hígado Graso de 30 Días','30-Day Fatty Liver Friendly Diet'), kcal:1700, days:30, cat:'fattyliver', tag:bi('HÍGADO GRASO','FATTY LIVER'), macros:{p:100,c:195,f:55}, badge:bi('Nuevo','New')},
-  {id:'keto-14', name:bi('Dieta Keto de 14 Días','14-Day Keto Diet'), kcal:1800, days:14, cat:'keto', tag:bi('KETO','KETO'), macros:{p:110,c:40,f:145}, badge:bi('Nuevo','New')},
-  {id:'mediterranean', name:bi('Dieta Mediterránea de 30 Días','30-Day Mediterranean Diet'), kcal:1800, days:30, cat:'mediterranean', tag:bi('MEDITERRÁNEA','MEDITERRANEAN'), macros:{p:95,c:210,f:70}, badge:bi('Nuevo','New')}
+  {id:'high-protein', name:bi('Dieta Alta en Proteína de 30 Días','30-Day High Protein Diet'), kcal:1400, days:30, cat:'highprotein', tag:bi('ALTA PROTEÍNA','HIGHPROTEIN'), macros:{p:150,c:82,f:50}, badge:bi('Nuevo','New'), img:'images/diet-high-protein.png'},
+  {id:'glp1', name:bi('Dieta Complementaria GLP-1 de 30 Días','30-Day GLP-1 Companion Diet'), kcal:1500, days:30, cat:'glp1', tag:bi('GLP-1','GLP-1'), macros:{p:120,c:150,f:45}, badge:bi('Nuevo','New'), img:'images/diet-glp1.png'},
+  {id:'diabetes-friendly', name:bi('Dieta Amigable para Diabéticos de 30 Días','30-Day Diabetes-Friendly Diet'), kcal:1700, days:30, cat:'diabetes', tag:bi('DIABETES','DIABETES'), macros:{p:110,c:180,f:60}, badge:bi('Nuevo','New'), img:'images/diet-diabetes-friendly.png'},
+  {id:'fatty-liver', name:bi('Dieta Amigable con el Hígado Graso de 30 Días','30-Day Fatty Liver Friendly Diet'), kcal:1700, days:30, cat:'fattyliver', tag:bi('HÍGADO GRASO','FATTY LIVER'), macros:{p:100,c:195,f:55}, badge:bi('Nuevo','New'), img:'images/diet-fatty-liver.png'},
+  {id:'keto-14', name:bi('Dieta Keto de 14 Días','14-Day Keto Diet'), kcal:1800, days:14, cat:'keto', tag:bi('KETO','KETO'), macros:{p:110,c:40,f:145}, badge:bi('Nuevo','New'), img:'images/diet-keto-14.png'},
+  {id:'mediterranean', name:bi('Dieta Mediterránea de 30 Días','30-Day Mediterranean Diet'), kcal:1800, days:30, cat:'mediterranean', tag:bi('MEDITERRÁNEA','MEDITERRANEAN'), macros:{p:95,c:210,f:70}, badge:bi('Nuevo','New'), img:'images/diet-mediterranean.png'}
 ];
 function dietById(id){ for(var i=0;i<DIETS.length;i++){ if(DIETS[i].id===id) return DIETS[i]; } return null; }
 function rc(es,en,mt,cuisine,diff,min,kcal,p,c,f,descEs,descEn,ing,steps,tags,dietId){
@@ -2237,8 +2237,9 @@ function renderBrowseDiets(cat){
   html += '<div class="tv-sec">'+t('diets_programs')+'</div>';
   var items = cat==='all' ? DIETS : DIETS.filter(function(d){ return d.cat===cat; });
   items.forEach(function(d){
+    var heroStyle = d.img ? ' style="background:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.08) 45%,rgba(0,0,0,.72) 100%),url(\''+d.img+'\') center/cover"' : '';
     html += '<a href="#dietprogram/'+d.id+'" class="tv-dietcard">'+
-      '<div class="hero"><span class="badge">🔥 '+esc(tn(d.badge))+'</span><div class="title">'+esc(tn(d.name))+'</div></div>'+
+      '<div class="hero"'+heroStyle+'><span class="badge">🔥 '+esc(tn(d.badge))+'</span><div class="title">'+esc(tn(d.name))+'</div></div>'+
       '<div class="foot"><span>📅 '+d.kcal+' '+t('diets_kcal_day')+'</span><span>🕐 '+d.days+' '+t('wk_days')+'</span><span class="tag">'+esc(tn(d.tag))+'</span></div>'+
     '</a>';
   });
@@ -2251,7 +2252,12 @@ function renderDietProgramDetail(id, day){
   var meal = genMealDay(d, day);
   var isActive = state.activeDiet===d.id;
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(d.name))+'</h1></div>';
-  html += '<div class="tv-hero" style="background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:flex-end;padding:14px"><div style="color:#fff;font-family:Poppins;font-weight:800;font-size:20px">'+esc(tn(d.name))+'</div></div>';
+  if(d.img){
+    html += '<div class="tv-hero"><img src="'+d.img+'" alt=""></div>';
+  } else {
+    html += '<div class="tv-hero" style="background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:flex-end;padding:14px"><div style="color:#fff;font-family:Poppins;font-weight:800;font-size:20px">'+esc(tn(d.name))+'</div></div>';
+  }
+  html += '<h2 style="font-family:Poppins;font-size:19px;margin-bottom:2px">'+esc(tn(d.name))+'</h2>';
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+d.days+' '+t('wk_days')+' · '+d.kcal+' '+t('diets_kcal_day')+'</p>';
   html += '<div class="tv-mstats"><div class="tv-mstat p"><b>'+d.macros.p+'g</b><span>'+t('meals_protein')+'</span></div><div class="tv-mstat c"><b>'+d.macros.c+'g</b><span>'+t('meals_carbs')+'</span></div><div class="tv-mstat f"><b>'+d.macros.f+'g</b><span>'+t('meals_fat')+'</span></div></div>';
   html += '<button class="tv-btn'+(isActive?' ghost':'')+'" onclick="tvStartDiet(\''+d.id+'\','+day+')">'+(isActive?t('diets_active'):t('diets_start'))+'</button>';
