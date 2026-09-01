@@ -244,27 +244,29 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-hero .tag{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);color:#1C2A24;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
 #tv .tv-days-wrap{position:relative}
 #tv .tv-days-wrap .tv-days-hint{position:absolute;top:0;right:2px;font-size:10.5px;font-weight:700;color:var(--soft);background:var(--bg);padding:2px 0 2px 6px}
-#tv .tv-days-fade-l,#tv .tv-days-fade-r{position:absolute;top:10px;bottom:14px;width:30px;pointer-events:none;z-index:1;opacity:0;transition:opacity .15s}
+#tv .tv-days-fade-l,#tv .tv-days-fade-r{position:absolute;top:10px;bottom:12px;width:30px;pointer-events:none;z-index:1;opacity:0;transition:opacity .15s}
 #tv .tv-days-fade-l{left:0;background:linear-gradient(to right,var(--bg),rgba(0,0,0,0))}
 #tv .tv-days-fade-r{right:0;background:linear-gradient(to left,var(--bg),rgba(0,0,0,0))}
-#tv .tv-days{display:flex;gap:8px;overflow-x:auto;padding:18px 0 14px}
+#tv .tv-days{display:flex;gap:8px;overflow-x:auto;padding:18px 0 4px}
 #tv .tv-days::-webkit-scrollbar{display:none}
+#tv .tv-days-track{position:relative;height:6px;background:var(--line);border-radius:4px;margin:0 2px 14px;cursor:pointer;touch-action:none}
+#tv .tv-days-thumb{position:absolute;top:0;left:0;height:6px;background:var(--bronze2);border-radius:4px;min-width:28px}
 #tv .tv-day{flex:none;width:36px;height:36px;border-radius:50%;background:var(--card2);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--soft)}
 #tv .tv-day.on{background:var(--bronze);border-color:var(--bronze);color:#fff}
 #tv .tv-day.done{background:var(--bronze2);border-color:var(--bronze2);color:#fff}
-#tv .tv-exrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px}
-#tv .tv-exrow .n{width:30px;height:30px;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
+#tv .tv-exrow{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:9px}
+#tv .tv-exrow .n{width:30px;height:30px;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:1px}
 #tv .tv-exrow .info{flex:1}
-#tv .tv-exrow .info b{display:block;font-size:13.5px}
-#tv .tv-exrow .info span{font-size:11px;color:var(--soft)}
-#tv .tv-exrow .dur{font-size:12px;font-weight:700;color:var(--bronze2);text-align:right}
+#tv .tv-exrow .info b{display:block;font-size:15px;margin-bottom:3px}
+#tv .tv-exrow .info span{display:block;font-size:14px;line-height:1.42;color:var(--soft)}
+#tv .tv-exrow .dur{font-size:12px;font-weight:700;color:var(--bronze2);text-align:right;flex:none;margin-top:1px}
 #tv .tv-player{display:flex;flex-direction:column;align-items:center;padding:22px 18px 100px;min-height:100vh;box-sizing:border-box;background:var(--bg)}
 #tv .tv-player-top{width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 #tv .tv-player-exit{background:none;border:none;color:var(--soft);font-size:13px;font-weight:600}
 #tv .tv-player-count{font-size:12px;font-weight:700;color:var(--soft)}
 #tv .tv-player-phase{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--bronze2);margin-top:18px}
 #tv .tv-player-name{font-family:'Poppins';font-weight:800;font-size:22px;text-align:center;margin:8px 0 6px;max-width:320px}
-#tv .tv-player-desc{color:var(--soft);font-size:13px;line-height:1.4;text-align:center;margin:0 0 20px;max-width:300px}
+#tv .tv-player-desc{color:var(--ink);font-size:16.5px;font-weight:500;line-height:1.45;text-align:center;margin:0 0 20px;max-width:330px}
 #tv .tv-ring-wrap{position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
 #tv .tv-ring-wrap svg{width:220px;height:220px;transform:rotate(-90deg)}
 #tv .tv-ring-time{position:absolute;font-family:'Poppins';font-weight:800;font-size:44px}
@@ -2210,11 +2212,26 @@ function setupDaysScroll(){
   var days = wrap.querySelector('.tv-days');
   var fadeL = wrap.querySelector('.tv-days-fade-l');
   var fadeR = wrap.querySelector('.tv-days-fade-r');
+  var track = wrap.querySelector('.tv-days-track');
+  var thumb = wrap.querySelector('.tv-days-thumb');
   if(!days) return;
+  function layoutThumb(){
+    if(!track || !thumb) return;
+    var trackW = track.clientWidth;
+    if(!trackW){ thumb.style.width='100%'; thumb.style.left='0'; return; }
+    var ratio = Math.min(1, days.clientWidth / days.scrollWidth);
+    var thumbW = Math.max(28, trackW * ratio);
+    var maxThumbLeft = Math.max(0, trackW - thumbW);
+    var maxScroll = days.scrollWidth - days.clientWidth;
+    var left = maxScroll > 0 ? (days.scrollLeft / maxScroll) * maxThumbLeft : 0;
+    thumb.style.width = thumbW + 'px';
+    thumb.style.left = left + 'px';
+  }
   function update(){
     var max = days.scrollWidth - days.clientWidth;
     if(fadeL) fadeL.style.opacity = days.scrollLeft > 4 ? '1' : '0';
     if(fadeR) fadeR.style.opacity = (max - days.scrollLeft > 4) ? '1' : '0';
+    layoutThumb();
   }
   var on = days.querySelector('.tv-day.on');
   if(on){
@@ -2223,6 +2240,28 @@ function setupDaysScroll(){
   }
   update();
   days.addEventListener('scroll', update);
+  window.addEventListener('resize', update);
+  if(track && thumb){
+    var dragging = false;
+    var scrollToClientX = function(clientX){
+      var rect = track.getBoundingClientRect();
+      var trackW = rect.width;
+      var ratio = Math.min(1, days.clientWidth / days.scrollWidth);
+      var thumbW = Math.max(28, trackW * ratio);
+      var maxThumbLeft = Math.max(0, trackW - thumbW);
+      var x = Math.max(0, Math.min(clientX - rect.left - thumbW/2, maxThumbLeft));
+      var maxScroll = days.scrollWidth - days.clientWidth;
+      days.scrollLeft = maxThumbLeft > 0 ? (x / maxThumbLeft) * maxScroll : 0;
+    };
+    track.addEventListener('pointerdown', function(e){
+      dragging = true;
+      try{ track.setPointerCapture(e.pointerId); }catch(err){}
+      scrollToClientX(e.clientX);
+    });
+    track.addEventListener('pointermove', function(e){ if(dragging) scrollToClientX(e.clientX); });
+    track.addEventListener('pointerup', function(){ dragging = false; });
+    track.addEventListener('pointercancel', function(){ dragging = false; });
+  }
 }
 
 function renderProgramDetail(id, day){
@@ -2240,7 +2279,7 @@ function renderProgramDetail(id, day){
     var cls = i===day?'on':(state.completedDays[p.id]&&state.completedDays[p.id][i]?'done':'');
     html += '<a href="#program/'+p.id+'/'+i+'" class="tv-day '+cls+'">'+i+'</a>';
   }
-  html += '</div></div>';
+  html += '</div><div class="tv-days-track"><div class="tv-days-thumb"></div></div></div>';
   html += '<div class="tv-sec" style="margin-top:6px">'+t('day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+d.min+' '+t('min')+' · '+d.kcal+' '+t('kcal')+'</span></div>';
   html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="startPlayer(\'p\',\''+p.id+'\','+day+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
   html += '<div class="tv-sec">'+t('prog_circuit')+' ('+d.exercises.length+' '+t('prog_exercises')+')</div>';
@@ -2337,7 +2376,7 @@ function renderDietProgramDetail(id, day){
     var cls = i===day?'on':'';
     html += '<a href="#dietprogram/'+d.id+'/'+i+'" class="tv-day '+cls+'">'+i+'</a>';
   }
-  html += '</div></div>';
+  html += '</div><div class="tv-days-track"><div class="tv-days-thumb"></div></div></div>';
   html += '<div class="tv-sec" style="margin-top:6px">'+t('diets_day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+meal.kcal+' '+t('kcal')+' · '+meal.p+'P · '+meal.c+'C · '+meal.f+'F</span></div>';
   meal.meals.forEach(function(m){
     html += '<a href="#recipe/'+m.id+'" class="tv-prow"><div class="icon">'+(MEALTYPE_ICON[m.mealType]||'🍽️')+'</div><div class="info"><div class="tv-mealtype">'+esc(t(MEALTYPE_KEY[m.mealType]))+'</div><b>'+esc(tn(m.name))+'</b><div class="meta"><span>'+m.kcal+' '+t('kcal')+' · '+m.p+'P · '+m.c+'C · '+m.f+'F</span><span>⏱ '+m.min+' '+t('min')+'</span></div></div></a>';
