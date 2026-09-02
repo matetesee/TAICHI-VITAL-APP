@@ -465,7 +465,7 @@ var I18N = {
     print_title:'Guías', print_sub:'Biblioteca de guías descargables', print_soon:'PDF descargable — próximamente',
     set_title:'Ajustes', set_local_account:'Cuenta local · sin sincronizar', set_account_cfg:'Configuración de cuenta', set_units:'Unidades', set_metric:'Métrico', set_imperial:'Imperial',
     set_avatar_edit:'Cambiar foto de perfil', set_avatar_remove:'Eliminar foto', set_avatar_err:'No se pudo cargar la imagen. Probá con otra foto.',
-    set_reminders:'Recordatorios para entrenar', set_lang:'Idioma', set_theme:'Tema', set_theme_light:'Claro', set_theme_dark:'Oscuro',
+    set_lang:'Idioma', set_theme:'Tema', set_theme_light:'Claro', set_theme_dark:'Oscuro',
     set_contact:'Contactanos ›', set_privacy:'Política de privacidad ›', set_terms:'Términos de uso ›', set_logout:'Cerrar sesión', set_version:'Versión 1.0.0',
     contact_subject:'Reporte de error en TaiChi Vital', contact_note:'¿Encontraste algún error o algo que no funciona bien? La app todavía está en desarrollo activo — escribinos y lo solucionamos lo antes posible:', faq_title:'Preguntas frecuentes'
   },
@@ -537,7 +537,7 @@ var I18N = {
     print_title:'Guides', print_sub:'Downloadable guide library', print_soon:'Downloadable PDF — coming soon',
     set_title:'Settings', set_local_account:'Local account · not synced', set_account_cfg:'Account settings', set_units:'Units', set_metric:'Metric', set_imperial:'Imperial',
     set_avatar_edit:'Change profile photo', set_avatar_remove:'Remove photo', set_avatar_err:"Couldn't load that image. Try a different photo.",
-    set_reminders:'Workout reminders', set_lang:'Language', set_theme:'Theme', set_theme_light:'Light', set_theme_dark:'Dark',
+    set_lang:'Language', set_theme:'Theme', set_theme_light:'Light', set_theme_dark:'Dark',
     set_contact:'Contact us ›', set_privacy:'Privacy policy ›', set_terms:'Terms of use ›', set_logout:'Log out', set_version:'Version 1.0.0',
     contact_subject:'Bug report in TaiChi Vital', contact_note:"Found a bug or something that isn't working right? The app is still under active development — email us and we'll fix it as soon as possible:", faq_title:'Frequently asked questions'
   }
@@ -564,7 +564,7 @@ var DEFAULT_STATE = {
   activeDiet:null, dietDay:{},
   watchedTutorials:{},
   dailyLog:{},
-  settings:{ units:'metric', reminders:false, lang:'es', theme:'light' }
+  settings:{ units:'metric', lang:'es', theme:'light' }
 };
 var state = load();
 function load(){
@@ -2719,15 +2719,47 @@ function renderProgress(){
       '<div class="tv-avg">'+t('prog_avg')+' <b>'+avg+' '+units[key]+'</b></div></div>';
   });
 
-  html += '<div class="tv-sec" style="margin-top:22px">'+t('testi_title')+'</div><div class="tv-hscroll">'+
+  html += '<div class="tv-sec" style="margin-top:22px">'+t('testi_title')+'</div><div id="testiScroll" class="tv-hscroll">'+
     TESTIMONIALS.map(function(x){
       var initials = x.name.split(',')[0].trim().split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
       return '<div class="tv-testi-card"><div class="tv-testi-head"><div class="tv-testi-av">'+esc(initials)+'</div><div><b>'+esc(x.name)+'</b><span class="tv-testi-stars">★★★★★</span></div></div>'+
         '<p>"'+esc(tn(x.text))+'"</p><span class="tv-testi-result">'+esc(tn(x.result))+'</span></div>';
     }).join('')+
-  '</div>';
+  '</div><div class="tv-days-track" id="testiTrack"><div class="tv-days-thumb" id="testiThumb"></div></div>';
 
   stage.innerHTML = html;
+  setupTestiScroll();
+}
+function setupTestiScroll(){
+  var scroller = $('testiScroll'), track = $('testiTrack'), thumb = $('testiThumb');
+  if(!scroller || !track || !thumb) return;
+  function layout(){
+    var trackW = track.clientWidth;
+    var ratio = Math.min(1, scroller.clientWidth / scroller.scrollWidth);
+    var thumbW = Math.max(28, trackW*ratio);
+    var maxThumbLeft = Math.max(0, trackW-thumbW);
+    var maxScroll = scroller.scrollWidth - scroller.clientWidth;
+    var left = maxScroll>0 ? (scroller.scrollLeft/maxScroll)*maxThumbLeft : 0;
+    thumb.style.width = thumbW+'px'; thumb.style.left = left+'px';
+  }
+  layout();
+  scroller.addEventListener('scroll', layout);
+  window.addEventListener('resize', layout);
+  var dragging = false;
+  function scrollToClientX(clientX){
+    var rect = track.getBoundingClientRect();
+    var trackW = rect.width;
+    var ratio = Math.min(1, scroller.clientWidth/scroller.scrollWidth);
+    var thumbW = Math.max(28, trackW*ratio);
+    var maxThumbLeft = Math.max(0, trackW-thumbW);
+    var x = Math.max(0, Math.min(clientX-rect.left-thumbW/2, maxThumbLeft));
+    var maxScroll = scroller.scrollWidth - scroller.clientWidth;
+    scroller.scrollLeft = maxThumbLeft>0 ? (x/maxThumbLeft)*maxScroll : 0;
+  }
+  track.addEventListener('pointerdown', function(e){ dragging=true; try{ track.setPointerCapture(e.pointerId); }catch(err){} scrollToClientX(e.clientX); });
+  track.addEventListener('pointermove', function(e){ if(dragging) scrollToClientX(e.clientX); });
+  track.addEventListener('pointerup', function(){ dragging=false; });
+  track.addEventListener('pointercancel', function(){ dragging=false; });
 }
 window.tvToggleWeightEdit = function(){
   var row = $('progWeightRow'); if(!row) return;
@@ -2894,7 +2926,6 @@ function renderSettings(){
   html += '<div class="tv-sec">'+t('set_account_cfg')+'</div><div class="tv-card">'+
     '<div class="tv-setrow"><span>'+t('set_units')+'</span><div class="tv-seg"><button data-u="metric" class="'+(state.settings.units==='metric'?'on':'')+'">'+t('set_metric')+'</button><button data-u="imperial" class="'+(state.settings.units==='imperial'?'on':'')+'">'+t('set_imperial')+'</button></div></div>'+
     '<div class="tv-setrow"><span>'+t('set_theme')+'</span><div class="tv-seg"><button data-th="light" class="'+(state.settings.theme==='light'?'on':'')+'">'+t('set_theme_light')+'</button><button data-th="dark" class="'+(state.settings.theme==='dark'?'on':'')+'">'+t('set_theme_dark')+'</button></div></div>'+
-    '<div class="tv-setrow"><span>'+t('set_reminders')+'</span><button class="tv-toggle'+(state.settings.reminders?' on':'')+'" id="remToggle"></button></div>'+
     '<div class="tv-setrow"><span>'+t('set_lang')+'</span><div class="tv-seg"><button data-lg="es" class="'+(state.settings.lang==='es'?'on':'')+'">Español</button><button data-lg="en" class="'+(state.settings.lang==='en'?'on':'')+'">English</button></div></div>'+
   '</div>';
   html += '<div class="tv-card" style="margin-top:14px"><div class="tv-linklist">'+
@@ -2906,10 +2937,19 @@ function renderSettings(){
   '</div>';
   html += '<button class="tv-logout" onclick="tvLogout()">'+t('set_logout')+'</button><div class="tv-ver">'+t('set_version')+'</div>';
   stage.innerHTML = html;
-  stage.querySelectorAll('[data-u]').forEach(function(b){ b.onclick=function(){ state.settings.units=b.dataset.u; state.weightUnit = b.dataset.u==='metric'?'kg':'lb'; save(); renderSettings(); }; });
+  stage.querySelectorAll('[data-u]').forEach(function(b){ b.onclick=function(){
+    var newUnit = b.dataset.u;
+    if(newUnit===state.settings.units) return;
+    var toLb = newUnit==='imperial';
+    var conv = function(v){ return Math.round((toLb ? v*2.20462 : v/2.20462)*10)/10; };
+    if(state.weight) state.weight = conv(state.weight);
+    if(state.weightLog && state.weightLog.length) state.weightLog = state.weightLog.map(function(e){ return {date:e.date, v:conv(e.v)}; });
+    state.settings.units = newUnit;
+    state.weightUnit = toLb ? 'lb' : 'kg';
+    save(); renderSettings();
+  }; });
   stage.querySelectorAll('[data-th]').forEach(function(b){ b.onclick=function(){ state.settings.theme=b.dataset.th; save(); renderSettings(); }; });
   stage.querySelectorAll('[data-lg]').forEach(function(b){ b.onclick=function(){ state.settings.lang=b.dataset.lg; save(); renderSettings(); }; });
-  $('remToggle').onclick=function(){ state.settings.reminders=!state.settings.reminders; save(); renderSettings(); };
   stage.querySelectorAll('.tv-faq-q').forEach(function(b){ b.onclick=function(){ b.parentElement.classList.toggle('open'); }; });
 }
 window.tvAvatarChange = function(input){
