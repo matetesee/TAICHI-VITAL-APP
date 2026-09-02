@@ -130,6 +130,13 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-tile .lab{font-size:12px;color:var(--soft);margin-bottom:2px}
 #tv .tv-tile .val{font-family:'Poppins';font-weight:800;font-size:17px}
 #tv .tv-tile button{margin-top:10px;width:100%;background:var(--bronze);color:#fff;border:none;border-radius:9px;padding:9px;font-weight:700;font-size:12.5px}
+#tv .tv-tile-btns{display:flex;gap:6px;margin-top:10px}
+#tv .tv-tile-btns button{margin-top:0;flex:1}
+#tv .tv-tile-btns button.mini{flex:0 0 34px;padding:9px 0;background:var(--card2);color:var(--ink);font-size:17px;font-weight:800}
+#tv .tv-tile-manual{margin-top:6px;width:100%;background:none;color:var(--bronze2);font-size:11px;font-weight:700;padding:4px;border:none}
+#tv .tv-manual-row{display:flex;gap:6px;margin-top:2px}
+#tv .tv-manual-row input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:8px;padding:7px 9px;font-size:13px;font-family:inherit;background:var(--bg2);color:var(--ink)}
+#tv .tv-manual-row button{margin-top:0;width:auto;padding:7px 12px;flex:none}
 
 /* ===== weight ===== */
 #tv .tv-weight-row{display:flex;align-items:center;gap:10px;margin:10px 0 12px}
@@ -394,10 +401,11 @@ var I18N = {
     home_explore_title:'Explorá programas de entrenamiento',
     coach_eyebrow:'Desbloqueá tu Entrenador', coach_title:'Un Coach que Conoce tus Datos', coach_body:'Entrenamientos personalizados, seguimiento diario y respuestas diseñadas en torno a tu sueño, tu ánimo y tu rutina.', coach_btn:'Muy pronto →',
     checkin_title:'Check-in diario', checkin_q:'¿Cómo te sentís hoy?', mood_low:'BAJO', mood_steady:'ESTABLE', mood_great:'BIEN', mood_peak:'PICO',
-    perf_title:'Rendimiento de hoy', perf_hydration:'Hidratación', perf_cal:'Calorías', perf_register:'+ Registrar',
+    perf_title:'Rendimiento de hoy', perf_hydration:'Hidratación', perf_cal:'Calorías', perf_register:'+ Registrar', perf_decrease:'Restar', perf_manual:'Cantidad exacta', perf_manual_ok:'Agregar',
     weight_title:'Registro de peso', weight_btn:'+ Registrar peso',
     printables_title:'Tutoriales de Tai Chi', printables_lib:'en la biblioteca',
     tut_sub:'Es un curso progresivo: al entrar vas a ver solo el primer video disponible. Mirá cada video y tocá "Ya lo vi" para desbloquear el siguiente, en orden.', tut_of:'de', tut_locked:'Bloqueado',
+    tut_sec_taichi:'Tai Chi', tut_sec_silla:'Tai Chi en Silla', tut_silla_soon:'Estamos preparando los videos de Tai Chi en Silla. Muy pronto vas a poder verlos acá.',
     tut_mark_watched:'Ya lo vi', tut_watched_done:'Completado', tut_watch_hint:'Tocá este botón cuando termines de ver el video completo para desbloquear el siguiente.',
     tut_coming_soon:'Video próximamente', tut_about:'Acerca de este tutorial', tut_completed_banner:'¡Video completado! Se desbloqueó el siguiente tutorial 🔓',
     tut_next:'Ver siguiente tutorial ›', tut_completed:'Completado',
@@ -406,6 +414,8 @@ var I18N = {
     wk_categories:'Explorar categorías', wk_programs:'Programas de entrenamiento', wk_challenge:'Reto de', wk_days:'días', wk_min_day:'min/día', wk_filtered:'Entrenamientos Filtrados',
     wk_equip_none:'Sin equipamiento', wk_equip_chair:'Necesitás una silla',
     prog_start:'Iniciar programa de entrenamiento', prog_today_btn:'Empezá el entrenamiento de hoy ▶', prog_done:'✓ Entrenamiento completado', prog_circuit:'Circuito de entrenamiento',
+    prog_watch_videos:'Ver los video-tutoriales', prog_video_note:'Este programa se guía con nuestros videos reales de Tai Chi, paso a paso. Mirá los videos en orden desde acá para practicar la forma completa.',
+    prog_video_note_silla:'Este programa se guía con videos reales de Tai Chi en Silla. Estamos terminando de prepararlos: muy pronto vas a poder verlos desde acá.',
     prog_start_session:'Iniciar entrenamiento', prog_about:'Acerca de esta sesión',
     prog_exercises:'ejercicios',
     player_ready:'Preparate…', player_rest:'Descanso', player_next:'Siguiente', player_pause:'Pausar', player_resume:'Reanudar', player_skip:'Saltar ›',
@@ -459,10 +469,11 @@ var I18N = {
     home_explore_title:'Explore training programs',
     coach_eyebrow:'Unlock Your Coach', coach_title:'A Coach That Knows Your Data', coach_body:'Personalized workouts, daily tracking, and answers built around your sleep, your mood, and your routine.', coach_btn:'Coming soon →',
     checkin_title:'Daily check-in', checkin_q:'How are you feeling today?', mood_low:'LOW', mood_steady:'STEADY', mood_great:'GREAT', mood_peak:'PEAK',
-    perf_title:"Today's performance", perf_hydration:'Hydration', perf_cal:'Calories', perf_register:'+ Log',
+    perf_title:"Today's performance", perf_hydration:'Hydration', perf_cal:'Calories', perf_register:'+ Log', perf_decrease:'Subtract', perf_manual:'Exact amount', perf_manual_ok:'Add',
     weight_title:'Weight log', weight_btn:'+ Log weight',
     printables_title:'Tai Chi Tutorials', printables_lib:'in the library',
     tut_sub:"This is a progressive course: at first you'll only see the first video unlocked. Watch each video and tap \"I watched it\" to unlock the next one, in order.", tut_of:'of', tut_locked:'Locked',
+    tut_sec_taichi:'Tai Chi', tut_sec_silla:'Chair Tai Chi', tut_silla_soon:"We're preparing the Chair Tai Chi videos. You'll be able to watch them here very soon.",
     tut_mark_watched:'I watched it', tut_watched_done:'Completed', tut_watch_hint:'Tap this button once you finish watching the full video to unlock the next one.',
     tut_coming_soon:'Video coming soon', tut_about:'About this tutorial', tut_completed_banner:'Video complete! The next tutorial is unlocked 🔓',
     tut_next:'Watch next tutorial ›', tut_completed:'Completed',
@@ -471,6 +482,8 @@ var I18N = {
     wk_categories:'Explore categories', wk_programs:'Training programs', wk_challenge:'', wk_days:'day challenge', wk_min_day:'min/day', wk_filtered:'Filtered Workouts',
     wk_equip_none:'No equipment', wk_equip_chair:'You need a chair',
     prog_start:'Start training program', prog_today_btn:"Start today's workout ▶", prog_done:'✓ Workout completed', prog_circuit:'Training circuit',
+    prog_watch_videos:'Watch the video tutorials', prog_video_note:'This program is guided by our real, step-by-step Tai Chi videos. Watch them in order from here to practice the full form.',
+    prog_video_note_silla:"This program is guided by real Chair Tai Chi videos. We're putting the finishing touches on them — you'll be able to watch them from here very soon.",
     prog_start_session:'Start workout', prog_about:'About this session',
     prog_exercises:'exercises',
     player_ready:'Get ready…', player_rest:'Rest', player_next:'Next', player_pause:'Pause', player_resume:'Resume', player_skip:'Skip ›',
@@ -1698,8 +1711,20 @@ var TUTORIALS = [
   {id:'tc-equilibrio', name:bi('Sección 4: Patada de Talón, El Gallo y La Aguja','Section 4: Heel Kick, Golden Rooster & Needle at Sea Bottom'), desc:bi('Aprendé la Patada de Talón, El Gallo de Oro sobre una pata, Bella Dama Teje la Lanzadera, La Aguja en el Fondo del Mar y Abanicar por la Espalda, con repasos progresivos de todo lo aprendido hasta acá.','Learn the Heel Kick, Golden Rooster Stands on One Leg, Fair Lady Works the Shuttles, Needle at Sea Bottom, and Fan Through the Back — with progressive reviews of everything learned so far.'), video:'videos/tc-equilibrio.mp4', min:45},
   {id:'tc-flujo-completo', name:bi('Sección 5: Cierre de la Forma','Section 5: Closing the Form'), desc:bi('Cerrá la forma completa con Desviar-Parar-Golpear (Ban Lan Chui), Cierre Aparente, Manos Cruzadas y el Cierre final, más un repaso general de las cinco secciones y recomendaciones finales para seguir practicando.','Complete the full form with Deflect, Parry, and Punch (Ban Lan Chui), Apparent Close-Up, Cross Hands, and the final Closing, plus a full review of all five sections and closing recommendations to keep practicing.'), video:'videos/tc-flujo-completo.mp4', min:41}
 ];
-function tutorialUnlocked(i){ return i===0 || !!state.watchedTutorials[TUTORIALS[i-1].id]; }
-function tutorialIndex(id){ for(var i=0;i<TUTORIALS.length;i++){ if(TUTORIALS[i].id===id) return i; } return -1; }
+var TUTORIALS_SILLA = [
+  // Se completa con los videos de Tai Chi en Silla apenas estén disponibles, mismo formato que TUTORIALS.
+];
+function tutorialUnlocked(i, list){ list = list || TUTORIALS; return i===0 || !!state.watchedTutorials[list[i-1].id]; }
+function tutorialTrackOf(id){
+  if(TUTORIALS.some(function(x){ return x.id===id; })) return TUTORIALS;
+  if(TUTORIALS_SILLA.some(function(x){ return x.id===id; })) return TUTORIALS_SILLA;
+  return null;
+}
+function tutorialIndex(id){
+  var list = tutorialTrackOf(id) || TUTORIALS;
+  for(var i=0;i<list.length;i++){ if(list[i].id===id) return i; }
+  return -1;
+}
 function slugify(s){ return s.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
 function wc(name_es,name_en,level,areas,img,cat,pos){ return {id:slugify(name_en), name:bi(name_es,name_en), level:level, areas:areas, img:img||null, cat:cat||null, pos:pos||null}; }
 var POS_BOTTOM = 'bottom center';
@@ -1724,7 +1749,7 @@ var WORKOUT_CATALOG = [
   wc('Piernas Explosivas','Explosive legs','Intermediate',['abs','legs']),
   wc('Flujo de Yoga Base','Foundation Yoga Flow','Beginner',['abs','fullbody'],'images/w-foundation-yogaflow.png','Yoga'),
   wc('Cuerpo Completo','Full body','Intermediate',['abs','arms','chest','fullbody','legs']),
-  wc('Fundamentos de Cuerpo Completo','Full Body Basics','Advanced',['abs','chest','fullbody'],'images/w-fullbody-basics.png','Military Bootcamp',POS_BOTTOM),
+  wc('Fundamentos de Cuerpo Completo','Full Body Basics','Advanced',['abs','chest','fullbody'],'images/w-fullbody-basics.png','Military Bootcamp'),
   wc('Quema de Cuerpo Completo','Full Body Burn','Advanced',['abs','chest','fullbody'],'images/w-fullbody-burn.png','Military Bootcamp',POS_BOTTOM),
   wc('Final de Cuerpo Completo','Full body finale','Intermediate',['abs','chest','fullbody']),
   wc('Cardio Total','Full cardio','Intermediate',['abs','legs']),
@@ -1965,8 +1990,8 @@ function renderHome(){
   '</div></div>';
 
   html += '<div class="tv-sec">'+t('perf_title')+'</div><div class="tv-grid2">'+
-    '<div class="tv-tile"><div class="ic2">💧</div><div class="lab">'+t('perf_hydration')+'</div><div class="val">'+tt.water+' ml / 2.0L</div><button onclick="tvLogWater()">'+t('perf_register')+'</button></div>'+
-    '<div class="tv-tile"><div class="ic2">🍽️</div><div class="lab">'+t('perf_cal')+'</div><div class="val">'+tt.cal+' / 2500</div><button onclick="tvLogCal()">'+t('perf_register')+'</button></div>'+
+    statTile('💧', t('perf_hydration'), tt.water+' ml / 2.0L', 'water', 250, 'ml') +
+    statTile('🍽️', t('perf_cal'), tt.cal+' / 2500', 'cal', 100, 'kcal') +
   '</div>';
 
   html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('weight_title')+'</div><div class="tv-weight-row"><input id="weightInput" type="number" placeholder="'+(state.weight||'— ')+' '+state.weightUnit+'"></div><button class="tv-btn" onclick="tvLogWeight()">'+t('weight_btn')+'</button></div>';
@@ -1980,8 +2005,35 @@ function renderHome(){
     tt.mood = el.dataset.m; save(); markCheckin(); renderHome();
   }; });
 }
-window.tvLogWater=function(){ var tt=today(); tt.water+=250; save(); renderHome(); };
-window.tvLogCal=function(){ var tt=today(); tt.cal+=350; save(); renderHome(); };
+function statTile(icon, label, valTxt, key, inc, unit){
+  return '<div class="tv-tile">'+
+    '<div class="ic2">'+icon+'</div><div class="lab">'+label+'</div><div class="val">'+valTxt+'</div>'+
+    '<div class="tv-tile-btns"><button class="mini" onclick="tvAdjStat(\''+key+'\','+(-inc)+')" aria-label="'+t('perf_decrease')+'">−</button>'+
+    '<button onclick="tvAdjStat(\''+key+'\','+inc+')">'+t('perf_register')+'</button></div>'+
+    '<button class="tv-tile-manual" onclick="tvToggleManual(\''+key+'\')">✎ '+t('perf_manual')+'</button>'+
+    '<div class="tv-manual-row" id="manualRow_'+key+'" style="display:none">'+
+    '<input id="manualInput_'+key+'" type="number" placeholder="'+unit+'">'+
+    '<button onclick="tvManualSet(\''+key+'\')">'+t('perf_manual_ok')+'</button></div>'+
+  '</div>';
+}
+window.tvAdjStat = function(key, delta){
+  var tt = today();
+  tt[key] = Math.max(0, Math.round((tt[key]||0) + delta));
+  save(); renderHome();
+};
+window.tvToggleManual = function(key){
+  var row = $('manualRow_'+key); if(!row) return;
+  var showing = row.style.display === 'flex';
+  row.style.display = showing ? 'none' : 'flex';
+  if(!showing){ var inp = $('manualInput_'+key); if(inp) inp.focus(); }
+};
+window.tvManualSet = function(key){
+  var inp = $('manualInput_'+key); if(!inp) return;
+  var v = parseFloat(inp.value); if(!v && v!==0) return;
+  var tt = today();
+  tt[key] = Math.max(0, Math.round((tt[key]||0) + v));
+  save(); renderHome();
+};
 window.tvLogWeight=function(){
   var v=parseFloat($('weightInput').value); if(!v) return;
   state.weight=v; state.weightLog.push({date:todayStr(), v:v}); save(); renderHome();
@@ -2057,6 +2109,9 @@ function renderCategoryPrograms(catKey){
   stage.innerHTML = html;
 }
 
+function isTaichiName(name){
+  return /tai\s*chi/i.test(name.es||'') || /tai\s*chi/i.test(name.en||'');
+}
 function poolForCat(cat){
   if(cat==='Tai Chi') return TAICHI_MOVES;
   if(cat==='Tai Chi en Silla') return TAICHI_CHAIR_MOVES;
@@ -2090,14 +2145,22 @@ function renderCatalogProgramDetail(id){
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(w.name))+'</h1></div>';
   if(w.img) html += '<div class="tv-hero"><img src="'+w.img+'" alt="" style="object-position:'+(w.pos||'top center')+'"><span class="tag">'+esc(t('wk_equip_none'))+'</span></div>';
   html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+esc(lvl)+' · '+minutes+' '+t('min')+'</p>';
-  html += '<button class="tv-btn" onclick="startPlayer(\'c\',\''+id+'\')">▶ '+t('prog_start_session')+'</button>';
-  html += '<div class="tv-sec" style="margin-top:18px">'+t('prog_about')+'</div>';
-  html += '<p style="color:var(--soft);font-size:13.5px;margin-bottom:16px">'+esc(tn(desc))+'</p>';
-  html += '<div class="tv-sec">'+t('prog_circuit')+' ('+pool.length+' '+t('prog_exercises')+')</div>';
-  pool.forEach(function(ex,i){
-    var kcal = 3 + (i%4) + (w.level==='Advanced'?2:(w.level==='Intermediate'?1:0));
-    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>'+esc(tn(ex.desc))+'</span></div><div class="dur">60s<br><span style="font-weight:400;color:var(--soft)">'+kcal+' kcal</span></div></div>';
-  });
+  var isTaichi = (w.cat==='Tai Chi' || w.cat==='Tai Chi en Silla' || isTaichiName(w.name));
+  if(isTaichi){
+    html += '<button class="tv-btn" onclick="location.hash=\'printables\'">🎬 '+t('prog_watch_videos')+'</button>';
+    html += '<div class="tv-sec" style="margin-top:18px">'+t('prog_about')+'</div>';
+    html += '<p style="color:var(--soft);font-size:13.5px;margin-bottom:16px">'+esc(tn(desc))+'</p>';
+    html += '<p style="color:var(--soft);font-size:13px;margin-bottom:16px">'+(w.cat==='Tai Chi en Silla'?t('prog_video_note_silla'):t('prog_video_note'))+'</p>';
+  } else {
+    html += '<button class="tv-btn" onclick="startPlayer(\'c\',\''+id+'\')">▶ '+t('prog_start_session')+'</button>';
+    html += '<div class="tv-sec" style="margin-top:18px">'+t('prog_about')+'</div>';
+    html += '<p style="color:var(--soft);font-size:13.5px;margin-bottom:16px">'+esc(tn(desc))+'</p>';
+    html += '<div class="tv-sec">'+t('prog_circuit')+' ('+pool.length+' '+t('prog_exercises')+')</div>';
+    pool.forEach(function(ex,i){
+      var kcal = 3 + (i%4) + (w.level==='Advanced'?2:(w.level==='Intermediate'?1:0));
+      html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>'+esc(tn(ex.desc))+'</span></div><div class="dur">60s<br><span style="font-weight:400;color:var(--soft)">'+kcal+' kcal</span></div></div>';
+    });
+  }
   stage.innerHTML = html;
   window.scrollTo({top:0});
 }
@@ -2189,13 +2252,13 @@ window.tvPlayerExit = function(){
     clearInterval(playerTimer); playerTimer=null;
     var route = playerState ? playerState.spec.exitRoute : 'workouts';
     playerState = null;
-    location.hash = route;
+    location.replace('#'+route);
   }
 };
 window.tvPlayerFinishExit = function(){
   var route = playerState ? playerState.spec.exitRoute : 'workouts';
   playerState = null;
-  location.hash = route;
+  location.replace('#'+route);
 };
 function paintPlayer(){
   var el = document.getElementById('playerStage'); if(!el || !playerState) return;
@@ -2305,11 +2368,17 @@ function renderProgramDetail(id, day){
   }
   html += '</div><div class="tv-days-track"><div class="tv-days-thumb"></div></div></div>';
   html += '<div class="tv-sec" style="margin-top:6px">'+t('day_prefix')+' '+day+' <span style="float:right;font-weight:500;color:var(--soft);font-size:12px">'+d.min+' '+t('min')+' · '+d.kcal+' '+t('kcal')+'</span></div>';
-  html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="startPlayer(\'p\',\''+p.id+'\','+day+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
-  html += '<div class="tv-sec">'+t('prog_circuit')+' ('+d.exercises.length+' '+t('prog_exercises')+')</div>';
-  d.exercises.forEach(function(ex){
-    html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>'+esc(tn(ex.desc))+'</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
-  });
+  var isTaichi = (p.catKey==='Tai Chi' || p.catKey==='Tai Chi en Silla');
+  if(isTaichi){
+    html += '<button class="tv-btn" onclick="location.hash=\'printables\'">🎬 '+t('prog_watch_videos')+'</button>';
+    html += '<p style="color:var(--soft);font-size:13px;margin-top:12px">'+(p.catKey==='Tai Chi en Silla'?t('prog_video_note_silla'):t('prog_video_note'))+'</p>';
+  } else {
+    html += '<button class="tv-btn'+(done?' ghost':'')+'" onclick="startPlayer(\'p\',\''+p.id+'\','+day+')">'+(done?t('prog_done'):t('prog_today_btn'))+'</button>';
+    html += '<div class="tv-sec">'+t('prog_circuit')+' ('+d.exercises.length+' '+t('prog_exercises')+')</div>';
+    d.exercises.forEach(function(ex){
+      html += '<div class="tv-exrow"><div class="n">🧘</div><div class="info"><b>'+esc(tn(ex.name))+'</b><span>'+esc(tn(ex.desc))+'</span></div><div class="dur">'+ex.dur+'<br><span style="font-weight:400;color:var(--soft)">×'+ex.reps+'</span></div></div>';
+    });
+  }
   stage.innerHTML = html;
   setupDaysScroll();
 }
@@ -2553,7 +2622,9 @@ function renderProgress(){
     '<div class="tv-tile"><div class="ic2">🍽️</div><div class="lab">'+t('prog_consumed')+'</div><div class="val">'+tt.cal+' '+t('kcal')+'</div></div>'+
   '</div>';
 
-  html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('prog_weight_track')+'</div><div style="font-family:Poppins;font-weight:800;font-size:20px;margin-bottom:10px">'+(state.weight||'—')+' '+state.weightUnit+'</div><button class="tv-btn" onclick="location.hash=\'home\'">'+t('prog_weight_update')+'</button></div>';
+  html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('prog_weight_track')+'</div><div style="font-family:Poppins;font-weight:800;font-size:20px;margin-bottom:10px">'+(state.weight||'—')+' '+state.weightUnit+'</div>'+
+    '<div class="tv-weight-row" id="progWeightRow" style="display:none"><input id="progWeightInput" type="number" placeholder="'+(state.weight||'—')+' '+state.weightUnit+'"></div>'+
+    '<button class="tv-btn" id="progWeightBtn" onclick="tvToggleWeightEdit()">'+t('prog_weight_update')+'</button></div>';
 
   html += '<div class="tv-sec">'+t('prog_general')+'</div><div class="tv-grid2">'+
     '<div class="tv-tile"><div class="ic2">📅</div><div class="lab">'+t('prog_total_days')+'</div><div class="val">'+totalDays+'</div></div>'+
@@ -2577,20 +2648,26 @@ function renderProgress(){
 
   stage.innerHTML = html;
 }
+window.tvToggleWeightEdit = function(){
+  var row = $('progWeightRow'); if(!row) return;
+  row.style.display = 'flex';
+  var btn = $('progWeightBtn'); if(btn){ btn.textContent = t('weight_btn'); btn.onclick = window.tvSaveWeightProgress; }
+  var inp = $('progWeightInput'); if(inp) inp.focus();
+};
+window.tvSaveWeightProgress = function(){
+  var inp = $('progWeightInput'); if(!inp) return;
+  var v = parseFloat(inp.value); if(!v) return;
+  state.weight = v; state.weightLog.push({date:todayStr(), v:v}); save(); renderProgress();
+};
 
 /* ===================== TUTORIALS ===================== */
-function renderPrintables(){
-  var total = TUTORIALS.length;
-  var done = TUTORIALS.filter(function(x){ return state.watchedTutorials[x.id]; }).length;
+function renderTutorialTrack(list){
+  var total = list.length;
+  var done = list.filter(function(x){ return state.watchedTutorials[x.id]; }).length;
   var pct = total ? Math.round(done/total*100) : 0;
-  var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('nav_printables')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
-  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+t('tut_sub')+'</p>';
-  html += '<div class="tv-tut-progress"><div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700"><span>'+done+' '+t('tut_of')+' '+total+'</span><span style="color:var(--bronze2)">'+pct+'%</span></div><div class="bar"><i style="width:'+pct+'%"></i></div></div>';
-  if(done===total){
-    html += '<a href="#diploma" class="tv-diploma-cta">🎓 <div><b>'+t('diploma_cta_title')+'</b><span>'+t('diploma_cta_sub')+'</span></div><span class="arrow">›</span></a>';
-  }
-  TUTORIALS.forEach(function(tu,i){
-    var unlocked = tutorialUnlocked(i);
+  var html = '<div class="tv-tut-progress"><div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700"><span>'+done+' '+t('tut_of')+' '+total+'</span><span style="color:var(--bronze2)">'+pct+'%</span></div><div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+  list.forEach(function(tu,i){
+    var unlocked = tutorialUnlocked(i, list);
     var watched = !!state.watchedTutorials[tu.id];
     var status = watched ? '✅' : (unlocked ? '▶️' : '🔒');
     if(unlocked){
@@ -2599,6 +2676,24 @@ function renderPrintables(){
       html += '<div class="tv-tutrow locked"><div class="cov locked">🎬</div><div class="info"><b>'+esc(tn(tu.name))+'</b><span>'+t('tut_locked')+'</span></div><div class="status">'+status+'</div></div>';
     }
   });
+  return html;
+}
+function renderPrintables(){
+  var total = TUTORIALS.length;
+  var done = TUTORIALS.filter(function(x){ return state.watchedTutorials[x.id]; }).length;
+  var html = '<div class="tv-top"><h1 style="font-size:20px">'+t('nav_printables')+'</h1><button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
+  html += '<p style="color:var(--soft);font-size:13px;margin-bottom:14px">'+t('tut_sub')+'</p>';
+  html += '<div class="tv-sec">'+t('tut_sec_taichi')+'</div>';
+  html += renderTutorialTrack(TUTORIALS);
+  if(done===total){
+    html += '<a href="#diploma" class="tv-diploma-cta">🎓 <div><b>'+t('diploma_cta_title')+'</b><span>'+t('diploma_cta_sub')+'</span></div><span class="arrow">›</span></a>';
+  }
+  html += '<div class="tv-sec" style="margin-top:20px">'+t('tut_sec_silla')+'</div>';
+  if(TUTORIALS_SILLA.length){
+    html += renderTutorialTrack(TUTORIALS_SILLA);
+  } else {
+    html += '<div class="tv-tut-placeholder" style="border-radius:14px">🪑 '+t('tut_silla_soon')+'</div>';
+  }
   stage.innerHTML = html;
 }
 function allTutorialsWatched(){
@@ -2664,11 +2759,12 @@ function drawDiploma(){
   img.src = 'images/diploma-template.png';
 }
 function renderTutorialDetail(id){
-  var i = tutorialIndex(id);
-  if(i===-1 || !tutorialUnlocked(i)){ nav('printables'); return; }
-  var tu = TUTORIALS[i];
+  var list = tutorialTrackOf(id);
+  var i = list ? tutorialIndex(id) : -1;
+  if(i===-1 || !tutorialUnlocked(i, list)){ nav('printables'); return; }
+  var tu = list[i];
   var watched = !!state.watchedTutorials[tu.id];
-  var next = TUTORIALS[i+1];
+  var next = list[i+1];
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+esc(tn(tu.name))+'</h1></div>';
   if(tu.video){
     html += '<div class="tv-tut-player"><video id="tutVideo" controls preload="metadata" src="'+esc(tu.video)+'"></video></div>';
