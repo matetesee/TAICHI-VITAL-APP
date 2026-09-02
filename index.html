@@ -66,6 +66,8 @@ html,body{margin:0;padding:0;background:var(--bg)}
 /* ===== top bars ===== */
 #tv .tv-top{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 10px}
 #tv .tv-streak{display:flex;align-items:center;gap:6px;font-family:'Poppins';font-weight:700;font-size:14px}
+#tv .tv-streak-warn{background:rgba(194,65,12,.1);border:1.5px solid var(--crimson);color:var(--crimson);border-radius:12px;padding:11px 13px;font-size:13px;font-weight:700;margin:12px 0;line-height:1.4}
+#tv .tv-streak-warn.lost{background:var(--card2);border-color:var(--line);color:var(--soft)}
 #tv .tv-gear{width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--ink)}
 #tv .tv-pagebar{display:flex;align-items:center;gap:10px;padding:16px 18px 6px}
 #tv .tv-back{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;color:var(--ink)}
@@ -90,6 +92,20 @@ html,body{margin:0;padding:0;background:var(--bg)}
 
 /* ===== horizontal scroller ===== */
 #tv .tv-hscroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+#tv .tv-testi-card{flex:none;width:230px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+#tv .tv-testi-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+#tv .tv-testi-av{width:34px;height:34px;border-radius:50%;background:var(--bronze2);color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+#tv .tv-testi-head b{display:block;font-size:12.5px}
+#tv .tv-testi-stars{font-size:10.5px;color:#F5A623}
+#tv .tv-testi-card p{font-size:12.5px;color:var(--soft);line-height:1.45;margin:0 0 10px}
+#tv .tv-testi-result{display:inline-block;background:var(--card2);color:var(--bronze2);font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:20px}
+#tv .tv-faq .tv-faq-item{border-bottom:1px solid var(--line)}
+#tv .tv-faq .tv-faq-item:last-child{border-bottom:none}
+#tv .tv-faq-q{width:100%;text-align:left;background:none;border:none;padding:14px 0;font-weight:700;font-size:13.5px;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;font-family:inherit}
+#tv .tv-faq-arrow{transition:transform .2s;color:var(--soft);flex:none}
+#tv .tv-faq-item.open .tv-faq-arrow{transform:rotate(180deg)}
+#tv .tv-faq-a{display:none;padding:0 0 14px;font-size:12.5px;color:var(--soft);line-height:1.55}
+#tv .tv-faq-item.open .tv-faq-a{display:block}
 #tv .tv-hscroll::-webkit-scrollbar{display:none}
 #tv .tv-hscroll-visible{padding-bottom:12px;scrollbar-width:thin;scrollbar-color:var(--bronze2) var(--card2)}
 #tv .tv-hscroll-visible::-webkit-scrollbar{display:block;height:6px}
@@ -167,6 +183,8 @@ html,body{margin:0;padding:0;background:var(--bg)}
 #tv .tv-tut-player video{width:100%;display:block;max-height:360px}
 #tv .tv-tut-placeholder{width:100%;aspect-ratio:16/9;border-radius:16px;background:linear-gradient(150deg,var(--bronze2),var(--bronze));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;margin-bottom:14px;text-align:center;padding:0 20px}
 #tv .tv-tut-banner{background:var(--card2);border-radius:12px;padding:12px 14px;font-size:13px;font-weight:700;color:var(--bronze2);margin-bottom:14px}
+#tv .tv-diploma-mini{display:block;background:var(--card2);color:var(--bronze2);font-size:12.5px;font-weight:700;padding:9px 12px;border-radius:10px;margin-bottom:10px;text-decoration:none;line-height:1.4}
+#tv .tv-diploma-mini:not(.prog){background:linear-gradient(135deg,#123a2f,#0d241d);color:#fff}
 #tv .tv-diploma-cta{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#123a2f,#0d241d);border:1px solid var(--bronze2);border-radius:14px;padding:14px 16px;margin-bottom:16px;text-decoration:none;font-size:24px}
 #tv .tv-diploma-cta div{flex:1}
 #tv .tv-diploma-cta b{display:block;font-family:'Poppins';font-size:14px;color:#fff;margin-bottom:2px}
@@ -396,8 +414,10 @@ var I18N = {
     tour_progress_t:'Progreso', tour_progress_b:'Mirá tu racha, calorías, peso y estado de ánimo a lo largo del tiempo.',
     tour_printables_t:'Tutoriales', tour_printables_b:'Los videos de Tai Chi que se van desbloqueando a medida que los completás.',
     diploma_cta_title:'¡Completaste el recorrido!', diploma_cta_sub:'Reclamá tu diploma con tu nombre',
+    diploma_ready:'¡Ya podés reclamar tu diploma! 🎉', diploma_progress:'Viste %d de %t videos — ¡seguí así para ganar tu diploma!',
     diploma_title:'Tu Diploma', diploma_awarded_to:'Otorgado a', diploma_download:'Descargar mi diploma',
     home_streak_day:'día', home_streak_days:'días', home_streak_suffix:'de racha',
+    streak_risk:'¡Tu racha de %d días está en riesgo! Entrená hoy para mantenerla.', streak_lost:'Hace %d días que no entrenás. ¡Volvé a tu plan hoy!',
     home_current_program:'Tu programa de entrenamiento actual', home_no_program:'Sin programa activo', home_explore:'Explorá los programas para comenzar', home_explore_link:'Explorar programas ›',
     home_explore_title:'Explorá programas de entrenamiento',
     coach_eyebrow:'Desbloqueá tu Entrenador', coach_title:'Un Coach que Conoce tus Datos', coach_body:'Entrenamientos personalizados, seguimiento diario y respuestas diseñadas en torno a tu sueño, tu ánimo y tu rutina.', coach_btn:'Muy pronto →',
@@ -441,13 +461,13 @@ var I18N = {
     prog_title:'Tu progreso', prog_streak_title:'🔥 Empezá tu racha', prog_streak_body:'Completá un entrenamiento diario para construir un hábito duradero.',
     prog_activity:'Actividad de hoy', prog_burned:'Calorías quemadas', prog_active:'Tiempo activo', prog_water:'Agua consumida', prog_consumed:'Calorías consumidas',
     prog_weight_track:'Seguimiento de peso', prog_weight_update:'Actualizar peso', prog_general:'Progreso general', prog_total_days:'Días totales', prog_total_workouts:'Total de entrenamientos',
-    prog_avg_mood:'Estado de ánimo promedio', prog_avg:'Promedio:',
+    prog_avg_mood:'Estado de ánimo promedio', prog_avg:'Promedio:', testi_title:'Lo que dicen nuestros usuarios',
     print_title:'Guías', print_sub:'Biblioteca de guías descargables', print_soon:'PDF descargable — próximamente',
     set_title:'Ajustes', set_local_account:'Cuenta local · sin sincronizar', set_account_cfg:'Configuración de cuenta', set_units:'Unidades', set_metric:'Métrico', set_imperial:'Imperial',
     set_avatar_edit:'Cambiar foto de perfil', set_avatar_remove:'Eliminar foto', set_avatar_err:'No se pudo cargar la imagen. Probá con otra foto.',
     set_reminders:'Recordatorios para entrenar', set_lang:'Idioma', set_theme:'Tema', set_theme_light:'Claro', set_theme_dark:'Oscuro',
     set_contact:'Contactanos ›', set_privacy:'Política de privacidad ›', set_terms:'Términos de uso ›', set_logout:'Cerrar sesión', set_version:'Versión 1.0.0',
-    contact_subject:'Reporte de error en TaiChi Vital', contact_note:'¿Encontraste algún error o algo que no funciona bien? La app todavía está en desarrollo activo — escribinos y lo solucionamos lo antes posible:'
+    contact_subject:'Reporte de error en TaiChi Vital', contact_note:'¿Encontraste algún error o algo que no funciona bien? La app todavía está en desarrollo activo — escribinos y lo solucionamos lo antes posible:', faq_title:'Preguntas frecuentes'
   },
   en: {
     nav_home:'My Path', nav_workouts:'Workouts', nav_meals:'Meals', nav_progress:'Progress', nav_printables:'Tutorials',
@@ -466,8 +486,10 @@ var I18N = {
     tour_progress_t:'Progress', tour_progress_b:'Track your streak, calories, weight, and mood over time.',
     tour_printables_t:'Tutorials', tour_printables_b:'The Tai Chi videos that unlock one by one as you complete them.',
     diploma_cta_title:'You completed the whole journey!', diploma_cta_sub:'Claim your diploma with your name on it',
+    diploma_ready:'You can claim your diploma now! 🎉', diploma_progress:"You've watched %d of %t videos — keep going to earn your diploma!",
     diploma_title:'Your Diploma', diploma_awarded_to:'Awarded to', diploma_download:'Download my diploma',
     home_streak_day:'day', home_streak_days:'days', home_streak_suffix:'streak',
+    streak_risk:"Your %d-day streak is at risk! Train today to keep it.", streak_lost:"It's been %d days since you last trained. Get back to your plan today!",
     home_current_program:'Your current training program', home_no_program:'No active program', home_explore:'Explore programs to get started', home_explore_link:'Explore programs ›',
     home_explore_title:'Explore training programs',
     coach_eyebrow:'Unlock Your Coach', coach_title:'A Coach That Knows Your Data', coach_body:'Personalized workouts, daily tracking, and answers built around your sleep, your mood, and your routine.', coach_btn:'Coming soon →',
@@ -511,13 +533,13 @@ var I18N = {
     prog_title:'Your progress', prog_streak_title:'🔥 Start your streak', prog_streak_body:'Complete a daily workout to build a habit that sticks.',
     prog_activity:"Today's activity", prog_burned:'Calories burned', prog_active:'Active time', prog_water:'Water consumed', prog_consumed:'Calories consumed',
     prog_weight_track:'Weight tracking', prog_weight_update:'Update weight', prog_general:'Overall progress', prog_total_days:'Total days', prog_total_workouts:'Total workouts',
-    prog_avg_mood:'Average mood', prog_avg:'Average:',
+    prog_avg_mood:'Average mood', prog_avg:'Average:', testi_title:'What our users say',
     print_title:'Guides', print_sub:'Downloadable guide library', print_soon:'Downloadable PDF — coming soon',
     set_title:'Settings', set_local_account:'Local account · not synced', set_account_cfg:'Account settings', set_units:'Units', set_metric:'Metric', set_imperial:'Imperial',
     set_avatar_edit:'Change profile photo', set_avatar_remove:'Remove photo', set_avatar_err:"Couldn't load that image. Try a different photo.",
     set_reminders:'Workout reminders', set_lang:'Language', set_theme:'Theme', set_theme_light:'Light', set_theme_dark:'Dark',
     set_contact:'Contact us ›', set_privacy:'Privacy policy ›', set_terms:'Terms of use ›', set_logout:'Log out', set_version:'Version 1.0.0',
-    contact_subject:'Bug report in TaiChi Vital', contact_note:"Found a bug or something that isn't working right? The app is still under active development — email us and we'll fix it as soon as possible:"
+    contact_subject:'Bug report in TaiChi Vital', contact_note:"Found a bug or something that isn't working right? The app is still under active development — email us and we'll fix it as soon as possible:", faq_title:'Frequently asked questions'
   }
 };
 function t(key){ var d=I18N[state.settings.lang]||I18N.es; return d[key]!==undefined ? d[key] : (I18N.es[key]||key); }
@@ -586,6 +608,14 @@ function markCheckin(){
 }
 
 var CONTACT_EMAIL = 'plentiudsaludable@gmail.com';
+function faq(qEs,qEn,aEs,aEn){ return { q:bi(qEs,qEn), a:bi(aEs,aEn) }; }
+var FAQ = [
+  faq('¿Cómo empiezo a entrenar?','How do I start training?','Andá a "Entrenamientos", elegí un programa y tocá el botón verde grande. ¡Así de fácil!','Go to "Workouts", choose a program, and tap the big green button. That easy!'),
+  faq('¿Qué es la racha?','What is the streak?','Es la cantidad de días seguidos que usás la app. Cada día que entrenás o hacés un check-in, suma un día más a tu racha 🔥.',"It's the number of days in a row you use the app. Every day you train or check in adds one more day to your streak 🔥."),
+  faq('¿Tengo que ver los videos en orden?','Do I have to watch the videos in order?','Sí. Mirá el primer video completo, tocá "Ya lo vi" y ahí se desbloquea el siguiente. Así aprendés paso a paso.','Yes. Watch the first video all the way through, tap "I watched it," and the next one unlocks. That way you learn step by step.'),
+  faq('¿Cómo actualizo mi peso?','How do I update my weight?','Andá a "Progreso" y tocá el botón "Actualizar peso". Escribí el número nuevo y listo.','Go to "Progress" and tap the "Update weight" button. Type in the new number and that\'s it.'),
+  faq('¿Qué hago si algo no funciona bien?',"What do I do if something isn't working?",'Escribinos a '+CONTACT_EMAIL+' contándonos qué pasó. Te vamos a ayudar lo antes posible.','Email us at '+CONTACT_EMAIL+' telling us what happened. We\'ll help you as soon as possible.')
+];
 /* ===================== data: programs ===================== */
 function bi(es,en){ return {es:es, en:en}; }
 function mv(es,en,descEs,descEn){ return { name:bi(es,en), desc:bi(descEs,descEn) }; }
@@ -1720,6 +1750,19 @@ var TUTORIALS = [
 var TUTORIALS_SILLA = [
   // Se completa con los videos de Tai Chi en Silla apenas estén disponibles, mismo formato que TUTORIALS.
 ];
+function ts(name, textEs, textEn, resultEs, resultEn){ return { name:name, text:bi(textEs,textEn), result:bi(resultEs,resultEn) }; }
+var TESTIMONIALS = [
+  ts('Marta R., 67 años', 'Nunca pensé que a mi edad iba a poder hacer ejercicio sin que me duelan las rodillas. Tai Chi en Silla me cambió la rutina de las mañanas.', "I never thought that at my age I'd be able to exercise without my knees hurting. Chair Tai Chi changed my morning routine.", 'Sin dolor de rodillas', 'No more knee pain'),
+  ts('Carlos D., 72 años', 'Empecé por curiosidad y ya llevo 40 días seguidos. La app me avisa mi racha y no quiero perderla.', "I started out of curiosity and I'm already on a 40-day streak. The app shows me my streak and I don't want to lose it.", '40 días de racha', '40-day streak'),
+  ts('Elena V., 65 años', 'Los videos son clarísimos, los explican como si fuera la primera vez que hago algo en mi vida. Mi equilibrio mejoró un montón.', "The videos are super clear, they explain everything like it's the first time you've ever done anything. My balance improved a lot.", 'Mejor equilibrio', 'Better balance'),
+  ts('Roberto S., 70 años', 'Duermo mejor desde que hago la rutina de la noche. Antes me costaba desconectar.', "I sleep better since I started the evening routine. Before, it was hard for me to unwind.", 'Duerme mejor', 'Sleeps better'),
+  ts('Susana P., 63 años', 'Tenía miedo de no entender cómo usar la aplicación, pero es re fácil, todo con botones grandes y claros.', "I was afraid I wouldn't understand how to use the app, but it's really easy, everything with big, clear buttons.", 'Fácil de usar', 'Easy to use'),
+  ts('Jorge M., 69 años', 'Bajé un poco de peso, pero lo que más noto es que tengo más energía en el día.', "I lost a bit of weight, but what I notice most is that I have more energy during the day.", 'Más energía', 'More energy'),
+  ts('Alicia T., 74 años', 'Hago la versión sentada por mis rodillas y me sirve igual. Se nota que pensaron en gente como yo.', "I do the seated version because of my knees and it works just as well. You can tell they thought of people like me.", 'Ideal para movilidad reducida', 'Great for limited mobility'),
+  ts('Daniel F., 66 años', 'Me anoté sin muchas expectativas y hoy es parte de mi rutina diaria, como lavarme los dientes.', "I signed up without many expectations and today it's part of my daily routine, like brushing my teeth.", 'Rutina diaria', 'Daily routine'),
+  ts('Graciela N., 71 años', 'El seguimiento de peso y calorías me ayuda a llevar todo en un solo lugar, ya no ando anotando en papelitos.', "Tracking my weight and calories helps me keep everything in one place, I don't write it on little papers anymore.", 'Todo en un solo lugar', 'Everything in one place'),
+  ts('Hugo L., 68 años', 'Terminé los 5 videos y el diploma con mi nombre me emocionó, se lo mostré a toda mi familia.', "I finished all 5 videos and the diploma with my name on it moved me, I showed it to my whole family.", 'Consiguió su diploma', 'Earned his diploma')
+];
 function tutorialUnlocked(i, list){ list = list || TUTORIALS; return i===0 || !!state.watchedTutorials[list[i-1].id]; }
 function tutorialTrackOf(id){
   if(TUTORIALS.some(function(x){ return x.id===id; })) return TUTORIALS;
@@ -1967,11 +2010,24 @@ function render(){
 }
 
 /* ===================== HOME ===================== */
+function daysSinceLastCheckin(){
+  if(!state.lastCheckinDate) return null;
+  var last = new Date(state.lastCheckinDate+'T00:00:00');
+  var now = new Date(todayStr()+'T00:00:00');
+  return Math.round((now-last)/86400000);
+}
+function streakStatusHtml(){
+  var days = daysSinceLastCheckin();
+  if(days===null || days<=0) return '';
+  if(days===1) return '<div class="tv-streak-warn">🔥 '+t('streak_risk').replace('%d', state.streak)+'</div>';
+  return '<div class="tv-streak-warn lost">⏳ '+t('streak_lost').replace('%d', days)+'</div>';
+}
 function renderHome(){
   var tt = today(), lang=state.settings.lang;
   var activeName = state.activeProgram ? (progById(state.activeProgram)||{}).name : null;
   var html = '<div class="tv-top"><div class="tv-streak">🔥 '+state.streak+' '+(state.streak===1?t('home_streak_day'):t('home_streak_days'))+' '+t('home_streak_suffix')+'</div>'+
     '<button class="tv-gear" onclick="location.hash=\'settings\'">⚙️</button></div>';
+  html += streakStatusHtml();
 
   html += '<div class="tv-sec">'+t('home_current_program')+'</div>';
   if(activeName){
@@ -2003,7 +2059,13 @@ function renderHome(){
 
   html += '<div class="tv-card" style="margin-top:12px"><div style="font-size:12.5px;font-weight:700;color:var(--soft);margin-bottom:8px">'+t('weight_title')+'</div><div class="tv-weight-row"><input id="weightInput" type="number" placeholder="'+(state.weight||'— ')+' '+state.weightUnit+'"></div><button class="tv-btn" onclick="tvLogWeight()">'+t('weight_btn')+'</button></div>';
 
-  html += '<div class="tv-sec">'+t('nav_printables')+'</div><div class="tv-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span>🎬</span><b style="font-family:Poppins;font-size:14px">'+t('printables_title')+'</b><span style="margin-left:auto;font-size:11.5px;color:var(--soft)">'+TUTORIALS.length+' '+t('printables_lib')+'</span></div><div class="tv-pdf">'+
+  var tutDone = TUTORIALS.filter(function(x){ return state.watchedTutorials[x.id]; }).length;
+  var diplomaLine = tutDone>=TUTORIALS.length
+    ? '<a href="#diploma" class="tv-diploma-mini">🎓 '+t('diploma_ready')+'</a>'
+    : '<div class="tv-diploma-mini prog">🎓 '+t('diploma_progress').replace('%d',tutDone).replace('%t',TUTORIALS.length)+'</div>';
+  html += '<div class="tv-sec">'+t('nav_printables')+'</div><div class="tv-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span>🎬</span><b style="font-family:Poppins;font-size:14px">'+t('printables_title')+'</b><span style="margin-left:auto;font-size:11.5px;color:var(--soft)">'+TUTORIALS.length+' '+t('printables_lib')+'</span></div>'+
+    diplomaLine+
+    '<div class="tv-pdf">'+
     TUTORIALS.slice(0,3).map(function(tu,i){ var unlocked=tutorialUnlocked(i); var watched=!!state.watchedTutorials[tu.id]; var badge=watched?'✅':(unlocked?'🎬':'🔒'); return '<div class="tv-pdfcard"'+(unlocked?' style="cursor:pointer" onclick="location.hash=\'tutorial/'+tu.id+'\'"':'')+'><div class="cov">'+badge+'</div><div class="t">'+esc(tn(tu.name))+'</div><div class="m">'+tu.min+' '+t('min')+'</div></div>'; }).join('')+
   '</div></div>';
 
@@ -2657,6 +2719,14 @@ function renderProgress(){
       '<div class="tv-avg">'+t('prog_avg')+' <b>'+avg+' '+units[key]+'</b></div></div>';
   });
 
+  html += '<div class="tv-sec" style="margin-top:22px">'+t('testi_title')+'</div><div class="tv-hscroll">'+
+    TESTIMONIALS.map(function(x){
+      var initials = x.name.split(',')[0].trim().split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
+      return '<div class="tv-testi-card"><div class="tv-testi-head"><div class="tv-testi-av">'+esc(initials)+'</div><div><b>'+esc(x.name)+'</b><span class="tv-testi-stars">★★★★★</span></div></div>'+
+        '<p>"'+esc(tn(x.text))+'"</p><span class="tv-testi-result">'+esc(tn(x.result))+'</span></div>';
+    }).join('')+
+  '</div>';
+
   stage.innerHTML = html;
 }
 window.tvToggleWeightEdit = function(){
@@ -2698,6 +2768,8 @@ function renderPrintables(){
   html += renderTutorialTrack(TUTORIALS);
   if(done===total){
     html += '<a href="#diploma" class="tv-diploma-cta">🎓 <div><b>'+t('diploma_cta_title')+'</b><span>'+t('diploma_cta_sub')+'</span></div><span class="arrow">›</span></a>';
+  } else {
+    html += '<div class="tv-diploma-mini prog">🎓 '+t('diploma_progress').replace('%d',done).replace('%t',total)+'</div>';
   }
   html += '<div class="tv-sec" style="margin-top:20px">'+t('tut_sec_silla')+'</div>';
   if(TUTORIALS_SILLA.length){
@@ -2829,12 +2901,16 @@ function renderSettings(){
     '<a href="mailto:'+CONTACT_EMAIL+'?subject='+encodeURIComponent(t('contact_subject'))+'">'+t('set_contact')+'</a><a href="#">'+t('set_privacy')+'</a><a href="#">'+t('set_terms')+'</a></div>'+
     '<p style="color:var(--soft);font-size:12px;line-height:1.5;padding:0 14px 14px;margin:0">'+t('contact_note')+' <a href="mailto:'+CONTACT_EMAIL+'?subject='+encodeURIComponent(t('contact_subject'))+'" style="color:var(--bronze2);font-weight:700">'+CONTACT_EMAIL+'</a></p>'+
   '</div>';
+  html += '<div class="tv-sec" style="margin-top:14px">'+t('faq_title')+'</div><div class="tv-card tv-faq">'+
+    FAQ.map(function(f,i){ return '<div class="tv-faq-item"><button class="tv-faq-q" data-i="'+i+'">'+esc(tn(f.q))+'<span class="tv-faq-arrow">▾</span></button><div class="tv-faq-a">'+esc(tn(f.a))+'</div></div>'; }).join('')+
+  '</div>';
   html += '<button class="tv-logout" onclick="tvLogout()">'+t('set_logout')+'</button><div class="tv-ver">'+t('set_version')+'</div>';
   stage.innerHTML = html;
   stage.querySelectorAll('[data-u]').forEach(function(b){ b.onclick=function(){ state.settings.units=b.dataset.u; state.weightUnit = b.dataset.u==='metric'?'kg':'lb'; save(); renderSettings(); }; });
   stage.querySelectorAll('[data-th]').forEach(function(b){ b.onclick=function(){ state.settings.theme=b.dataset.th; save(); renderSettings(); }; });
   stage.querySelectorAll('[data-lg]').forEach(function(b){ b.onclick=function(){ state.settings.lang=b.dataset.lg; save(); renderSettings(); }; });
   $('remToggle').onclick=function(){ state.settings.reminders=!state.settings.reminders; save(); renderSettings(); };
+  stage.querySelectorAll('.tv-faq-q').forEach(function(b){ b.onclick=function(){ b.parentElement.classList.toggle('open'); }; });
 }
 window.tvAvatarChange = function(input){
   var file = input.files && input.files[0];
