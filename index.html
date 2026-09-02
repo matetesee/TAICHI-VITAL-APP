@@ -592,6 +592,26 @@ var TAICHI_MOVES = [
   mv("Elevar y Descender","Rise and Fall","Subí lentamente sobre las puntas de los pies inhalando, y bajá con las rodillas flexionadas exhalando.","Slowly rise onto the balls of your feet while inhaling, then lower with bent knees as you exhale."),
   mv("Respiración de Cierre","Closing Breath","De pie y quieto/a, llevá las manos al centro del pecho e inhalá y exhalá profundo para cerrar la práctica.","Standing still, bring your hands to the center of your chest and breathe deeply in and out to close the practice.")
 ];
+var TAICHI_CHAIR_MOVES = [
+  mv("Respiración de Enraizamiento Sentada","Seated Grounding Breath","Sentado/a con los pies bien apoyados en el piso, inhalá llevando los brazos hacia arriba y exhalá bajándolos despacio.","Seated with your feet flat on the floor, inhale raising your arms up, then exhale lowering them slowly."),
+  mv("Abrir el Corazón Sentado","Seated Opening the Heart","Sentado/a, llevá los brazos hacia atrás abriendo el pecho al inhalar, y volvé al centro al exhalar.","While seated, sweep your arms back opening your chest as you inhale, then return to center as you exhale."),
+  mv("Círculos Externos Sentado","Seated Outer Circles","Sentado/a con los brazos extendidos al frente, dibujá círculos amplios hacia afuera con movimientos suaves.","Seated with arms extended in front, draw wide circles outward with slow, soft movements."),
+  mv("Empujar las Nubes Sentado","Seated Push the Clouds","Sentado/a, empujá las manos hacia adelante alternando, como apartando nubes.","While seated, push your hands forward alternately, as if parting clouds."),
+  mv("El Tigre se Lava la Cara Sentado","Seated Tiger Washes Its Face","Sentado/a, llevá las manos cerca de la cara en un movimiento circular suave, como lavándote la cara.","While seated, bring your hands near your face in a soft circular motion, as if washing your face."),
+  mv("Separar el Cielo y la Tierra Sentado","Seated Separate Heaven and Earth","Sentado/a, una mano sube empujando hacia el techo y la otra baja hacia el piso; alterná de lado.","While seated, one hand pushes up toward the ceiling while the other pushes down toward the floor; alternate sides."),
+  mv("Contemplar la Luna Sentado","Seated Gazing at the Moon","Sentado/a, girá el torso hacia un costado mirando por encima del hombro, con un brazo elevado en arco.","While seated, turn your torso to one side gazing over your shoulder, with one arm raised in an arc."),
+  mv("Pintar el Arcoíris Sentado","Seated Painting the Rainbow","Sentado/a, trazá un arco amplio con ambos brazos de un lado al otro.","While seated, sweep both arms in a wide arc from one side to the other."),
+  mv("Extender las Alas Sentado","Seated Spreading the Wings","Sentado/a, abrí los brazos hacia los costados a la altura de los hombros e inhalá profundo.","While seated, open your arms out to the sides at shoulder height and breathe in deeply."),
+  mv("Manos como Nubes Sentado","Seated Hands Like Clouds","Sentado/a, cruzá las manos suavemente frente al cuerpo como nubes flotando, girando el torso de lado a lado.","While seated, cross your hands gently in front of your body like drifting clouds, turning your torso side to side."),
+  mv("Acariciar la Cola del Ave Sentado","Seated Stroking the Bird's Tail","Sentado/a, deslizá las manos en arco frente al cuerpo mientras inclinás levemente el torso hacia adelante y atrás.","While seated, glide your hands in an arc in front of your body while leaning your torso gently forward and back."),
+  mv("Elevación de Talón con Respiración","Heel Raise with Breath","Sentado/a, elevá los talones al inhalar y apoyalos al exhalar, con las manos apoyadas suavemente en las rodillas.","While seated, raise your heels as you inhale and lower them as you exhale, hands resting gently on your knees."),
+  mv("Estiramiento Lateral Sentado","Seated Side Stretch","Sentado/a, elevá un brazo por encima de la cabeza e inclinate hacia el lado contrario.","While seated, raise one arm overhead and lean toward the opposite side."),
+  mv("Torsión de Tai Chi Sentado","Seated Tai Chi Twist","Sentado/a con la espalda recta, girá el torso hacia un lado sosteniéndote del respaldo, y volvé al centro.","Sitting tall, twist your torso to one side holding the backrest, then return to center."),
+  mv("Círculos Yin Sentado","Seated Yin Circles","Sentado/a, dibujá círculos lentos y pequeños con las manos apoyadas sobre las rodillas.","While seated, draw small, slow circles with your hands resting on your knees."),
+  mv("Abrazar el Árbol Sentado","Seated Embracing the Tree","Sentado/a con la espalda erguida, redondeá los brazos al frente como abrazando un tronco, y respirá profundo.","Sitting tall, round your arms in front as if embracing a tree trunk, and breathe deeply."),
+  mv("Elevación de Rodilla con Equilibrio","Knee Lift with Balance","Sentado/a en el borde de la silla, elevá una rodilla hacia el pecho manteniendo el equilibrio, y alterná.","Seated on the edge of the chair, lift one knee toward your chest while keeping your balance, and alternate."),
+  mv("Respiración de Cierre Sentada","Seated Closing Breath","Sentado/a y quieto/a, llevá las manos al centro del pecho e inhalá y exhalá profundo para cerrar la práctica.","Seated and still, bring your hands to the center of your chest and breathe deeply in and out to close the practice.")
+];
 var CHAIR_MOVES = [
   mv("Estiramiento de Cuello Sentado","Seated Neck Stretch","Sentado/a, inclinná suavemente la cabeza hacia un hombro y mantené unos segundos; después cambiá de lado.","While seated, gently tilt your head toward one shoulder and hold for a few seconds; then switch sides."),
   mv("Rotación de Hombros","Shoulder Rolls","Sentado/a con la espalda recta, girá los hombros hacia atrás en círculos lentos.","Sitting tall, roll your shoulders backward in slow circles."),
@@ -648,7 +668,8 @@ var PROGRAMS = [
   { id:'taichi-full-flow', name:bi('Tai Chi Full Flow','Tai Chi Full Flow'), catKey:'Tai Chi', level:'Beginner', days:60, min:30, badge:'TOP', equipKey:'wk_equip_none', img:'images/prog-taichi-full.jpg', pool:TAICHI_MOVES },
   { id:'yoga-reset-14', name:bi('Reinicio de Yoga de 14 Días','14 Day Yoga Reset'), catKey:'Yoga', level:'Beginner', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-yoga-reset.png', pool:CHAIR_MOVES },
   { id:'taichi-light', name:bi('Tai Chi Light','Tai Chi Light'), catKey:'Tai Chi', level:'Beginner', days:60, min:20, badge:'', equipKey:'wk_equip_none', img:'images/prog-taichi-light.jpg', pool:TAICHI_MOVES },
-  { id:'pilates-challenge-14', name:bi('Desafío de Pilates de 14 Días','14 Day Pilates Challenge'), catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-pilates-challenge.png', pool:PILATES_MOVES }
+  { id:'pilates-challenge-14', name:bi('Desafío de Pilates de 14 Días','14 Day Pilates Challenge'), catKey:'Pilates', level:'Intermediate', days:14, min:15, badge:bi('Nuevo','New'), equipKey:'wk_equip_none', img:'images/prog-pilates-challenge.png', pool:PILATES_MOVES },
+  { id:'taichi-silla', name:bi('Tai Chi en Silla','Chair Tai Chi'), catKey:'Tai Chi en Silla', level:'Beginner', days:30, min:20, badge:bi('Nuevo','New'), equipKey:'wk_equip_chair', img:'images/prog-yoga-silla.jpg', pool:TAICHI_CHAIR_MOVES }
 ];
 var AREAS = [
   {key:'abs', name:bi('Abs','Abs'), img:'images/area-abs.png'},
@@ -661,6 +682,7 @@ var AREAS = [
 ];
 var CATEGORIES = [
   {key:'Tai Chi', name:bi('Tai Chi','Tai Chi'), badge:'TOP', img:'images/prog-taichi-full.jpg', pos:'top center'},
+  {key:'Tai Chi en Silla', name:bi('Tai Chi en Silla','Chair Tai Chi'), badge:'NEW', img:'images/prog-yoga-silla.jpg'},
   {key:'Micro Workouts', name:bi('Micro Workouts','Micro Workouts'), badge:'NEW', img:'images/cat-micro.png'},
   {key:'Military Bootcamp', name:bi('Military Bootcamp','Military Bootcamp'), badge:'NEW', img:'images/cat-military.png'},
   {key:'Pilates', name:bi('Pilates','Pilates'), badge:'', img:'images/cat-pilates.png'},
@@ -1725,7 +1747,7 @@ var WORKOUT_CATALOG = [
   wc('Pilates Costado del Cuerpo','Pilates Side body','Intermediate',['arms'],'images/w-pilates-sidebody.png','Micro Workouts',POS_BOTTOM),
   wc('Pilates Reinicio Postural','Posture Reset Pilates','Beginner',['arms','back'],'images/w-posture-reset.png','Pilates',POS_BOTTOM),
   wc('Potencia de Empuje','Push power','Intermediate',['arms','chest','fullbody']),
-  wc('Tai Chi Sentado de Cuerpo Completo','Seated Full-Body Tai Chi','Beginner',['arms','fullbody'],'images/w-seated-fullbody-taichi.png','Tai Chi'),
+  wc('Tai Chi Sentado de Cuerpo Completo','Seated Full-Body Tai Chi','Beginner',['arms','fullbody'],'images/w-seated-fullbody-taichi.png','Tai Chi en Silla'),
   wc('Pilates Nutre tu Columna','Spinal Nourish Pilates','Intermediate',['arms','back'],'images/w-spinal-nourish.png','Pilates',POS_BOTTOM),
   wc('Fuerza + Core','Strength + core','Intermediate',['arms','chest','fullbody']),
   wc('Pilates Estira y Fortalece','Stretch & Strengthen Pilates','Beginner',['arms'],'images/w-stretch-strengthen.png','Pilates',POS_BOTTOM),
@@ -2037,6 +2059,7 @@ function renderCategoryPrograms(catKey){
 
 function poolForCat(cat){
   if(cat==='Tai Chi') return TAICHI_MOVES;
+  if(cat==='Tai Chi en Silla') return TAICHI_CHAIR_MOVES;
   if(cat==='Pilates') return PILATES_MOVES;
   if(cat==='Yoga') return CHAIR_MOVES;
   if(cat==='Military Bootcamp') return MILITARY_MOVES;
@@ -2047,6 +2070,7 @@ function minForLevel(level){ return level==='Advanced'?20:(level==='Intermediate
 function descForCat(cat){
   var d = {
     'Tai Chi': bi('Un flujo de Tai Chi para mantenerte con los pies en la tierra, activo/a y con la mente clara.','A gentle Tai Chi flow to keep you grounded, active, and mentally clear.'),
+    'Tai Chi en Silla': bi('Los mismos movimientos de Tai Chi adaptados para hacer sentado/a, ideal si preferís cuidar tus rodillas o tu equilibrio.','The same Tai Chi movements adapted to do seated, ideal if you prefer to go easy on your knees or balance.'),
     'Pilates': bi('Un circuito de Pilates para fortalecer y tonificar tu cuerpo de forma consciente.','A Pilates circuit to strengthen and tone your body mindfully.'),
     'Yoga': bi('Una práctica de yoga para estirar, respirar y encontrar equilibrio.','A yoga practice to stretch, breathe, and find balance.'),
     'Military Bootcamp': bi('Un entrenamiento intenso inspirado en rutinas militares para desafiar tu fuerza.','An intense workout inspired by military routines to challenge your strength.'),
