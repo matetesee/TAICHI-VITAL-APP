@@ -2012,7 +2012,7 @@ function render(){
   if(route==='progress') return renderProgress();
   if(route==='printables') return renderPrintables();
   if(route==='tutorial') return renderTutorialDetail(parts[1]);
-  if(route==='diploma') return renderDiploma();
+  if(route==='diploma') return renderDiploma(parts[1]);
   if(route==='settings') return renderSettings();
   if(route==='coach') return renderCoach();
   renderHome();
@@ -2818,7 +2818,7 @@ function renderPrintables(){
     var doneS = TUTORIALS_SILLA.filter(function(x){ return state.watchedTutorials[x.id]; }).length;
     html += renderTutorialTrack(TUTORIALS_SILLA);
     if(doneS===totalS){
-      html += '<a href="#diploma" class="tv-diploma-cta">🎓 <div><b>'+t('diploma_cta_title')+'</b><span>'+t('diploma_cta_sub')+'</span></div><span class="arrow">›</span></a>';
+      html += '<a href="#diploma/silla" class="tv-diploma-cta">🎓 <div><b>'+t('diploma_cta_title')+'</b><span>'+t('diploma_cta_sub')+'</span></div><span class="arrow">›</span></a>';
     } else {
       html += '<div class="tv-diploma-mini prog">🎓 '+t('diploma_progress').replace('%d',doneS).replace('%t',totalS)+'</div>';
     }
@@ -2833,13 +2833,16 @@ function allWatched(list){
 function allTutorialsWatched(){
   return allWatched(TUTORIALS) || allWatched(TUTORIALS_SILLA);
 }
-function renderDiploma(){
+function renderDiploma(track){
   if(!allTutorialsWatched()){ nav('printables'); return; }
+  track = (track==='silla') ? 'silla' : 'taichi';
+  if(track==='taichi' && !allWatched(TUTORIALS) && allWatched(TUTORIALS_SILLA)) track = 'silla';
+  if(track==='silla' && !allWatched(TUTORIALS_SILLA) && allWatched(TUTORIALS)) track = 'taichi';
   var html = '<div class="tv-pagebar"><button class="tv-back" onclick="history.back()">‹</button><h1>'+t('diploma_title')+'</h1></div>';
   html += '<div class="tv-diploma-wrap"><canvas id="diplomaCanvas"></canvas></div>';
   html += '<button class="tv-btn" id="diplomaDownload">⬇ '+t('diploma_download')+'</button>';
   stage.innerHTML = html;
-  drawDiploma();
+  drawDiploma(track);
 }
 function drawSpacedText(ctx, text, cx, y, spacing){
   var chars = text.split('');
@@ -2850,9 +2853,11 @@ function drawSpacedText(ctx, text, cx, y, spacing){
   chars.forEach(function(c){ ctx.fillText(c, x, y); x += ctx.measureText(c).width + spacing; });
   ctx.textAlign = prevAlign;
 }
-function drawDiploma(){
+function drawDiploma(track){
   var canvas = $('diplomaCanvas'); if(!canvas) return;
   var ctx = canvas.getContext('2d');
+  var accent = (track==='silla') ? '#f2b74b' : '#2dd4a8';
+  var fileName = (track==='silla') ? 'diploma-tai-chi-en-silla.png' : 'diploma-tai-chi-vital.png';
   var img = new Image();
   img.onload = function(){
     canvas.width = img.naturalWidth;
@@ -2861,7 +2866,7 @@ function drawDiploma(){
     var name = (state.account && state.account.name) ? state.account.name : '';
     var finish = function(){
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#2dd4a8';
+      ctx.fillStyle = accent;
       ctx.font = "700 " + Math.round(canvas.width*0.017) + "px 'Poppins', sans-serif";
       drawSpacedText(ctx, t('diploma_awarded_to').toUpperCase(), canvas.width/2, canvas.height*0.675, 4);
       var maxWidth = canvas.width * 0.8;
@@ -2874,7 +2879,7 @@ function drawDiploma(){
       var nameY = canvas.height*0.74;
       ctx.fillText(name, canvas.width/2, nameY);
       var w = Math.min(maxWidth, ctx.measureText(name).width);
-      ctx.strokeStyle = '#2dd4a8';
+      ctx.strokeStyle = accent;
       ctx.lineWidth = Math.max(2, canvas.width*0.0017);
       ctx.beginPath();
       ctx.moveTo(canvas.width/2 - w/2 - 24, nameY + canvas.height*0.018);
@@ -2883,14 +2888,14 @@ function drawDiploma(){
       var dl = $('diplomaDownload');
       if(dl) dl.onclick = function(){
         var a = document.createElement('a');
-        a.download = 'diploma-tai-chi-vital.png';
+        a.download = fileName;
         a.href = canvas.toDataURL('image/png');
         document.body.appendChild(a); a.click(); a.remove();
       };
     };
     if(document.fonts && document.fonts.ready){ document.fonts.ready.then(finish); } else { finish(); }
   };
-  img.src = 'images/diploma-template.png';
+  img.src = (track==='silla') ? 'images/diploma-template-silla.png' : 'images/diploma-template.png';
 }
 function renderTutorialDetail(id){
   var list = tutorialTrackOf(id);
