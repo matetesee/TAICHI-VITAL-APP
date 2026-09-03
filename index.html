@@ -1748,7 +1748,16 @@ var TUTORIALS = [
   {id:'tc-flujo-completo', name:bi('Sección 5: Cierre de la Forma','Section 5: Closing the Form'), desc:bi('Cerrá la forma completa con Desviar-Parar-Golpear (Ban Lan Chui), Cierre Aparente, Manos Cruzadas y el Cierre final, más un repaso general de las cinco secciones y recomendaciones finales para seguir practicando.','Complete the full form with Deflect, Parry, and Punch (Ban Lan Chui), Apparent Close-Up, Cross Hands, and the final Closing, plus a full review of all five sections and closing recommendations to keep practicing.'), video:'videos/tc-flujo-completo.mp4', min:41}
 ];
 var TUTORIALS_SILLA = [
-  // Se completa con los videos de Tai Chi en Silla apenas estén disponibles, mismo formato que TUTORIALS.
+  {id:'tcs-1', name:bi('Sección 1: Primeros Pasos en Tai Chi en Silla','Section 1: Getting Started with Chair Tai Chi'), desc:bi('Primera clase de tu curso de Tai Chi en Silla: una introducción para ir tomando confianza con los movimientos básicos, sentado/a y a tu propio ritmo.','First class of your Chair Tai Chi course: an introduction to help you get comfortable with the basic movements, seated and at your own pace.'), video:'videos/tcs-1.mp4', min:14},
+  {id:'tcs-2', name:bi('Sección 2','Section 2'), desc:bi('Segunda clase de tu curso de Tai Chi en Silla. Mirala completa y seguí en orden para ir sumando movimientos nuevos.','Second class of your Chair Tai Chi course. Watch it in full and keep going in order to build on what you learned.'), video:'videos/tcs-2.mp4', min:17},
+  {id:'tcs-3', name:bi('Sección 3','Section 3'), desc:bi('Tercera clase de tu curso de Tai Chi en Silla.','Third class of your Chair Tai Chi course.'), video:'videos/tcs-3.mp4', min:19},
+  {id:'tcs-4', name:bi('Sección 4','Section 4'), desc:bi('Cuarta clase de tu curso de Tai Chi en Silla.','Fourth class of your Chair Tai Chi course.'), video:'videos/tcs-4.mp4', min:15},
+  {id:'tcs-5', name:bi('Sección 5','Section 5'), desc:bi('Quinta clase de tu curso de Tai Chi en Silla.','Fifth class of your Chair Tai Chi course.'), video:'videos/tcs-5.mp4', min:16},
+  {id:'tcs-6', name:bi('Sección 6','Section 6'), desc:bi('Sexta clase de tu curso de Tai Chi en Silla.','Sixth class of your Chair Tai Chi course.'), video:'videos/tcs-6.mp4', min:19},
+  {id:'tcs-7', name:bi('Sección 7','Section 7'), desc:bi('Séptima clase de tu curso de Tai Chi en Silla.','Seventh class of your Chair Tai Chi course.'), video:'videos/tcs-7.mp4', min:20},
+  {id:'tcs-8', name:bi('Sección 8','Section 8'), desc:bi('Octava clase de tu curso de Tai Chi en Silla.','Eighth class of your Chair Tai Chi course.'), video:'videos/tcs-8.mp4', min:17},
+  {id:'tcs-9', name:bi('Sección 9','Section 9'), desc:bi('Novena clase de tu curso de Tai Chi en Silla.','Ninth class of your Chair Tai Chi course.'), video:'videos/tcs-9.mp4', min:16},
+  {id:'tcs-10', name:bi('Sección 10: Cierre del Curso','Section 10: Course Closing'), desc:bi('Última clase de tu curso de Tai Chi en Silla, con un repaso general de todo lo practicado en las secciones anteriores.','Final class of your Chair Tai Chi course, with an overall review of everything practiced in the previous sections.'), video:'videos/tcs-10.mp4', min:18}
 ];
 function ts(name, textEs, textEn, resultEs, resultEn){ return { name:name, text:bi(textEs,textEn), result:bi(resultEs,resultEn) }; }
 var TESTIMONIALS = [
@@ -2805,14 +2814,24 @@ function renderPrintables(){
   }
   html += '<div class="tv-sec" style="margin-top:20px">'+t('tut_sec_silla')+'</div>';
   if(TUTORIALS_SILLA.length){
+    var totalS = TUTORIALS_SILLA.length;
+    var doneS = TUTORIALS_SILLA.filter(function(x){ return state.watchedTutorials[x.id]; }).length;
     html += renderTutorialTrack(TUTORIALS_SILLA);
+    if(doneS===totalS){
+      html += '<a href="#diploma" class="tv-diploma-cta">🎓 <div><b>'+t('diploma_cta_title')+'</b><span>'+t('diploma_cta_sub')+'</span></div><span class="arrow">›</span></a>';
+    } else {
+      html += '<div class="tv-diploma-mini prog">🎓 '+t('diploma_progress').replace('%d',doneS).replace('%t',totalS)+'</div>';
+    }
   } else {
     html += '<div class="tv-tut-placeholder" style="border-radius:14px">🪑 '+t('tut_silla_soon')+'</div>';
   }
   stage.innerHTML = html;
 }
+function allWatched(list){
+  return list.length>0 && list.every(function(tu){ return !!state.watchedTutorials[tu.id]; });
+}
 function allTutorialsWatched(){
-  return TUTORIALS.every(function(tu){ return !!state.watchedTutorials[tu.id]; });
+  return allWatched(TUTORIALS) || allWatched(TUTORIALS_SILLA);
 }
 function renderDiploma(){
   if(!allTutorialsWatched()){ nav('printables'); return; }
